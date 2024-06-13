@@ -12,6 +12,8 @@
 
     ./bluetooth.nix
     ./boot.nix
+    ./fonts.nix
+    ./general.nix
     ./hardware.nix
     ./inputrc.nix
     ./laptop.nix
@@ -19,4 +21,12 @@
     ./nix.nix
 	./sound.nix
   ];
+
+  nixpkgs.overlays =
+              import ../pkgs/default.nix
+              ++ [
+                inputs.nixos-extra-modules.overlays.default
+                #inputs.nixvim.overlays.default
+                #inputs.wired-notify.overlays.default
+              ];
 }

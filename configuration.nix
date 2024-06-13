@@ -56,18 +56,6 @@
     enableCompletion = false;
   };
 
-  fonts.packages = with pkgs; [
-    # nerd-fonts
-	noto-fonts
-	noto-fonts-cjk
-	noto-fonts-emoji
-	liberation_ttf
-	fira-code
-	fira-code-symbols
-	mplus-outline-fonts.githubRelease
-	dina-font
-	proggyfonts
-	];
 
 
   # home-manager = {
@@ -112,7 +100,6 @@
     packages = with pkgs; [
       firefox
       fish
-      starship
 	  pyprland
     ];
 	};
@@ -140,7 +127,9 @@
     hypridle
 	dua
 	duf
-
+	colordiff
+	diffutils
+	difftastic
 	rustc
 	cargo
 	pkgs.kitty.terminfo

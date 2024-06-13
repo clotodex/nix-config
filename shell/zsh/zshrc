@@ -187,7 +187,7 @@ function setup_keybinds() {
     bindkey '\ec' fzf-cd
 
 	# fuzzy history search
-	bindkey '^R' histdb-skim-widget
+	# bindkey '^R' histdb-skim-widget
 	# autosuggest Ctrl+space = accept
 	bindkey '^ ' autosuggest-accept
 }

@@ -39,7 +39,7 @@
 
 	  	config = {
 	  		allowUnfree = true;
-	  	};
+		};
 
 	  };
 	in

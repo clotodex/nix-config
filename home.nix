@@ -58,6 +58,9 @@
       pciutils
 	  brightnessctl
 	  telegram-desktop
+	  signal-desktop
+	  dunst
+	  google-chrome
     ];
   };
 

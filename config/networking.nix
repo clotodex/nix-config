@@ -12,7 +12,7 @@
   systemd.network.networks = {
     "10-lan1" = {
       DHCP = "yes";
-       matchConfig.MACAddress = "en*";
+       matchConfig.Name = "en*";
       networkConfig = {
         IPv6PrivacyExtensions = "yes";
         # MulticastDNS = true;
@@ -22,7 +22,7 @@
     };
     "10-wlan1" = {
       DHCP = "yes";
-      matchConfig.MACAddress = "wl*";
+      matchConfig.Name = "wl*";
       networkConfig = {
         IPv6PrivacyExtensions = "yes";
         # MulticastDNS = true;
