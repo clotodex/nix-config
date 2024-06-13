@@ -15,7 +15,7 @@
     ./hardware.nix
     ./inputrc.nix
     ./laptop.nix
-    # ./networking.nix
+    ./networking.nix
     ./nix.nix
 	./sound.nix
   ];

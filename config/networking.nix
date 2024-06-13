@@ -12,7 +12,7 @@
   systemd.network.networks = {
     "10-lan1" = {
       DHCP = "yes";
-      # matchConfig.MACAddress = config.repo.secrets.local.networking.interfaces.lan1.mac;
+       matchConfig.MACAddress = "en*";
       networkConfig = {
         IPv6PrivacyExtensions = "yes";
         # MulticastDNS = true;
@@ -22,7 +22,7 @@
     };
     "10-wlan1" = {
       DHCP = "yes";
-      # matchConfig.MACAddress = config.repo.secrets.local.networking.interfaces.wlan1.mac;
+      matchConfig.MACAddress = "wl*";
       networkConfig = {
         IPv6PrivacyExtensions = "yes";
         # MulticastDNS = true;
