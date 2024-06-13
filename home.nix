@@ -56,6 +56,8 @@
       wget
       usbutils
       pciutils
+	  brightnessctl
+	  telegram-desktop
     ];
   };
 

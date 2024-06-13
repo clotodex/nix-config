@@ -1,0 +1,1 @@
+- [ ] maybe avahi setup (mdns in resolved.nix)
