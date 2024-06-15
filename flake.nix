@@ -27,6 +27,8 @@
     };
 
     nixos-hardware.url = "github:NixOS/nixos-hardware";
+
+    pyprland.url = "github:hyprland-community/pyprland";
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, ... }:
@@ -61,11 +63,11 @@
 					];
 					home-manager.useGlobalPkgs = true;
 					home-manager.useUserPackages = true;
-					home-manager.users.clotodex = {
-						imports = [
-						./home.nix
-						./shell/default.nix
-					];};
+					#home-manager.users.clotodex = {
+					#	imports = [
+					#	./home.nix
+					#	./shell/default.nix
+					#];};
 				}
 			];
 		};

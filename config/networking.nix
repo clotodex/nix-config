@@ -4,6 +4,7 @@
 }: {
   systemd.network.enable = true;
 
+
   # boot.initrd.systemd.network = {
   #   enable = true;
   #   networks = {inherit (systemd.network.networks) "10-lan1";};
@@ -37,6 +38,7 @@
   # };
 
   networking = {
+ hostName = "kotn";
     # inherit (config.repo.secrets.local.networking) hostId;
     useDHCP = lib.mkForce false;
     useNetworkd = true;

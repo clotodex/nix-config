@@ -9,18 +9,11 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
 	  ./config/_imports_.nix
+	  ./home/user.nix
 	  #./config/nix.nix
 	  # inputs.home-manager.nixosModule.home-manager
     ];
 
-
-
-
-  networking.hostName = "kotn"; # Define your hostname.
-  # Pick only one of the below networking options.
-  networking.wireless.iwd.enable = true;
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  # networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
@@ -44,17 +37,6 @@
   services.xserver.enable = false;
   programs.hyprland.enable = true;
   programs.waybar.enable = true;
-  # Required even when using home-manager's zsh module since the /etc/profile load order
-  # is partly controlled by this. See nix-community/home-manager#3681.
-  # FIXME: remove once we have nushell
-  programs.zsh = {
-    enable = true;
-    # Disable the completion in the global module because it would call compinit
-    # but the home manager config also calls compinit. This causes the cache to be invalidated
-    # because the fpath changes in-between, causing constant re-evaluation and thus startup
-    # times of 1-2 seconds. Disable the completion here and only keep the home-manager one to fix it.
-    enableCompletion = false;
-  };
 
 
 
@@ -90,20 +72,6 @@
   # Enable touchpad support (enabled default in most desktopManager).
   services.libinput.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users = {
-	"clotodex" = {
-    isNormalUser = true;
-    initialPassword = "password";
-	group = "users";
-    extraGroups = [ "wheel" "sudo" "sound" "video" ]; # Enable ‘sudo’ for the user.
-    packages = with pkgs; [
-      firefox
-      fish
-	  pyprland
-    ];
-	};
-  };
   programs.fish.enable = true;
   # List packages installed in system profile. To search, run:
   # $ nix search wget

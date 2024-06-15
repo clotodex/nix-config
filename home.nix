@@ -44,6 +44,7 @@
       ncdu
       neofetch
       nvd
+	  firefox
       rage
       rclone
       ripgrep
@@ -61,6 +62,9 @@
 	  signal-desktop
 	  dunst
 	  google-chrome
+	  swww
+	  rofi-wayland
+	  inputs.pyprland.packages."x86_64-linux".pyprland
     ];
   };
 
