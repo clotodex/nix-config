@@ -10,6 +10,9 @@
 	  ./ssh.nix
 	  ./kitty.nix
 	  ./swaync
+	  ./direnv.nix
+	  # TODO: wait for nixvim
+	  # ./manpager.nix
 
       # ./discord.nix
       # ./firefox.nix
