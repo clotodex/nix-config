@@ -14,12 +14,14 @@
     ./boot.nix
     ./fonts.nix
     ./general.nix
+    ./graphical.nix
     ./hardware.nix
     ./inputrc.nix
     ./laptop.nix
     ./networking.nix
     ./nix.nix
 	./sound.nix
+	./user.nix
   ];
 
   nixpkgs.overlays =

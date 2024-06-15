@@ -36,6 +36,7 @@ in {
       imports = [
 	    ../home.nix
 		../shell/default.nix
+		../home
         # ../config
         # ./dev
         # ./graphical

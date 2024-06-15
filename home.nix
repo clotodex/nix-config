@@ -37,7 +37,6 @@
       bandwhich
       btop
       delta
-      fd
       file
       hexyl
       killall
@@ -47,7 +46,6 @@
 	  firefox
       rage
       rclone
-      ripgrep
       rnr
       rsync
       sd
