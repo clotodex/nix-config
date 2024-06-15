@@ -10,6 +10,7 @@
 	  ./ssh.nix
 	  ./kitty.nix
 	  ./swaync
+	  ./theme
 	  ./direnv.nix
 	  # TODO: wait for nixvim
 	  # ./manpager.nix
@@ -45,6 +46,8 @@
       pkgs.yt-dlp
       pkgs.zathura
 	  pkgs.fd
+
+	  pkgs.wl-clipboard
 
 	  pkgs.discord
 	  pkgs.webcord # INFO: hardened discord client
