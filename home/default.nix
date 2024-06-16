@@ -11,6 +11,7 @@
 	  ./kitty.nix
 	  ./swaync
 	  ./theme
+	  ./neovim
 	  ./direnv.nix
 	  # TODO: wait for nixvim
 	  # ./manpager.nix

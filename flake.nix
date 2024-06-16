@@ -34,6 +34,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
+
+	 nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, ... }:
@@ -64,7 +69,7 @@
 					home-manager.sharedModules = [
 						# inputs.nixos-extra-modules.homeManagerModules.default
 						inputs.nix-index-database.hmModules.nix-index
-						# inputs.nixvim.homeManagerModules.nixvim
+						inputs.nixvim.homeManagerModules.nixvim
 					];
 					home-manager.useGlobalPkgs = true;
 					home-manager.useUserPackages = true;
