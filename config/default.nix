@@ -22,6 +22,7 @@
     ./nix.nix
 	./sound.nix
 	./user.nix
+	./virtualization.nix
   ];
 
   nixpkgs.overlays =

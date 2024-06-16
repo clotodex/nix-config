@@ -8,7 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-	  ./config/_imports_.nix
+	  ./config
 	  #./config/nix.nix
 	  # inputs.home-manager.nixosModule.home-manager
     ];
@@ -100,6 +100,7 @@
 	rustc
 	cargo
 	pkgs.kitty.terminfo
+	devenv
   ];
 }
 

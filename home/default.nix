@@ -51,6 +51,8 @@
 
 	  pkgs.discord
 	  pkgs.webcord # INFO: hardened discord client
+
+	  pkgs.project-chooser
     ];
 
 # TODO: projects/external

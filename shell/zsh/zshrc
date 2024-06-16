@@ -319,3 +319,10 @@ setopt auto_menu
 # Move cursor to end of word if there was only one match
 setopt always_to_end
 eval "$(atuin init zsh)"
+
+function pccd() {
+    (pc-recache &); dir="$(project-chooser $*)" && cd "$dir"
+}
+
+alias "pc"='pccd'
+alias "pcb"='pccd -b'

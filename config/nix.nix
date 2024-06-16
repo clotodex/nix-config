@@ -17,7 +17,7 @@
     settings = {
       auto-optimise-store = true;
       allowed-users = ["@wheel"];
-      trusted-users = ["root"];
+      trusted-users = ["root" "clotodex"];
       substituters = [
         "https://cache.nixos.org"
         "https://nix-community.cachix.org"
