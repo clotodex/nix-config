@@ -11,6 +11,20 @@
         };
       };
 
+      copilot-lua = {
+        enable = true;
+        #filetypes=  {
+        #  markdown = true;
+        #};
+        # TODO: override server to get more completions
+        suggestion = {
+          enabled = true;
+          autoTrigger = true;
+        };
+      };
+      copilot-cmp.enable = true;
+      copilot-chat.enable = true;
+
       cmp_luasnip.enable = true;
       cmp-dap.enable = true;
       cmp-cmdline.enable = true;

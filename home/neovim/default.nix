@@ -6,6 +6,20 @@
 # TODO move lines. gomove again?
 # TODO vim-wordmotion vs https://github.com/chrisgrieser/nvim-various-textobjs
 # TODO blankline cur indent too bright
+
+# TODO: clotodex plugins
+# - lspkind
+#	"nvim-lua/popup.nvim",
+#	-- Html & typescript
+#	{ "Glench/Vim-Jinja2-Syntax" },
+#	{ "b0o/SchemaStore.nvim" },
+#	-- Modify Surrounding things like parenthesis and quotes
+#	{ "machakann/vim-sandwich", config = conf_fn "sandwich" },
+#	-- FIXME: still broken and unusable
+#	--{ "TimUntersberger/neogit", config = conf_setup "neogit" },
+#	-- path completion source
+#	"ray-x/lsp_signature.nvim",
+
 {
   imports = [
     ./alpha.nix

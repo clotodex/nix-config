@@ -34,6 +34,7 @@
         # FIXME: bashls.enable = true;
         cssls.enable = true;
         html.enable = true;
+        dartls.enable = true;
         # rust-analyzer should not be set here because of rustaceanvim
         nil_ls = {
           enable = true;

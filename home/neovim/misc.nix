@@ -1,4 +1,8 @@
 {pkgs, ...}: {
+  home.packages = [
+    pkgs.ctags
+  ];
+
   programs.nixvim = {
     plugins = {
       notify = {
@@ -79,6 +83,16 @@
       vim-gnupg
       # TODO temporary
       vim-startuptime
+      # flutter
+      vim-flutter
+      # Respect editor-config files
+      editorconfig-nvim
+      # Outline view
+      vista-vim
+      # better popups (i think)
+      popup-nvim
+
+      # TODO: flutter-tools-nvim | currently broken https://github.com/akinsho/flutter-tools.nvim/pull/259
     ];
 
     extraConfigLuaPre =
