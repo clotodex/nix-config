@@ -34,27 +34,6 @@
 
 	 home = {
     packages = with pkgs; [
-      bandwhich
-      btop
-      delta
-      file
-      hexyl
-      killall
-      ncdu
-      neofetch
-      nvd
-      rage
-      rclone
-      rnr
-      rsync
-      sd
-      tree
-      unzip
-      zip
-      wget
-      usbutils
-      pciutils
-
 	  firefox
 	  brightnessctl
 	  telegram-desktop

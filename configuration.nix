@@ -36,6 +36,7 @@
   services.xserver.enable = false;
   programs.hyprland.enable = true;
   programs.waybar.enable = true;
+  services.flatpak.enable = true;
 
 
 
