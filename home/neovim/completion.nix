@@ -47,6 +47,7 @@
             {name = "dap";}
             # {name = "luasnip";}
             {name = "emoji";}
+            {name = "crates";}
           ];
           mapping = {
             "<CR>" =

@@ -30,7 +30,7 @@
       crates-nvim = {
         enable = true;
         extraOptions = {
-          src.cmp.enabled = true;
+          completion.cmp.enabled = true;
         };
       };
 

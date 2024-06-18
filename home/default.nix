@@ -13,6 +13,7 @@
 	  ./theme
 	  ./neovim
 	  ./direnv.nix
+	  ./packages.nix
 	  # TODO: wait for nixvim
 	  # ./manpager.nix
 
