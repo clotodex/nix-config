@@ -100,6 +100,11 @@
       (keymap ["i"] "<S-Down>" "<C-x><C-e>" "")
       (keymap ["i"] "<S-Up>" "<C-x><C-y>" "")
 
+      (keymap ["n"] "<A-Up>"    ":wincmd k<CR>" "")
+      (keymap ["n"] "<A-Down>"  ":wincmd j<CR>" "")
+      (keymap ["n"] "<A-Left>"  ":wincmd h<CR>" "")
+      (keymap ["n"] "<A-Right>" ":wincmd l<CR>" "")
+
       # Shift + Alt + <arrow keys> change the current window size
       (keymap ["n"] "<M-S-Up>" ":resize -2<CR>" "")
       (keymap ["n"] "<M-S-Down>" ":resize +2<CR>" "")
