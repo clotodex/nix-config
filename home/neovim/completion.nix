@@ -13,14 +13,21 @@
 
       copilot-lua = {
         enable = true;
-        #filetypes=  {
-        #  markdown = true;
-        #};
-        # TODO: override server to get more completions
-        suggestion = {
-          enabled = true;
-          autoTrigger = true;
+        filetypes = {
+          markdown = true;
+          sh.__raw = ''
+            function ()
+              if string.match(vim.fs.basename(vim.api.nvim_buf_get_name(0)), '^%.env.*') then
+                -- disable for .env files
+                return false
+              end
+              return true
+            end
+          '';
         };
+        # TODO: override server to get more completions
+        suggestion.enabled = false;
+        panel.enabled = false;
       };
       copilot-cmp.enable = true;
       copilot-chat.enable = true;
@@ -48,6 +55,7 @@
             # {name = "luasnip";}
             {name = "emoji";}
             {name = "crates";}
+            { name = "copilot"; group_index = 2; }
           ];
           mapping = {
             "<CR>" =
@@ -79,10 +87,10 @@
               /*
               lua
               */
-                # TODO: adjust to mine
-                  # if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
-                  #   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-                  #   return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
+              # TODO: adjust to mine
+              # if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
+              #   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+              #   return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
               ''
                 cmp.mapping(function(fallback)
                   local has_words_before = function()
