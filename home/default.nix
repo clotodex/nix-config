@@ -2,8 +2,12 @@
   lib,
   nixosConfig,
   pkgs,
+  inputs,
   ...
-}: {
+}: 
+ let
+  pkgs-old = import inputs.nixpkgs-2311 {system = pkgs.stdenv.system;};
+in {
   imports =
     [
 	  ./git.nix
@@ -56,6 +60,9 @@
 
 	  pkgs.project-chooser
     pkgs.slack
+
+    pkgs.blueman
+    pkgs-old.galaxy-buds-client
     ];
 
 # TODO: projects/external

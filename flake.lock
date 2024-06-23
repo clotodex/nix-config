@@ -768,6 +768,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-2311": {
+      "locked": {
+        "lastModified": 1718811006,
+        "narHash": "sha256-0Y8IrGhRmBmT7HHXlxxepg2t8j1X90++qRN3lukGaIk=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "03d771e513ce90147b65fe922d87d3a0356fc125",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-23.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-stable": {
       "locked": {
         "lastModified": 1685801374,
@@ -910,6 +926,7 @@
         "nixos-extra-modules": "nixos-extra-modules",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-2311": "nixpkgs-2311",
         "nixvim": "nixvim",
         "pyprland": "pyprland",
         "stylix": "stylix"
