@@ -904,11 +904,11 @@
         "systems": "systems_7"
       },
       "locked": {
-        "lastModified": 1719094406,
-        "narHash": "sha256-HZ3pC9RJN2KTmR/y96Unvli1/dm8V22n0lHX9x3cTtI=",
+        "lastModified": 1719134116,
+        "narHash": "sha256-6I5XTyQZ85ePO57rNMze0hVN84WFRlTsYnm7iaFzJ7M=",
         "owner": "hyprland-community",
         "repo": "pyprland",
-        "rev": "f46de7347efd494c10fe823da938c4fe9253ddd8",
+        "rev": "37b036a0a383ffc8bb3993dce9121d421a6de012",
         "type": "github"
       },
       "original": {
