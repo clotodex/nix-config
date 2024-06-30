@@ -42,7 +42,7 @@
     };
     naersk.url = "github:nix-community/naersk";
     earbuds-src = {
-      url = "github:JojiiOfficial/LiveBudsCli?rev=df46706e44fa9e7de355b11eab4cc850efe968a3";
+      url = "github:JojiiOfficial/LiveBudsCli?rev=1690eab9116dc9fb576372a7cd234cc28de0a112";
       flake = false;
     };
   };

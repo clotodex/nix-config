@@ -36,7 +36,6 @@
     ++ [
       inputs.nixos-extra-modules.overlays.default
       inputs.nixvim.overlays.default
-      inputs.cargo2nix.overlays.default
       #inputs.wired-notify.overlays.default
     ];
 }
