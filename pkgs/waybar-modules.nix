@@ -20,6 +20,6 @@ in
     postInstall = ''
       mv $out/bin/cpu $out/bin/waybar-cpu
       mv $out/bin/mem $out/bin/waybar-mem
-      mv $out/bin/cpufreq $out/bin/waybar-cpurfeq
+      mv $out/bin/cpufreq $out/bin/waybar-cpufreq
     '';
   }
