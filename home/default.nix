@@ -51,6 +51,9 @@ in {
       pkgs.xdg-utils
       pkgs.yt-dlp
       pkgs.zathura
+      pkgs.grimblast
+      pkgs.swaylock
+      pkgs.hyprpicker
 	  pkgs.fd
 
 	  pkgs.wl-clipboard
