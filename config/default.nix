@@ -31,6 +31,7 @@
     ++ [
       (_final: prev: {
         earbuds = prev.callPackage ../pkgs/earbuds.nix {inherit inputs;};
+        waybar-custom-modules = prev.callPackage ../pkgs/waybar-modules.nix {inherit inputs;};
       })
     ]
     ++ [

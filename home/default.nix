@@ -60,6 +60,7 @@ in {
 
 	  pkgs.project-chooser
     pkgs.earbuds
+    pkgs.waybar-custom-modules
     pkgs.slack
 
     pkgs.blueman

@@ -45,6 +45,10 @@
       url = "github:JojiiOfficial/LiveBudsCli?rev=1690eab9116dc9fb576372a7cd234cc28de0a112";
       flake = false;
     };
+    waybar-custom-modules-src = {
+      url = "github:LawnGnome/waybar-custom-modules?rev=5e7713180e52285e3db169ba7d448ab61215ac41";
+      flake = false;
+    };
   };
 
   outputs = inputs @ {

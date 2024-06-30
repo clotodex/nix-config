@@ -979,7 +979,8 @@
         "nixpkgs-2311": "nixpkgs-2311",
         "nixvim": "nixvim",
         "pyprland": "pyprland",
-        "stylix": "stylix"
+        "stylix": "stylix",
+        "waybar-custom-modules-src": "waybar-custom-modules-src"
       }
     },
     "stylix": {
@@ -1158,6 +1159,23 @@
       "original": {
         "owner": "numtide",
         "repo": "treefmt-nix",
+        "type": "github"
+      }
+    },
+    "waybar-custom-modules-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1628049429,
+        "narHash": "sha256-1hNJXUwK6PmgwphsIJZ3fKa6W3LgRpwB5k+xCI7/48A=",
+        "owner": "LawnGnome",
+        "repo": "waybar-custom-modules",
+        "rev": "5e7713180e52285e3db169ba7d448ab61215ac41",
+        "type": "github"
+      },
+      "original": {
+        "owner": "LawnGnome",
+        "repo": "waybar-custom-modules",
+        "rev": "5e7713180e52285e3db169ba7d448ab61215ac41",
         "type": "github"
       }
     },
