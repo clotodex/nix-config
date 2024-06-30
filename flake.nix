@@ -40,7 +40,6 @@
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    cargo2nix.url = "github:cargo2nix/cargo2nix/release-0.11.0";
     naersk.url = "github:nix-community/naersk";
     earbuds-src = {
       url = "github:JojiiOfficial/LiveBudsCli?rev=df46706e44fa9e7de355b11eab4cc850efe968a3";
