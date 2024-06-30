@@ -1,1 +1,9 @@
 - [ ] maybe avahi setup (mdns in resolved.nix)
+- [ ] Fonts for product development
+- [ ] Fonts for waybar
+- [ ] all proper keyboard shortcuts
+- [ ] fixing a few small things in nvim config
+- [ ] transferring world packages
+- [ ] update checker
+- [ ] waybar and hyprland conf in homemanager so that also plugins work
+- [ ] fix cursor - prob hyprcurso
