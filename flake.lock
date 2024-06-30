@@ -181,17 +181,17 @@
     "earbuds-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1719601655,
-        "narHash": "sha256-IEor7aZnwCA6Rg2gXIYSQ65hV/jJOKehujOSZnVzVis=",
+        "lastModified": 1714931418,
+        "narHash": "sha256-cAzJEpqO1zcmCRXQezvoMrb9sW3itoSR5i6HYNQAXEQ=",
         "owner": "JojiiOfficial",
         "repo": "LiveBudsCli",
-        "rev": "df46706e44fa9e7de355b11eab4cc850efe968a3",
+        "rev": "1690eab9116dc9fb576372a7cd234cc28de0a112",
         "type": "github"
       },
       "original": {
         "owner": "JojiiOfficial",
         "repo": "LiveBudsCli",
-        "rev": "df46706e44fa9e7de355b11eab4cc850efe968a3",
+        "rev": "1690eab9116dc9fb576372a7cd234cc28de0a112",
         "type": "github"
       }
     },
