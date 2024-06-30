@@ -59,6 +59,7 @@ in {
 	  pkgs.webcord # INFO: hardened discord client
 
 	  pkgs.project-chooser
+    pkgs.earbuds
     pkgs.slack
 
     pkgs.blueman

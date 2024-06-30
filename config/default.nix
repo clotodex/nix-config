@@ -1,4 +1,4 @@
-{inputs, ...}: {
+{inputs, pkgs, ...}: {
   imports = [
     # inputs.agenix-rekey.nixosModules.default
     # inputs.agenix.nixosModules.default
@@ -20,16 +20,23 @@
     ./laptop.nix
     ./networking.nix
     ./nix.nix
-	./sound.nix
-	./user.nix
-	./virtualization.nix
+    ./sound.nix
+    ./user.nix
+    ./virtualization.nix
   ];
 
+
   nixpkgs.overlays =
-              import ../pkgs/default.nix
-              ++ [
-                inputs.nixos-extra-modules.overlays.default
-                inputs.nixvim.overlays.default
-                #inputs.wired-notify.overlays.default
-              ];
+    import ../pkgs/default.nix
+    ++ [
+      (_final: prev: {
+        earbuds = prev.callPackage ../pkgs/earbuds.nix {inherit inputs;};
+      })
+    ]
+    ++ [
+      inputs.nixos-extra-modules.overlays.default
+      inputs.nixvim.overlays.default
+      inputs.cargo2nix.overlays.default
+      #inputs.wired-notify.overlays.default
+    ];
 }
