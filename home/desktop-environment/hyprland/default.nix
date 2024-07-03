@@ -16,6 +16,7 @@
     ;
 
   rofi-drun = "rofi -show drun -theme ~/.config/rofi/launchers/type-1/style-10.rasi";
+
 in {
   imports = [
     ./keybinds.nix
@@ -125,7 +126,7 @@ in {
       }
       {
         monitor = [
-        ",preferred,auto,1"
+          ",preferred,auto,1"
           "eDP-1,2880x1800@60,auto,1.33"
         ];
         workspace = [

@@ -19,6 +19,23 @@
 
   screenshotarea = "hyprctl keyword animation 'fadeOut,0,0,default'; grimblast --notify copysave area; hyprctl keyword animation 'fadeOut,1,4,default'";
   screenshotareacopy = "hyprctl keyword animation 'fadeOut,0,0,default'; grimblast --notify copy area; hyprctl keyword animation 'fadeOut,1,4,default'";
+
+  script-shuffle-wallpaper = pkgs.writeShellScriptBin "script" ''
+    wallpaper_dir="$HOME/.config/wallpapers/all"
+    wallpaper_out="$HOME/.config/wallpapers/selected"
+
+    mkdir -p "$wallpaper_out"
+
+    all_wallpapers="$(${pkgs.ripgrep}/bin/rg -u --files $wallpaper_dir)"
+    chosen_wallpaper="$(echo "$all_wallpapers" | shuf | head -n 1)"
+    cp "$chosen_wallpaper" "$wallpaper_out/wallpaper.jpg"
+
+    # get colorscheme from image
+    # wallust run -Tsq "$wallpaper_out/wallpaper.jpg"
+
+
+    ${pkgs.swww}/bin/swww img "$chosen_wallpaper" --transition-bezier .43,1.19,1,.4 --transition-fps=60  --transition-type=wipe --transition-duration=0.7 --transition-pos "$( hyprctl cursorpos )"
+  '';
   # TODO: workspace = special:exposed,gapsout:20,gapsin:10,bordersize:2,border:true,shadow:true
 in {
   wayland.windowManager.hyprland.settings = {
@@ -40,7 +57,7 @@ in {
 
         "SUPER SHIFT, Z, exec, pypr zoom"
         "SUPER, Space, exec, pypr layout_center toggle"
-        "SUPER SHIFT, W, exec, ~/.config/hypr/scripts/shuffle_wallpaper.sh"
+        "SUPER SHIFT, W, exec, ${lib.getExe script-shuffle-wallpaper}"
 
         #bindel=, XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
         #bindel=, XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+

@@ -61,6 +61,12 @@ in {
       pkgs.earbuds
       pkgs.slack
 
+      pkgs.git-lfs
+      pkgs.d2
+      pkgs.cloc
+      pkgs.jq
+      pkgs.python3
+
       pkgs.blueman
       pkgs-old.galaxy-buds-client
     ];
