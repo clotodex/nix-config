@@ -4,42 +4,41 @@
   pkgs,
   inputs,
   ...
-}: 
- let
+}: let
   pkgs-old = import inputs.nixpkgs-2311 {system = pkgs.stdenv.system;};
 in {
-  imports =
-    [
-	  ./git.nix
-	  ./ssh.nix
-	  ./kitty.nix
-	  ./swaync
-	  ./theme
-	  ./neovim
-	  ./direnv.nix
-	  ./packages.nix
-	  # TODO: wait for nixvim
-	  # ./manpager.nix
+  imports = [
+    ./git.nix
+    ./ssh.nix
+    ./kitty.nix
+    ./swaync
+    ./theme
+    ./neovim
+    ./direnv.nix
+    ./packages.nix
+    ./desktop-environment
+    # TODO: wait for nixvim
+    # ./manpager.nix
 
-      # ./discord.nix
-      # ./firefox.nix
-      # ./kitty.nix
-      # ./signal.nix
-      # ./theme.nix
-      # ./thunderbird.nix
+    # ./discord.nix
+    # ./firefox.nix
+    # ./kitty.nix
+    # ./signal.nix
+    # ./theme.nix
+    # ./thunderbird.nix
 
-      # # X11
-      # ./i3.nix
-      # ./flameshot.nix
-      # ./wired-notify.nix
+    # # X11
+    # ./i3.nix
+    # ./flameshot.nix
+    # ./wired-notify.nix
 
-      # # Wayland
-      # ./hyprland.nix
-      # ./waybar.nix
-      # ./rofi.nix
-      # ./swaync.nix
-      # ./swww.nix
-    ];
+    # # Wayland
+    # ./hyprland.nix
+    # ./waybar.nix
+    # ./rofi.nix
+    # ./swaync.nix
+    # ./swww.nix
+  ];
 
   home = {
     packages = [
@@ -51,26 +50,22 @@ in {
       pkgs.xdg-utils
       pkgs.yt-dlp
       pkgs.zathura
-      pkgs.grimblast
-      pkgs.swaylock
-      pkgs.hyprpicker
-	  pkgs.fd
+      pkgs.fd
 
-	  pkgs.wl-clipboard
+      pkgs.discord
+      pkgs.webcord # INFO: hardened discord client
 
-	  pkgs.discord
-	  pkgs.webcord # INFO: hardened discord client
+      pkgs.spotify
 
-	  pkgs.project-chooser
-    pkgs.earbuds
-    pkgs.waybar-custom-modules
-    pkgs.slack
+      pkgs.project-chooser
+      pkgs.earbuds
+      pkgs.slack
 
-    pkgs.blueman
-    pkgs-old.galaxy-buds-client
+      pkgs.blueman
+      pkgs-old.galaxy-buds-client
     ];
 
-# TODO: projects/external
+    # TODO: projects/external
 
     # TODO wrap thunderbird bin and set LC_ALL=de_DE.UTF-8 because thunderbird uses wrong date and time formatting with C.UTF-8
     # TODO make screenshot copy work even if notification fails (set -e does its thing here)
@@ -86,7 +81,6 @@ in {
     # TODO mod+f1-4 for left monitor?
     # TODO sway shortcuts
     # TODO VP9 hardware video decoding blocklisted
-
   };
 
   xdg.mimeApps.enable = true;
