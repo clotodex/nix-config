@@ -12,5 +12,6 @@
     waybar-custom-modules
     swww
     rofi-wayland
+    libnotify
   ];
 }
