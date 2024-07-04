@@ -7,6 +7,8 @@
 }: let
   pkgs-old = import inputs.nixpkgs-2311 {system = pkgs.stdenv.system;};
 in {
+  home.stateVersion = "24.05";
+
   imports = [
     ./git.nix
     ./ssh.nix
@@ -42,6 +44,11 @@ in {
 
   home = {
     packages = [
+    pkgs.mpv
+      pkgs.firefox
+      pkgs.brightnessctl
+      pkgs.telegram-desktop
+      pkgs.signal-desktop
       pkgs.appimage-run
       pkgs.google-chrome
       pkgs.feh

@@ -16,7 +16,6 @@
     ;
 
   rofi-drun = "rofi -show drun -theme ~/.config/rofi/launchers/type-1/style-10.rasi";
-
 in {
   imports = [
     ./keybinds.nix
@@ -28,6 +27,9 @@ in {
 
   wayland.windowManager.hyprland = {
     enable = true;
+    # plugins = [
+    #   inputs.Hyprspace.packages.${pkgs.system}.Hyprspace
+    # ];
     settings = mkMerge [
       {
         env =

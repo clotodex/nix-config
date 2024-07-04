@@ -26,7 +26,6 @@
     killall
     bc
     wlr-randr
-    hypridle
     dua
     duf
     colordiff
