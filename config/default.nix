@@ -23,6 +23,8 @@
     ./sound.nix
     ./user.nix
     ./virtualization.nix
+    ./print.nix
+    ./packages.nix
   ];
 
 

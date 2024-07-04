@@ -7,18 +7,32 @@
 }: let
   myuser = "clotodex";
 in {
-    # users.groups.${myuser}.gid = config.users.users.${myuser}.uid;
-    users.users.${myuser} = {
-      uid = 1000;
-	  initialPassword = "password";
-      createHome = true;
-      # group = myuser;
-	group = "users";
-      extraGroups = ["wheel" "input" "sudo" "sound" "video"];
-      isNormalUser = true;
-      autoSubUidGidRange = false;
-      shell = pkgs.zsh;
-    };
+  # Set your time zone.
+  time.timeZone = "Europe/Berlin";
+
+  # Select internationalisation properties.
+  i18n.defaultLocale = "en_US.UTF-8";
+  #i18n.defaultLocale = "C.UTF-8";
+  console = {
+    #   font = "Lat2-Terminus16";
+    keyMap = "de-latin1-nodeadkeys";
+    font = "ter-v28n";
+    packages = [pkgs.terminus_font];
+    #   useXkbConfig = true; # use xkb.options in tty.
+  };
+
+  # users.groups.${myuser}.gid = config.users.users.${myuser}.uid;
+  users.users.${myuser} = {
+    uid = 1000;
+    initialPassword = "password";
+    createHome = true;
+    # group = myuser;
+    group = "users";
+    extraGroups = ["wheel" "input" "sudo" "sound" "video"];
+    isNormalUser = true;
+    autoSubUidGidRange = false;
+    shell = pkgs.zsh;
+  };
 
   # Required even when using home-manager's zsh module since the /etc/profile load order
   # is partly controlled by this. See nix-community/home-manager#3681.
@@ -32,24 +46,24 @@ in {
     enableCompletion = false;
   };
 
-    home-manager.users.${myuser} = {
-      imports = [
-	    ../home.nix
-		../shell/default.nix
-		../home
-        # ../config
-        # ./dev
-        # ./graphical
-        # ./neovim
+  home-manager.users.${myuser} = {
+    imports = [
+      ../home.nix
+      ../shell/default.nix
+      ../home
+      # ../config
+      # ./dev
+      # ./graphical
+      # ./neovim
 
-        # ./git.nix
-        # ./gpg.nix
-        # ./ssh.nix
-      ];
+      # ./git.nix
+      # ./gpg.nix
+      # ./ssh.nix
+    ];
 
-      # home = {
-      #   inherit (config.users.users.${myuser}) uid;
-      #   username = config.users.users.${myuser}.name;
-      # };
-    };
-  }
+    # home = {
+    #   inherit (config.users.users.${myuser}) uid;
+    #   username = config.users.users.${myuser}.name;
+    # };
+  };
+}

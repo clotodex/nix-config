@@ -8,6 +8,14 @@
     { }
   '';
 
+  programs.nh = {
+    enable = true;
+    clean.enable = true;
+    clean.extraArgs = "--keep-since 4d --keep 3";
+    flake = "/home/clotodex/nix-config/";
+  };
+
+
   # TODO: this should be in the flake
   nixpkgs.config = {
     allowUnfree = true;

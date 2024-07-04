@@ -74,7 +74,8 @@
           inherit inputs;
         };
         modules = [
-          ./configuration.nix
+          ./hardware-configuration.nix
+          ./config
           # inputs.home-manager.nixosModule.default
           home-manager.nixosModules.home-manager
           {
