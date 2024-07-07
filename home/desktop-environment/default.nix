@@ -12,10 +12,11 @@
     swww
     rofi-wayland
     libnotify
+    hyprshade
   ];
 
   services.hypridle = {
-    enable = true;
+    enable = false;
     settings = {
       listener = [
         {
