@@ -26,49 +26,59 @@
       </fontconfig>
     '';
 
-	  enableDefaultPackages = true;
+    enableDefaultPackages = true;
+    enableGhostscriptFonts = true;
 
     packages = with pkgs; [
-      (pkgs.nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
+      (nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
       noto-fonts
       noto-fonts-cjk-sans
       noto-fonts-cjk-serif
       noto-fonts-emoji
       noto-fonts-extra
-    # nerd-fonts
-	noto-fonts
-	noto-fonts-cjk
-	noto-fonts-emoji
-	liberation_ttf
-	fira-code
-	fira-code-symbols
-	mplus-outline-fonts.githubRelease
-	dina-font
-	proggyfonts
+      # nerd-fonts
+      noto-fonts
+      noto-fonts-cjk
+      noto-fonts-emoji
+      liberation_ttf
+      fira-code
+      fira-code-symbols
+      mplus-outline-fonts.githubRelease
+      dina-font
+      proggyfonts
+
+      corefonts
+      font-awesome
+      source-sans
+      source-serif
+      source-sans-pro
+      source-serif-pro
+      source-code-pro
+      roboto
     ];
   };
 
-   stylix.fonts = {
-     serif = {
-       package = pkgs.dejavu_fonts;
-       name = "IBM Plex Serif";
-     };
+  stylix.fonts = {
+    serif = {
+      package = pkgs.dejavu_fonts;
+      name = "IBM Plex Serif";
+    };
 
-     sansSerif = {
-       package = pkgs.segoe-ui-ttf;
-       name = "Segoe UI";
-     };
+    sansSerif = {
+      package = pkgs.segoe-ui-ttf;
+      name = "Segoe UI";
+    };
 
-     monospace = {
-       # No need for patched nerd fonts, kitty can pick up on them automatically,
-       # and ideally every program should do that: https://sw.kovidgoyal.net/kitty/faq/#kitty-is-not-able-to-use-my-favorite-font
-       package = pkgs.jetbrains-mono;
-       name = "JetBrains Mono";
-     };
+    monospace = {
+      # No need for patched nerd fonts, kitty can pick up on them automatically,
+      # and ideally every program should do that: https://sw.kovidgoyal.net/kitty/faq/#kitty-is-not-able-to-use-my-favorite-font
+      package = pkgs.jetbrains-mono;
+      name = "JetBrains Mono";
+    };
 
-     emoji = {
-       package = pkgs.segoe-ui-ttf;
-       name = "Segoe UI Emoji";
-     };
-   };
+    emoji = {
+      package = pkgs.segoe-ui-ttf;
+      name = "Segoe UI Emoji";
+    };
+  };
 }
