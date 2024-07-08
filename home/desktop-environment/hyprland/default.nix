@@ -83,7 +83,7 @@ in {
           };
           drop_shadow = true;
           shadow_ignore_window = true;
-          shadow_offset = [2 2];
+          shadow_offset = "2 2";
           shadow_range = 4;
           shadow_render_power = 2;
           "col.shadow" = "0x66000000";

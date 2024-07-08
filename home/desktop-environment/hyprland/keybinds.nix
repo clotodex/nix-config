@@ -56,7 +56,7 @@ in {
         "SUPER CTRL, M, exec, telegram-desktop"
         "SUPER CTRL, S, exec, slack --ozone-platform=wayland --enable-features=WebRTCPipeWireCapturer'"
         "SUPER, escape, exec, ${rofi-drun}"
-        "SUPER, r, exec, killall rofi || ${rofi-drun}"
+        #"SUPER, r, exec, killall rofi || ${rofi-drun}"
         "SUPER, L, exec, swaylock"
         "SUPER, F1, exec, ~/.config/hypr/scripts/show_keybinds.sh"
         "SUPER SHIFT, X, exec, hyprpicker -a -n"
