@@ -27,9 +27,10 @@ in {
 
   wayland.windowManager.hyprland = {
     enable = true;
-    # plugins = [
-    #   inputs.Hyprspace.packages.${pkgs.system}.Hyprspace
-    # ];
+    #plugins = [
+    #  inputs.Hyprspace.packages.${pkgs.system}.Hyprspace
+    #];
+    systemd.variables = ["--all"];
     settings = mkMerge [
       {
         env =
@@ -67,7 +68,27 @@ in {
           ];
         };
 
-        decoration.rounding = 4;
+        decoration = {
+          rounding = 4;
+          active_opacity = 1.0;
+          inactive_opacity = 0.8;
+
+          # do i need this?
+          blur = {
+            enabled = true;
+            size = 3;
+            passes = 3;
+            new_optimizations = true;
+            ignore_opacity = true;
+          };
+          drop_shadow = true;
+          shadow_ignore_window = true;
+          shadow_offset = [2 2];
+          shadow_range = 4;
+          shadow_render_power = 2;
+          "col.shadow" = "0x66000000";
+          blurls = "waybar";
+        };
         exec-once = [
           "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
           "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
@@ -122,9 +143,13 @@ in {
           vfr = 1;
           vrr = 1;
           disable_hyprland_logo = true;
-          mouse_move_focuses_monitor = false;
+          disable_splash_rendering = true;
+          mouse_move_focuses_monitor = true;
           mouse_move_enables_dpms = true;
+          #enable_swallow = false;
         };
+
+        # xwayland.force_zero_scaling = true;
       }
       {
         monitor = [
@@ -153,13 +178,23 @@ in {
       env=WLR_DRM_NO_ATOMIC,1
       windowrulev2 = immediate, class:^(cs2)$
 
+      windowrule = idleinhibit focus, mpv
+      windowrule = idleinhibit fullscreen, firefox
+
+
       binds {
         focus_preferred_method = 1
       }
 
       gestures {
-      	workspace_swipe = true
+        workspace_swipe = true
       }
+
+      $opacityrule = opacity 0.9 override 0.8 override 1 override
+      windowrule = $opacityrule,^(kitty)$ # set opacity to 0.9 active, 0.8 inactive and 1 fullscreen for everything
+      windowrule = $opacityrule,^(Slack)$
+      windowrule = $opacityrule,^(signal)$
+      windowrule = $opacityrule,^(org.telegram.desktop)$
     '';
   };
 }

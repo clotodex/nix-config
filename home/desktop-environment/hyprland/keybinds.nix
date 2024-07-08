@@ -39,6 +39,14 @@
   # TODO: workspace = special:exposed,gapsout:20,gapsin:10,bordersize:2,border:true,shadow:true
 in {
   wayland.windowManager.hyprland.settings = {
+    bindel = [
+        ", XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+        ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
+        ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+        ", XF86MonBrightnessDown, exec, brightnessctl set 2%-"
+        ", XF86MonBrightnessUp, exec, brightnessctl set +2%"
+        ];
+
     bind =
       [
         # Applications
@@ -59,10 +67,8 @@ in {
         "SUPER, Space, exec, pypr layout_center toggle"
         "SUPER SHIFT, W, exec, ${lib.getExe script-shuffle-wallpaper}"
 
-        #bindel=, XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
-        #bindel=, XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
-        #bindel=, XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
-        #bindel=, XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+        ", XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+        ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
 
         ", XF86AudioPlay, exec, playerctl play-pause"
         ", XF86AudioPause, exec, playerctl play-pause"
@@ -73,8 +79,6 @@ in {
         "SUPER, K, exec, brightnessctl -d '*::kbd_backlight' set 1+"
         "SUPER SHIFT, K, exec, brightnessctl -d '*::kbd_backlight' set 1-"
 
-        #+bindel =, XF86MonBrightnessDown, exec, brightnessctl set 2%-
-        #+bindel =, XF86MonBrightnessUp, exec, brightnessctl set +2%
 
         "SUPER, P, exec, ${screenshotarea}"
         "SUPER SHIFT, P, exec, ${screenshotareacopy}"

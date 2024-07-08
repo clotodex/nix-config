@@ -9,11 +9,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland = {
-      url = "github:hyprwm/Hyprland";
+      url = "github:hyprwm/Hyprland?submodules=1";
+      #url = "github:hyprwm/Hyprland";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     Hyprspace = {
-      url = "github:KZDKM/Hyprspace";
+      #url = "github:KZDKM/Hyprspace";
+      url = "github:ReshetnikovPavel/Hyprspace";
 
       # Hyprspace uses latest Hyprland. We declare this to keep them in sync.
       inputs.hyprland.follows = "hyprland";
