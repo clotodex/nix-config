@@ -10,20 +10,22 @@
     plugins = {
       treesitter = {
         enable = true;
-        # TODO (autocmd * zR needed) folding = true;
-        indent = true;
+        settings = {
+          # TODO (autocmd * zR needed) folding = true;
+          indent.enable = true;
 
-        incrementalSelection = {
-          enable = true;
-          keymaps = {
-            initSelection = "<C-Space>";
-            nodeIncremental = "<C-Space>";
-            scopeIncremental = "<C-S-Space>";
-            nodeDecremental = "<C-B>";
+          incrementalSelection = {
+            enable = true;
+            keymaps = {
+              init_selection = "<C-Space>";
+              node_incremental = "<C-Space>";
+              scope_incremental = "<C-S-Space>";
+              node_decremental = "<C-B>";
+            };
           };
-        };
 
-        nixvimInjections = true;
+          nixvimInjections = true;
+        };
       };
 
       # Cargo.toml dependency completion
