@@ -29,13 +29,7 @@
 
 
   nixpkgs.overlays =
-    import ../pkgs/default.nix
-    ++ [
-      (_final: prev: {
-        earbuds = prev.callPackage ../pkgs/earbuds.nix {inherit inputs;};
-        waybar-custom-modules = prev.callPackage ../pkgs/waybar-modules.nix {inherit inputs;};
-      })
-    ]
+    (import ../pkgs/default.nix inputs)
     ++ [
       inputs.nixos-extra-modules.overlays.default
       inputs.nixvim.overlays.default

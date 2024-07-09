@@ -64,7 +64,7 @@
         tooltip = true;
         tooltip-format = "Scan QR Code";
         format = "󰐲";
-        #on-click = lib.getExe pkgs.scripts.screenshot-area-scan-qr;
+        on-click = lib.getExe pkgs.scripts.screenshot-area-scan-qr;
       };
 
       "custom/pick_color" = {
