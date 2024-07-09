@@ -3,6 +3,10 @@
   pkgs,
   ...
 }: {
+  home.packages = with pkgs; [
+    waybar-custom-modules
+  ];
+
   programs.waybar = {
     enable = true;
     # Started via hyprland to ensure it restarts properly with hyprland

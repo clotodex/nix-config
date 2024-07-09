@@ -29,7 +29,7 @@ in {
     # Enable the X11 windowing system.
     services.xserver.enable = false;
     programs.hyprland.enable = true;
-    programs.waybar.enable = true;
+    #programs.waybar.enable = true;
 
     xdg.portal = {
       enable = true;

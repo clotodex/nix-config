@@ -9,7 +9,6 @@
     swaylock
     hyprpicker
     wl-clipboard
-    waybar-custom-modules
     swww
     rofi-wayland
     libnotify
