@@ -1,9 +1,12 @@
 - [ ] maybe avahi setup (mdns in resolved.nix)
 - [ ] Fonts for product development
-- [ ] Fonts for waybar
+- [x] Fonts for waybar
 - [ ] all proper keyboard shortcuts
 - [ ] fixing a few small things in nvim config
 - [ ] transferring world packages
-- [ ] update checker
-- [ ] waybar and hyprland conf in homemanager so that also plugins work
+- [ ] update checker - nvd
+- [x] waybar and hyprland conf in homemanager so that also plugins work
 - [ ] fix cursor - prob hyprcurso
+- [ ] why is external monitor tied to 2
+- [ ] waybar tracker for nix - copy from patricks mail
+- [ ] waybar fhuwd

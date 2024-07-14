@@ -10,6 +10,7 @@
     plugins = {
       treesitter = {
         enable = true;
+        folding = false;
         settings = {
           # TODO (autocmd * zR needed) folding = true;
           indent.enable = true;
@@ -23,8 +24,6 @@
               node_decremental = "<C-B>";
             };
           };
-
-          nixvimInjections = true;
         };
       };
 
