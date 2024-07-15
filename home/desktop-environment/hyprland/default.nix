@@ -22,7 +22,8 @@ in {
   ];
 
   home.packages = with pkgs; [
-    inputs.pyprland.packages."x86_64-linux".pyprland
+    inputs.pyprland.packages.${system}.pyprland
+    inputs.rose-pine-hyprcursor.packages.${system}.default
   ];
 
   wayland.windowManager.hyprland = {
@@ -53,6 +54,8 @@ in {
             "GDK_BACKEND,wayland"
 
             "XDG_SCREENSHOTS_DIR,/home/clotodex/screenshots"
+
+            "HYPRCURSOR_THEME,rose-pine-hyprcursor"
           ];
 
         animations = {
