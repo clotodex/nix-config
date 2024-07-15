@@ -12,7 +12,7 @@
   # > cat /proc/asound/card*/pcm*p/sub*/hw_params
   # Compare resamplers on: https://src.infinitewave.ca/
 
-  sound.enable = false; # ALSA
+  # sound.enable = false; # ALSA
   hardware.pulseaudio.enable = lib.mkForce false;
   security.rtkit.enable = true;
   services.pipewire = {
