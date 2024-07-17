@@ -29,7 +29,7 @@ in {
   wayland.windowManager.hyprland = {
     enable = true;
     plugins = [
-      inputs.Hyprspace.packages."x86_64-linux".Hyprspace
+      #inputs.Hyprspace.packages."x86_64-linux".Hyprspace
     ];
     systemd.variables = ["--all"];
     settings = mkMerge [
