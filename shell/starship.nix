@@ -34,7 +34,7 @@
       };
       hostname = {
         format = "[$hostname]($style)[$ssh_symbol](green)";
-        ssh_only = false;
+        ssh_only = true;
         ssh_symbol = " 󰣀";
         style = "bold red";
       };
