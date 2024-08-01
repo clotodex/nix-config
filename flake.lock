@@ -833,10 +833,10 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1721379653,
-        "narHash": "sha256-8MUgifkJ7lkZs3u99UDZMB4kbOxvMEXQZ31FO3SopZ0=",
-        "path": "/nix/store/l6spwdi1xs20q24fqfi3xwxx0d2x9q2m-source",
-        "rev": "1d9c2c9b3e71b9ee663d11c5d298727dace8d374",
+        "lastModified": 1722185531,
+        "narHash": "sha256-veKR07psFoJjINLC8RK4DiLniGGMgF3QMlS4tb74S6k=",
+        "path": "/nix/store/bcghcr9qwqmanpds017w75mcqda4fgab-source",
+        "rev": "52ec9ac3b12395ad677e8b62106f0b98c1f8569d",
         "type": "path"
       },
       "original": {
