@@ -18,6 +18,7 @@ in {
     ./neovim
     ./direnv.nix
     ./packages.nix
+    ./media.nix
     ./desktop-environment
     # TODO: wait for nixvim
     # ./manpager.nix
