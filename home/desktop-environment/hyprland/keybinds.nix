@@ -36,16 +36,18 @@
 
     ${pkgs.swww}/bin/swww img "$chosen_wallpaper" --transition-bezier .43,1.19,1,.4 --transition-fps=60  --transition-type=wipe --transition-duration=0.7 --transition-pos "$( hyprctl cursorpos )"
   '';
+
+  plctl = "${pkgs.playerctl}/bin/playerctl";
   # TODO: workspace = special:exposed,gapsout:20,gapsin:10,bordersize:2,border:true,shadow:true
 in {
   wayland.windowManager.hyprland.settings = {
     bindel = [
-        ", XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
-        ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
-        ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-        ", XF86MonBrightnessDown, exec, brightnessctl set 2%-"
-        ", XF86MonBrightnessUp, exec, brightnessctl set +2%"
-        ];
+      ", XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+      ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
+      ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+      ", XF86MonBrightnessDown, exec, brightnessctl set 2%-"
+      ", XF86MonBrightnessUp, exec, brightnessctl set +2%"
+    ];
 
     bind =
       [
@@ -70,15 +72,14 @@ in {
         ", XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
         ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
 
-        ", XF86AudioPlay, exec, playerctl play-pause"
-        ", XF86AudioPause, exec, playerctl play-pause"
-        ", XF86AudioNext, exec, playerctl next"
-        ", XF86AudioPrev, exec, playerctl previous"
+        ", XF86AudioPlay, exec,  ${plctl} play-pause"
+        ", XF86AudioPause, exec, ${plctl} play-pause"
+        ", XF86AudioNext, exec,  ${plctl} next"
+        ", XF86AudioPrev, exec,  ${plctl} previous"
         ", XF86KbdBrightnessUp, exec, brightnessctl -d '*::kbd_backlight' set +1"
         ", XF86KbdBrightnessDown, exec, brightnessctl -d '*::kbd_backlight' set 1-"
         "SUPER, K, exec, brightnessctl -d '*::kbd_backlight' set 1+"
         "SUPER SHIFT, K, exec, brightnessctl -d '*::kbd_backlight' set 1-"
-
 
         "SUPER, P, exec, ${screenshotarea}"
         "SUPER SHIFT, P, exec, ${screenshotareacopy}"
@@ -134,13 +135,13 @@ in {
         "SUPER + SHIFT,comma,movetoworkspacesilent,-1"
         "SUPER + SHIFT,period,movetoworkspacesilent,+1"
 
-        "SUPER,0,workspace,10"
+        "SUPER,0,focusworkspaceoncurrentmonitor,10"
         "SUPER + SHIFT,0,movetoworkspacesilent,10"
       ]
       ++ flip concatMap (map toString (lib.lists.range 1 9)) (
         x: [
-          "SUPER,${x},workspace,${x}"
-          "SUPER + SHIFT,${x},movetoworkspacesilent,${x}"
+          "SUPER,${x},focusworkspaceoncurrentmonitor,${x}"
+          "SUPER + SHIFT,${x},movetoworkspacesilent,${x}" # TODO: had no silent
         ]
       );
     bindm = [
