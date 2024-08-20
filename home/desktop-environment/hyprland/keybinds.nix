@@ -38,6 +38,7 @@
   '';
 
   plctl = "${pkgs.playerctl}/bin/playerctl";
+  chrome = "${pkgs.google-chrome}/bin/google-chrome-stable";
   # TODO: workspace = special:exposed,gapsout:20,gapsin:10,bordersize:2,border:true,shadow:true
 in {
   wayland.windowManager.hyprland.settings = {
@@ -54,7 +55,7 @@ in {
         # Applications
         "SUPER SHIFT, B, exec, ~/.config/waybar/launch.sh"
         "SUPER CTRL, F, exec, firefox -P"
-        "SUPER CTRL, B, exec, google-chrome --ozone-platform-hint=auto --enable-features=WebRTCPipeWireCapturer"
+        "SUPER CTRL, B, exec, ${chrome} --ozone-platform-hint=auto --enable-features=WebRTCPipeWireCapturer"
         "SUPER CTRL, M, exec, telegram-desktop"
         "SUPER CTRL, S, exec, slack --ozone-platform=wayland --enable-features=WebRTCPipeWireCapturer'"
         "SUPER, escape, exec, ${rofi-drun}"
