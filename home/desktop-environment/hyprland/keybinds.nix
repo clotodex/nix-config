@@ -112,7 +112,7 @@ in {
 
         # Per-window actions
         "SUPER,q,killactive,"
-        "SUPER + SHIFT,return,fakefullscreen,"
+        # TODO: got replaced "SUPER + SHIFT,return,fakefullscreen,"
         "SUPER,f,togglefloating"
 
         "SUPER,tab,cyclenext,"
