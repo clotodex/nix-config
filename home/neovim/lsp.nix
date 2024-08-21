@@ -32,8 +32,8 @@
         '';
       servers = {
         # FIXME: bashls.enable = true;
-        cssls.enable = true;
-        html.enable = true;
+        # cssls.enable = true;
+        # html.enable = false;
         dartls.enable = true;
         pyright.enable = true;
         # rust-analyzer should not be set here because of rustaceanvim
