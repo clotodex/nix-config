@@ -1019,11 +1019,11 @@
         "systems": "systems_7"
       },
       "locked": {
-        "lastModified": 1723839421,
-        "narHash": "sha256-zmi7juoLmcKkhcD3WpSlnPIXe+z4veOxHo4HZxukbHI=",
+        "lastModified": 1724358314,
+        "narHash": "sha256-l2XiBhfN6boRliX8XNGtJPIg7/JEgiIW5cW4JwXweN4=",
         "owner": "hyprland-community",
         "repo": "pyprland",
-        "rev": "2d99d6b553ee536c859f7e09800e4baed77f744b",
+        "rev": "f0db9d474e1a4f7b20165bcab73c155c3cbbeacb",
         "type": "github"
       },
       "original": {
