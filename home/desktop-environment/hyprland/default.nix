@@ -55,7 +55,7 @@ in {
 
             "XDG_SCREENSHOTS_DIR,/home/clotodex/screenshots"
 
-            "HYPRCURSOR_THEME,rose-pine-hyprcursor"
+            #"HYPRCURSOR_THEME,rose-pine-hyprcursor"
           ];
 
         animations = {
