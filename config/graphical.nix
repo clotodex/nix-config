@@ -28,7 +28,13 @@ in {
 
     # Enable the X11 windowing system.
     services.xserver.enable = false;
-    programs.hyprland.enable = true;
+    programs.hyprland = {
+      enable = true;
+      # set the flake package
+      package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+      # make sure to also set the portal package, so that they are in sync
+      portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+    };
     #programs.waybar.enable = true;
 
     xdg.portal = {
@@ -42,9 +48,10 @@ in {
         "org.freedesktop.portal.FileChooser" = ["xdg-desktop-portal-gtk"];
       };
       extraPortals = [
-        pkgs.xdg-desktop-portal-hyprland
-        pkgs.xdg-desktop-portal-wlr
+        # pkgs.xdg-desktop-portal-hyprland
+        # pkgs.xdg-desktop-portal-wlr
         pkgs.xdg-desktop-portal-gtk
+        inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland
       ];
     };
 
