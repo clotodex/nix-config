@@ -30,7 +30,7 @@ in {
     enable = true;
     package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
     plugins = [
-      #inputs.Hyprspace.packages."x86_64-linux".Hyprspace
+      inputs.Hyprspace.packages."x86_64-linux".Hyprspace
     ];
     systemd.variables = ["--all"];
     settings = mkMerge [
