@@ -13,6 +13,7 @@ lib.optionalAttrs (!minimal) {
       modesetting.enable = true;
       nvidiaPersistenced = true;
       nvidiaSettings = true;
+      # TODO: check this
       open = true;
       powerManagement.enable = true;
     };

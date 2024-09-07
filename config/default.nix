@@ -19,6 +19,7 @@
     ./inputrc.nix
     ./laptop.nix
     ./networking.nix
+    #./nvidia.nix
     ./nix.nix
     ./sound.nix
     ./user.nix
