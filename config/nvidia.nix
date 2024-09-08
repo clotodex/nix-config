@@ -16,6 +16,10 @@ lib.optionalAttrs (!minimal) {
       # TODO: check this
       open = true;
       powerManagement.enable = true;
+      offload = {
+        enable = true;
+        enableOffloadCmd = true;
+      };
     };
     opengl = {
       enable = true;

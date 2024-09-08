@@ -1,9 +1,5 @@
-{
-  lib,
-  ...
-}: {
+{lib, ...}: {
   systemd.network.enable = true;
-
 
   # boot.initrd.systemd.network = {
   #   enable = true;
@@ -13,7 +9,7 @@
   systemd.network.networks = {
     "10-lan1" = {
       DHCP = "yes";
-       matchConfig.Name = "en*";
+      matchConfig.Name = "en*";
       networkConfig = {
         IPv6PrivacyExtensions = "yes";
         # MulticastDNS = true;
@@ -38,12 +34,23 @@
   # };
 
   networking = {
- hostName = "kotn";
+    hostName = "kotn";
     # inherit (config.repo.secrets.local.networking) hostId;
     useDHCP = lib.mkForce false;
     useNetworkd = true;
     dhcpcd.enable = false;
     wireless.iwd.enable = true;
+    firewall = {
+      enable = true;
+      allowedTCPPorts = [25565];
+      allowedUDPPortRanges = [
+        {
+          from = 25565;
+          to = 25565;
+        }
+      ];
+    };
+    nftables.enable = true;
   };
 
   services.resolved = {
@@ -60,4 +67,4 @@
     #   Domains=~.
     # ''; # MulticastDNS=true
   };
-  }
+}

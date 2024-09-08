@@ -57,7 +57,7 @@ in {
             "XDG_SCREENSHOTS_DIR,/home/clotodex/screenshots"
 
             #"HYPRCURSOR_THEME,rose-pine-hyprcursor"
-            "AQ_DRM_DEVICES,/dev/dri/card1:/dev/dri/card0"
+            "AQ_DRM_DEVICES,/dev/dri/card1" #:/dev/dri/card0"
           ];
 
         animations = {
