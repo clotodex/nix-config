@@ -906,10 +906,10 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1728018373,
-        "narHash": "sha256-NOiTvBbRLIOe5F6RbHaAh6++BNjsb149fGZd1T4+KBg=",
-        "path": "/nix/store/sdzpqjwx7pdx6lsq6llyfqqf7hspp83c-source",
-        "rev": "bc947f541ae55e999ffdb4013441347d83b00feb",
+        "lastModified": 1728241625,
+        "narHash": "sha256-yumd4fBc/hi8a9QgA9IT8vlQuLZ2oqhkJXHPKxH/tRw=",
+        "path": "/nix/store/rs4fjbnw4qx7ns2hzzrz2iz52va7vs5z-source",
+        "rev": "c31898adf5a8ed202ce5bea9f347b1c6871f32d1",
         "type": "path"
       },
       "original": {
