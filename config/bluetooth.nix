@@ -11,6 +11,7 @@
         JustWorksRepairing = "always";
         MultiProfile = "multiple";
         Enable = "Source,Sink,Media,Socket";
+        # Experimental = true;
       };
     };
   };

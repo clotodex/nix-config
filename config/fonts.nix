@@ -37,8 +37,6 @@
       noto-fonts-emoji
       noto-fonts-extra
       # nerd-fonts
-      noto-fonts
-      noto-fonts-cjk
       noto-fonts-emoji
       liberation_ttf
       fira-code
