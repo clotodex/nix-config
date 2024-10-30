@@ -7,6 +7,8 @@
     waybar-custom-modules
   ];
 
+  # TODO: scripts for turning tlp into power mode or performance mode - no matter if AC or BAT
+
   programs.waybar = {
     enable = true;
     # Started via hyprland to ensure it restarts properly with hyprland

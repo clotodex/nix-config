@@ -37,7 +37,7 @@
         dartls.enable = true;
         pyright.enable = true;
         # rust-analyzer should not be set here because of rustaceanvim
-        nil-ls = {
+        nil_ls = {
           enable = true;
           settings = {
             formatting.command = [(lib.getExe pkgs.alejandra) "--quiet"];
