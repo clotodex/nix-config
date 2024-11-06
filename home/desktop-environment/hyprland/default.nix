@@ -16,13 +16,14 @@
     ;
 
   rofi-drun = "rofi -show drun -theme ~/.config/rofi/launchers/type-1/style-10.rasi";
+  pyprland = inputs.pyprland.packages.${pkgs.stdenv.hostPlatform.system}.pyprland;
 in {
   imports = [
     ./keybinds.nix
   ];
 
   home.packages = with pkgs; [
-    inputs.pyprland.packages.${system}.pyprland
+    pyprland
     inputs.rose-pine-hyprcursor.packages.${system}.default
   ];
 
@@ -57,7 +58,7 @@ in {
             "XDG_SCREENSHOTS_DIR,/home/clotodex/screenshots"
 
             #"HYPRCURSOR_THEME,rose-pine-hyprcursor"
-            "AQ_DRM_DEVICES,/dev/dri/card1"#:/dev/dri/card0"
+            "AQ_DRM_DEVICES,/dev/dri/card1" #:/dev/dri/card0"
           ];
 
         animations = {
@@ -104,7 +105,7 @@ in {
           "wl-clipboard-history -t"
           "${pkgs.hypridle}/bin/hypridle"
 
-          "${pkgs.pyprland}/bin/pypr --config '/home/clotodex/projects/development/linux/hyprdot/hypr/pyprland.toml'"
+          "${pyprland}/bin/pypr --config '/home/clotodex/projects/development/linux/hyprdot/hypr/pyprland.toml'"
           "${pkgs.swww}/bin/swww-daemon"
           "${pkgs.swww}/bin/swww img ~/.config/hypr/tmp/wallpaper.jpg"
           "~/.config/waybar/launch.sh"

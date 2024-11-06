@@ -36,7 +36,11 @@
 
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
-    pyprland.url = "github:hyprland-community/pyprland";
+    pyprland = {
+      url = "github:hyprland-community/pyprland";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     stylix = {
       url = "github:danth/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
