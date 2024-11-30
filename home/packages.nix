@@ -5,6 +5,10 @@
 }: {
   home = {
     packages = with pkgs; [
+      gh
+      gh-dash
+      git-lfs
+      yazi
       bandwhich
       btop
       delta
