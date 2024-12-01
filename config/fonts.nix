@@ -30,7 +30,8 @@
     enableGhostscriptFonts = true;
 
     packages = with pkgs; [
-      (nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
+      #(nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
+      nerd-fonts.symbols-only
       noto-fonts
       noto-fonts-cjk-sans
       noto-fonts-cjk-serif
