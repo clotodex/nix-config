@@ -7,6 +7,8 @@
   services.libinput.enable = true;
 
   services.flatpak.enable = true;
+  services.pcscd.enable = true;
+
 
   #services.clamav = {
   #  daemon.enable = true;
