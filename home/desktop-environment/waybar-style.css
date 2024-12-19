@@ -1,6 +1,6 @@
 * {
 	/* `otf-font-awesome` is required to be installed for icons */
-	font-family: "Symbols Nerd Font Mono", "JetBrains Mono";
+	font-family: "Font Awesome 6 Free", "Symbols Nerd Font Mono", "JetBrains Mono";
 	font-size: 13px;
 	transition-duration: .1s;
 }
@@ -260,7 +260,8 @@ button:hover {
  * ----------------------------------------------------- */
 * {
 	font-size: 12px;
-	font-family: "Fira Sans Semibold", FontAwesome, Roboto, Helvetica, Arial, sans-serif;
+	/*font-family: "Symbols Nerd Font Mono",  "JetBrains Mono";*/
+	font-family: "Fira Sans Semibold", Roboto, "Font Awesome 6 Free", Helvetica, Arial, sans-serif;
 	border: none;
 	border-radius: 0px;
 }
@@ -552,7 +553,7 @@ label:focus {
 	background-color: #f53c3c;
 }
 
-#pulseaudio,
+/*#pulseaudio,
 #wireplumber {
 	font-family: "Font Awesome 6 Free";
-}
+}*/
