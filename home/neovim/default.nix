@@ -80,7 +80,7 @@
       }
     ];
 
-    # TODO split into files
+    # TODO: split into files
     keymaps = let
       keymap = mode: key: action: desc: {
         inherit action key mode;
@@ -245,6 +245,23 @@
       (keymap ["n"] "<leader>cP" "<cmd>lua require('textcase').lsp_rename('to_pascal_case')<CR><right>" "LSP Rename: To PascalCase")
       (keymap ["n"] "<leader>cT" "<cmd>lua require('textcase').lsp_rename('to_title_case')<CR><right>" "LSP Rename: To Title Case")
       (keymap ["n"] "<leader>cF" "<cmd>lua require('textcase').lsp_rename('to_path_case')<CR><right>" "LSP Rename: To path/case")
+
+      # -------------------------------------------------------------------------------------------------
+      # Plugin: trouble
+      # -------------------------------------------------------------------------------------------------
+
+      (keymap ["n"] "<leader>xx" "<cmd>Trouble diagnostics toggle<cr>" "Diagnostics (Trouble)")
+      (keymap ["n"] "<leader>xX" "<cmd>Trouble diagnostics toggle filter.buf=0<cr>" "Buffer Diagnostics (Trouble)")
+      (keymap ["n"] "<leader>cs" "<cmd>Trouble symbols toggle focus=false<cr>" "Symbols (Trouble)")
+      (keymap ["n"] "<leader>cl" "<cmd>Trouble lsp toggle focus=false win.position=right<cr>" "LSP Definitions / references / ... (Trouble)")
+      (keymap ["n"] "<leader>xL" "<cmd>Trouble loclist toggle<cr>" "Location List (Trouble)")
+      (keymap ["n"] "<leader>xQ" "<cmd>Trouble qflist toggle<cr>" "Quickfix List (Trouble)")
+
+      # -------------------------------------------------------------------------------------------------
+      # Plugin: Oil
+      # -------------------------------------------------------------------------------------------------
+
+      (keymap ["n"] "-" "<cmd>Oil<cr>" "Launch Oil Fileviewer")
     ];
   };
 

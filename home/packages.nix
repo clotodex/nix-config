@@ -93,6 +93,9 @@
     enable = true;
     enableSshSupport = true;
     pinentryPackage = pkgs.pinentry-gnome3;
+    #extraConfig = ''
+    #  allow-preset-passphrase
+    #'';
   };
 
 }
