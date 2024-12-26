@@ -35,6 +35,11 @@
         };
       };
 
+      render-markdown = {
+        enable = true;
+        settings.file_types = ["markdown" "Avante"];
+      };
+
       rustaceanvim = {
         enable = true;
         settings = {

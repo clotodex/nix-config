@@ -29,8 +29,16 @@
         suggestion.enabled = false;
         panel.enabled = false;
       };
-      copilot-cmp.enable = true;
-      copilot-chat.enable = true;
+      #copilot-cmp.enable = true;
+      #copilot-chat.enable = true;
+
+      avante = {
+        enable = true;
+        settings = {
+          provider = "copilot";
+          auto_suggestions_frequency = "copilot";
+        };
+      };
 
       cmp_luasnip.enable = true;
       cmp-dap.enable = true;
