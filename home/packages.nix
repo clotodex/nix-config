@@ -31,6 +31,8 @@
       wget
       usbutils
       pciutils
+      rquickshare
+      lazygit
     ];
   };
 

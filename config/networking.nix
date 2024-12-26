@@ -42,11 +42,17 @@
     wireless.iwd.enable = true;
     firewall = {
       enable = true;
-      allowedTCPPorts = [25565];
+      allowedTCPPorts = [25565 42671];
       allowedUDPPortRanges = [
+        # minecraft
         {
           from = 25565;
           to = 25565;
+        }
+        # quickshare
+        {
+          from = 42671;
+          to = 42671;
         }
       ];
     };
