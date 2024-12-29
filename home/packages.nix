@@ -32,7 +32,6 @@
       usbutils
       pciutils
       rquickshare
-      lazygit
     ];
   };
 

@@ -8,7 +8,7 @@
     # git-fuzzy
   ];
 
-  programs.gitui.enable = true;
+  programs.lazygit.enable = true;
   programs.git = {
     enable = true;
     difftastic = {
@@ -60,7 +60,7 @@
   };
 
   home.shellAliases = {
-    g = "gitui";
+    g = "lazygit";
     ga = "git add";
     gc = "git commit -v -S";
     gca = "git commit -v -S --amend";
