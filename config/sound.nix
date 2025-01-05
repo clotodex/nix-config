@@ -13,7 +13,7 @@
   # Compare resamplers on: https://src.infinitewave.ca/
 
   # sound.enable = false; # ALSA
-  hardware.pulseaudio.enable = lib.mkForce false;
+  services.pulseaudio.enable = lib.mkForce false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
