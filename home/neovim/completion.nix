@@ -1,15 +1,15 @@
 {
   programs.nixvim = {
     plugins = {
-      luasnip = {
-        enable = true;
-        settings = {
-          history = true;
-          # Update dynamic snippets while typing
-          updateevents = "TextChanged,TextChangedI";
-          enable_autosnippets = true;
-        };
-      };
+      #luasnip = {
+      #  enable = true;
+      #  settings = {
+      #    history = true;
+      #    # Update dynamic snippets while typing
+      #    updateevents = "TextChanged,TextChangedI";
+      #    enable_autosnippets = true;
+      #  };
+      #};
 
       copilot-lua = {
         enable = true;
@@ -37,9 +37,23 @@
         settings = {
           provider = "copilot";
           auto_suggestions_frequency = "copilot";
+          copilot = {
+            model = "claude-3.5-sonnet";
+          };
+          file_selector = {
+            provider = "fzf";
+            provider_opts = { };
+          };
+
+          #compat = [ "avante_commands" "avante_mentions" ];
         };
       };
 
+      blink-compat = {
+        enable = true;
+      };
+
+      blink-cmp-copilot.enable= true;
       blink-cmp = {
         enable = true;
         settings = {
@@ -75,6 +89,7 @@
               "snippets"
               "emoji"
               "buffer"
+              "copilot"
               "avante_commands"
               "avante_mentions"
               "avante_files"
@@ -83,6 +98,12 @@
               emoji = {
                 name = "emoji";
                 module = "blink.compat.source";
+              };
+              copilot = {
+                name = "copilot";
+                module = "blink-cmp-copilot";
+                score_offset = 100;
+                async = true;
               };
               avante_commands = {
                 name = "avante_commands";
@@ -147,15 +168,23 @@
       # TODO use "ray-x/lsp_signature.nvim"
     };
 
-  #extraConfigLuaPost = ''
-  #   local cmp = require "cmp"
-  #   cmp.setup.cmdline(":", {
-  #     mapping = cmp.mapping.preset.cmdline(),
-  #     sources = {
-  #       { name = "cmdline" },
-  #       { name = "cmp-cmdline-history" },
-  #     },
-  #   })
-  # '';
+    extraConfigLuaPost = ''
+      -- monkeypatch cmp.ConfirmBehavior for Avante
+      require("cmp").ConfirmBehavior = {
+        Insert = "insert",
+        Replace = "replace",
+      }
+    '';
+
+    #extraConfigLuaPost = ''
+    #   local cmp = require "cmp"
+    #   cmp.setup.cmdline(":", {
+    #     mapping = cmp.mapping.preset.cmdline(),
+    #     sources = {
+    #       { name = "cmdline" },
+    #       { name = "cmp-cmdline-history" },
+    #     },
+    #   })
+    # '';
   };
 }
