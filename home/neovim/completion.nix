@@ -40,178 +40,122 @@
         };
       };
 
-      cmp_luasnip.enable = true;
-      cmp-dap.enable = true;
-      cmp-cmdline.enable = true;
-      cmp-cmdline-history.enable = true;
-      cmp-path.enable = true;
-      cmp-emoji.enable = true;
-      cmp-treesitter.enable = true;
-      cmp-nvim-lsp.enable = true;
-      cmp-nvim-lsp-document-symbol.enable = true;
-      cmp-nvim-lsp-signature-help.enable = true;
-      cmp = {
+      blink-cmp = {
         enable = true;
         settings = {
-          sources = [
-            {name = "nvim_lsp_signature_help";}
-            {name = "nvim_lsp";}
-            {name = "nvim_lsp_document_symbol";}
-            {name = "path";}
-            {name = "treesitter";}
-            {name = "dap";}
-            # {name = "luasnip";}
-            {name = "emoji";}
-            {name = "crates";}
-            { name = "copilot"; group_index = 2; }
-          ];
-          mapping = {
-            "<CR>" =
-              /*
-              lua
-              */
-              ''
-                cmp.mapping.confirm({
-                  behavior = cmp.ConfirmBehavior.Replace,
-                  select = false,
-                })
-              '';
-            "<C-d>" =
-              /*
-              lua
-              */
-              "cmp.mapping.scroll_docs(-4)";
-            "<C-f>" =
-              /*
-              lua
-              */
-              "cmp.mapping.scroll_docs(4)";
-            "<C-e>" =
-              /*
-              lua
-              */
-              "cmp.mapping.abort()";
-            "<Tab>" =
-              /*
-              lua
-              */
-              # TODO: adjust to mine
-              # if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
-              #   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-              #   return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
-              ''
-                cmp.mapping(function(fallback)
-                  local has_words_before = function()
-                    local line, col = table.unpack(vim.api.nvim_win_get_cursor(0))
-                    return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match "%s" == nil
-                  end
-
-                  if cmp.visible() then
-                    cmp.select_next_item()
-                  elseif require("luasnip").expandable() then
-                    require("luasnip").expand()
-                  elseif require("luasnip").expand_or_locally_jumpable() then
-                    require("luasnip").expand_or_jump()
-                  elseif has_words_before() then
-                    cmp.complete()
-                  else
-                    fallback()
-                  end
-                end, {"i", "s"})
-              '';
-            "<S-Tab>" =
-              /*
-              lua
-              */
-              ''
-                cmp.mapping(function(fallback)
-                  if cmp.visible() then
-                    cmp.select_prev_item()
-                  elseif luasnip.jumpable(-1) then
-                    luasnip.jump(-1)
-                  else
-                    fallback()
-                  end
-                end, {"i", "s"})
-              '';
+          keymap = {
+            preset = "enter";
+            "<A-Tab>" = [
+              "snippet_forward"
+              "fallback"
+            ];
+            "<A-S-Tab>" = [
+              "snippet_backward"
+              "fallback"
+            ];
+            "<Tab>" = [
+              "select_next"
+              "fallback"
+            ];
+            "<S-Tab>" = [
+              "select_prev"
+              "fallback"
+            ];
           };
-          formatting.fields = ["abbr" "kind" "menu"];
-          formatting.format =
-            /*
-            lua
-            */
-            ''
-              function(_, vim_item)
-                local icons = {
-                  Namespace = "󰌗",
-                  Text = "󰉿",
-                  Method = "󰆧",
-                  Function = "󰆧",
-                  Constructor = "",
-                  Field = "󰜢",
-                  Variable = "󰀫",
-                  Class = "󰠱",
-                  Interface = "",
-                  Module = "",
-                  Property = "󰜢",
-                  Unit = "󰑭",
-                  Value = "󰎠",
-                  Enum = "",
-                  Keyword = "󰌋",
-                  Snippet = "",
-                  Color = "󰏘",
-                  File = "󰈚",
-                  Reference = "󰈇",
-                  Folder = "󰉋",
-                  EnumMember = "",
-                  Constant = "󰏿",
-                  Struct = "󰙅",
-                  Event = "",
-                  Operator = "󰆕",
-                  TypeParameter = "󰊄",
-                  Table = "",
-                  Object = "󰅩",
-                  Tag = "",
-                  Array = "󰅪",
-                  Boolean = "",
-                  Number = "",
-                  Null = "󰟢",
-                  String = "󰉿",
-                  Calendar = "",
-                  Watch = "󰥔",
-                  Package = "",
-                  Copilot = "",
-                  Codeium = "",
-                  TabNine = "",
-                }
-                vim_item.kind = string.format("%s %s", icons[vim_item.kind], vim_item.kind)
-                return vim_item
-              end
-            '';
-          snippet.expand =
-            /*
-            lua
-            */
-            ''
-              function(args)
-                require('luasnip').lsp_expand(args.body)
-              end
-            '';
+
+          appearance = {
+            use_nvim_cmp_as_default = true;
+            nerd_font_variant = "mono";
+          };
+
+          sources = {
+            default = [
+              "lsp"
+              "path"
+              "snippets"
+              "emoji"
+              "buffer"
+              "avante_commands"
+              "avante_mentions"
+              "avante_files"
+            ];
+            providers = {
+              emoji = {
+                name = "emoji";
+                module = "blink.compat.source";
+              };
+              avante_commands = {
+                name = "avante_commands";
+                module = "blink.compat.source";
+                score_offset = 90; # show at a higher priority than lsp
+                opts = { };
+              };
+              avante_files = {
+                name = "avante_commands";
+                module = "blink.compat.source";
+                score_offset = 100; # show at a higher priority than lsp
+                opts = { };
+              };
+              avante_mentions = {
+                name = "avante_mentions";
+                module = "blink.compat.source";
+                score_offset = 1000; # show at a higher priority than lsp
+                opts = { };
+              };
+            };
+          };
+
+          signature.enabled = true;
+          completion = {
+            list.selection = "manual";
+            #   menu = {
+            #     border = "none";
+            #     draw = {
+            #       gap = 1;
+            #       treesitter = [ "lsp" ];
+            #       columns = [
+            #         {
+            #           __unkeyed-1 = "label";
+            #         }
+            #         {
+            #           __unkeyed-1 = "kind_icon";
+            #           __unkeyed-2 = "kind";
+            #           gap = 1;
+            #         }
+            #         { __unkeyed-1 = "source_name"; }
+            #       ];
+            #     };
+            #   };
+            #   trigger = {
+            #     show_in_snippet = false;
+            #   };
+            documentation = {
+              auto_show = true;
+              #     window = {
+              #       border = "rounded";
+              #     };
+            };
+            #   accept = {
+            #     auto_brackets = {
+            #       enabled = true;
+            #     };
+            #   };
+          };
         };
       };
 
       # TODO use "ray-x/lsp_signature.nvim"
     };
 
-    extraConfigLuaPost = ''
-      local cmp = require "cmp"
-      cmp.setup.cmdline(":", {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = {
-          { name = "cmdline" },
-          { name = "cmp-cmdline-history" },
-        },
-      })
-    '';
+  #extraConfigLuaPost = ''
+  #   local cmp = require "cmp"
+  #   cmp.setup.cmdline(":", {
+  #     mapping = cmp.mapping.preset.cmdline(),
+  #     sources = {
+  #       { name = "cmdline" },
+  #       { name = "cmp-cmdline-history" },
+  #     },
+  #   })
+  # '';
   };
 }
