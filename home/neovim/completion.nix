@@ -128,7 +128,10 @@
 
           signature.enabled = true;
           completion = {
-            list.selection = "manual";
+            list.selection = {
+              preselect = true;
+              auto_insert = true;
+            };
             #   menu = {
             #     border = "none";
             #     draw = {
@@ -168,13 +171,13 @@
       # TODO use "ray-x/lsp_signature.nvim"
     };
 
-    extraConfigLuaPost = ''
-      -- monkeypatch cmp.ConfirmBehavior for Avante
-      require("cmp").ConfirmBehavior = {
-        Insert = "insert",
-        Replace = "replace",
-      }
-    '';
+    #extraConfigLuaPost = ''
+    #  -- monkeypatch cmp.ConfirmBehavior for Avante
+    #  require("cmp").ConfirmBehavior = {
+    #    Insert = "insert",
+    #    Replace = "replace",
+    #  }
+    #'';
 
     #extraConfigLuaPost = ''
     #   local cmp = require "cmp"
