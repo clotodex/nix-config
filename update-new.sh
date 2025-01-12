@@ -250,7 +250,7 @@ COMMIT_HASH=$(git rev-parse HEAD)
 export NIXOS_LABEL="$COMMIT_HASH"
 
 msg ">>> Building system with NIXOS_LABEL=$NIXOS_LABEL"
-if nh os switch --nom; then
+if nh os switch --ask; then
   msg ">>> Build and switch successful!"
   exit 0
 else
