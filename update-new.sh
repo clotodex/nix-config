@@ -101,12 +101,21 @@ command_exists() {
 # If not found, fallback to a basic "select"
 choose_from_list() {
   local list=("$@")
+  
+  # Handle empty input
+  if [ ${#list[@]} -eq 0 ]; then
+    return 0
+  fi
+  
   if command_exists fzf; then
-    echo "${list[@]}" | tr ' ' '\n' | fzf --multi
+    printf '%s\n' "${list[@]}" | fzf --multi
   else
     # fallback to a simple select
     PS3="Pick an input to update (or multiple, separated by spaces). Enter '0' or 'done' to finish: "
     local chosen=()
+    # Save and restore IFS
+    local OLD_IFS="$IFS"
+    IFS=$'\n'
     select item in "${list[@]}" "done"; do
       if [[ "$item" == "done" || "$REPLY" == "0" ]]; then
         break
@@ -115,7 +124,8 @@ choose_from_list() {
       fi
     done
     # Print the results to stdout (similar to fzf behavior)
-    printf "%s\n" "${chosen[@]}"
+    printf '%s\n' "${chosen[@]}"
+    IFS="$OLD_IFS"
   fi
 }
 
@@ -137,7 +147,8 @@ if [ ! -f "flake.lock" ]; then
 fi
 
 # In the lock file, every node except "root" usually represents a flake input
-ALL_INPUTS=($(jq -r '.nodes | to_entries | map(select(.key != "root")) | .[].key' flake.lock))
+#ALL_INPUTS=($(jq -r '.nodes | to_entries | map(select(.key != "root")) | .[].key' flake.lock))
+ALL_INPUTS=($(nix flake metadata --json | jq -r '.locks.nodes.root.inputs | to_entries | .[].key'))
 if [ ${#ALL_INPUTS[@]} -eq 0 ]; then
   msg "No flake inputs found. Nothing to update."
   exit 0
@@ -153,13 +164,14 @@ NEEDS_UPDATE=()
 #  3) Revert if changed, but remember that changes are available
 
 for input in "${ALL_INPUTS[@]}"; do
+  echo "Checking $input..."
   # Stash a copy of flake.lock
   cp flake.lock flake.lock.bak
   # Try updating this specific input
-  nix flake update --update-input "$input" >/dev/null 2>&1 || true
+  nix flake update "$input" >/dev/null 2>&1 || true
 
   # Check diff
-  if ! diff --quiet flake.lock flake.lock.bak >/dev/null; then
+  if ! diff -q flake.lock flake.lock.bak >/dev/null; then
     # Means there's a newer version for this input
     NEEDS_UPDATE+=("$input")
   fi
@@ -186,8 +198,9 @@ case "$choice" in
   [cC])
     # Let user pick from NEEDS_UPDATE
     chosen=$(choose_from_list "${NEEDS_UPDATE[@]}")
-    # "choose_from_list" prints one chosen line per row; collect them
-    IFS=$'\n' read -rd '' -a update_selection <<<"$chosen"
+	echo "chosen: $chosen"
+	# Convert the multi-line output into an array
+	mapfile -t update_selection <<<"$chosen"
     ;;
   *)
     msg "Aborting."
