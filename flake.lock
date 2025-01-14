@@ -1044,10 +1044,10 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1736701207,
-        "narHash": "sha256-jG/+MvjVY7SlTakzZ2fJ5dC3V1PrKKrUEOEE30jrOKA=",
-        "path": "/nix/store/2g3q36zra5ix7qhkb8b4ikr5pmmhfm6g-source",
-        "rev": "ed4a395ea001367c1f13d34b1e01aa10290f67d6",
+        "lastModified": 1736798957,
+        "narHash": "sha256-qwpCtZhSsSNQtK4xYGzMiyEDhkNzOCz/Vfu4oL2ETsQ=",
+        "path": "/nix/store/7hw19rbs6p20l2gxbf13la04pcs2znmz-source",
+        "rev": "9abb87b552b7f55ac8916b6fc9e5cb486656a2f3",
         "type": "path"
       },
       "original": {
@@ -1300,11 +1300,11 @@
         "tinted-zed": "tinted-zed"
       },
       "locked": {
-        "lastModified": 1736779864,
-        "narHash": "sha256-OgKIMua33t0ZcdcFiUntFKidwhZrRZUTLlVHJ+mAiZQ=",
+        "lastModified": 1736882096,
+        "narHash": "sha256-TQFkQ6RN8L/Xto5Ttt6hwJInFI5Nz2uCfXg5ci2q6UA=",
         "owner": "danth",
         "repo": "stylix",
-        "rev": "934e2bfe7954d6c94f25d45cb12a8b3547825699",
+        "rev": "965d1cb7c84170200b4f05e68ebd27a88d171e8c",
         "type": "github"
       },
       "original": {
