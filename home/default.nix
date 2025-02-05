@@ -67,6 +67,7 @@ in {
 
       pkgs.project-chooser
       pkgs.earbuds
+      pkgs.figma-agent-build
       pkgs.slack
 
       pkgs.git-lfs

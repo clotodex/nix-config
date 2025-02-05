@@ -180,6 +180,22 @@
         "type": "github"
       }
     },
+    "figma-agent-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1731738965,
+        "narHash": "sha256-Cq+ivyrj6wt7DEUM730BG44sMkpOMt4qxb+J3itVar4=",
+        "owner": "neetly",
+        "repo": "figma-agent-linux",
+        "rev": "6709a1b7ffcbfb227472d8f017bfbbda77ddca7d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "neetly",
+        "repo": "figma-agent-linux",
+        "type": "github"
+      }
+    },
     "firefox-gnome-theme": {
       "flake": false,
       "locked": {
@@ -1252,6 +1268,7 @@
       "inputs": {
         "Hyprspace": "Hyprspace",
         "earbuds-src": "earbuds-src",
+        "figma-agent-src": "figma-agent-src",
         "home-manager": "home-manager",
         "hyprland": "hyprland",
         "naersk": "naersk",
