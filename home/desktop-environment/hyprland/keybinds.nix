@@ -90,6 +90,7 @@ in {
         "SUPER, Q, killactive,"
         "SUPER SHIFT, Q, exit," # old: mod shift esc
         "SUPER, return, fullscreen,1"
+        "SUPER SHIFT, return, fullscreenstate,0 3"
         "SUPER, F, togglefloating,"
 
         #bind = ALT, Tab, bringactivetotop,

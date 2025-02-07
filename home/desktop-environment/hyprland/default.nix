@@ -155,6 +155,8 @@ in {
           mouse_move_focuses_monitor = true;
           mouse_move_enables_dpms = true;
           #enable_swallow = false;
+          new_window_takes_over_fullscreen = 1;
+          exit_window_retains_fullscreen = true;
         };
 
         # xwayland.force_zero_scaling = true;
@@ -192,6 +194,7 @@ in {
 
       binds {
         focus_preferred_method = 1
+        movefocus_cycles_fullscreen = false
       }
 
       gestures {
