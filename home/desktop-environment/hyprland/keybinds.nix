@@ -67,7 +67,10 @@ in {
         "MOD5, T, exec, kitty"
 
         "SUPER SHIFT, Z, exec, pypr zoom"
-        "SUPER, Space, exec, pypr layout_center toggle"
+        #"SUPER, Space, exec, pypr layout_center toggle"
+        "SUPER, Space, scroller:setmode, row"
+        "SUPER SHIFT, Space, scroller:setmode, col"
+
         "SUPER SHIFT, W, exec, ${lib.getExe script-shuffle-wallpaper}"
 
         ", XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"

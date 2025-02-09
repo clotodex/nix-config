@@ -30,6 +30,7 @@ in {
   wayland.windowManager.hyprland = {
     enable = true;
     package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    plugins = [pkgs.hyprlandPlugins.hyprscroller];
     #plugins = [
     #  inputs.Hyprspace.packages."x86_64-linux".Hyprspace
     #];
@@ -141,7 +142,9 @@ in {
           border_size = 0;
           no_border_on_floating = true;
           #allow_tearing = true;
-          layout = "dwindle";
+          #layout = "dwindle";
+          layout = "scroller";
+
         };
 
         cursor.no_warps = true;
@@ -198,7 +201,7 @@ in {
       }
 
       gestures {
-        workspace_swipe = true
+        workspace_swipe = false
       }
 
       $opacityrule = opacity 0.9 override 0.8 override 1 override
