@@ -18,13 +18,13 @@
       url = "github:ndom91/rose-pine-hyprcursor";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    Hyprspace = {
-      url = "github:KZDKM/Hyprspace";
-      #url = "github:ReshetnikovPavel/Hyprspace";
+    #Hyprspace = {
+    #  url = "github:KZDKM/Hyprspace";
+    #  #url = "github:ReshetnikovPavel/Hyprspace";
 
-      # Hyprspace uses latest Hyprland. We declare this to keep them in sync.
-      inputs.hyprland.follows = "hyprland";
-    };
+    #  # Hyprspace uses latest Hyprland. We declare this to keep them in sync.
+    #  inputs.hyprland.follows = "hyprland";
+    #};
     nix-index-database = {
       url = "github:Mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
