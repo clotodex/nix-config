@@ -68,8 +68,11 @@ in {
 
         "SUPER SHIFT, Z, exec, pypr zoom"
         #"SUPER, Space, exec, pypr layout_center toggle"
-        "SUPER, Space, scroller:setmode, row"
-        "SUPER SHIFT, Space, scroller:setmode, col"
+        "SUPER, Space, scroller:jump,"
+        "SUPER SHIFT, Space, scroller:toggleoverview,"
+        # TODO: setup toggle
+        "SUPER, M, scroller:setmode, row"
+        "SUPER N, Space, scroller:setmode, col"
 
         "SUPER SHIFT, W, exec, ${lib.getExe script-shuffle-wallpaper}"
 
