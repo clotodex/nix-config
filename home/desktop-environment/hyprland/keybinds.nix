@@ -39,6 +39,8 @@
 
   plctl = "${pkgs.playerctl}/bin/playerctl";
   chrome = "${pkgs.google-chrome}/bin/google-chrome-stable";
+
+  scroller_scripts = import ./hyprscroller.nix { inherit pkgs; };
   # TODO: workspace = special:exposed,gapsout:20,gapsin:10,bordersize:2,border:true,shadow:true
 in {
   wayland.windowManager.hyprland.settings = {
@@ -70,9 +72,11 @@ in {
         #"SUPER, Space, exec, pypr layout_center toggle"
         "SUPER, Space, scroller:jump,"
         "SUPER SHIFT, Space, scroller:toggleoverview,"
-        # TODO: setup toggle
-        "SUPER, M, scroller:setmode, row"
-        "SUPER N, Space, scroller:setmode, col"
+        "SUPER, M, exec, ${lib.getExe scroller_scripts.scroller_toggle}"
+        "SUPER, <, exec, ${lib.getExe scroller_scripts.scroller_toggle}"
+        # TODO: feels like there are better shortcuts possible
+        "SUPER, a, scroller:admitwindow,"
+        "SUPER, e, scroller:expelwindow,"
 
         "SUPER SHIFT, W, exec, ${lib.getExe script-shuffle-wallpaper}"
 

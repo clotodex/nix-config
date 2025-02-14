@@ -2,7 +2,11 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+let
+  scroller_scripts = import ./hyprland/hyprscroller.nix { inherit pkgs; };
+in
+{
   home.packages = with pkgs; [
     waybar-custom-modules
   ];
@@ -33,6 +37,7 @@
         "custom/cpufreqline"
         "custom/memline"
         "custom/waybarthemes"
+        "custom/hyprscroller"
         "group/quicklinks"
         "hyprland/window"
         #"custom/whisper_overlay"
@@ -155,7 +160,11 @@
         format = "{icon} {volume}%";
         format-muted = " {volume}%";
         #format-icons = ["" ""];
-        format-icons = ["" "" ""];
+        format-icons = [
+          ""
+          ""
+          ""
+        ];
         on-click = "${pkgs.hyprland}/bin/hyprctl dispatch exec \"[float;pin;move 60% 0%;size 40% 50%;noborder]\" ${lib.getExe pkgs.pwvucontrol}";
         on-click-middle = "${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 100%";
         on-click-right = "${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
@@ -262,6 +271,19 @@
       #  "separate-outputs= true
       #};
 
+      "custom/hyprscroller" = {
+        exec = "${lib.getExe scroller_scripts.scroller_read}";
+        return-type = "json";
+        interval = "once";
+        signal = 8;
+        on-click = "hyprctl dispatch submap reset && pkill -SIGRTMIN+8 waybar";
+        format = "{icon}";
+        format-icons = [
+          ""
+          ""
+        ];
+      };
+
       # TODO: change to shell scripts
       "custom/hyprshade" = {
         format = "";
@@ -353,12 +375,18 @@
           children-class = "not-memory";
           transition-left-to-right = false;
         };
-        modules = ["custom/system" "disk" "cpu" "memory" "temperature"];
+        modules = [
+          "custom/system"
+          "disk"
+          "cpu"
+          "memory"
+          "temperature"
+        ];
       };
 
       "group/quicklinks" = {
         orientation = "horizontal";
-        modules = ["custom/chatgpt"];
+        modules = [ "custom/chatgpt" ];
       };
 
       battery = {
@@ -374,7 +402,13 @@
         format-alt = "{icon}  {time}";
         # "format-good= "", // An empty format will hide the module
         # "format-full= "";
-        format-icons = [" " " " " " " " " "];
+        format-icons = [
+          " "
+          " "
+          " "
+          " "
+          " "
+        ];
       };
 
       #pulseaudio = {

@@ -3,9 +3,9 @@
   pkgs,
   inputs,
   ...
-}: let
-  inherit
-    (lib)
+}:
+let
+  inherit (lib)
     concatMap
     elem
     flip
@@ -17,7 +17,10 @@
 
   rofi-drun = "rofi -show drun -theme ~/.config/rofi/launchers/type-1/style-10.rasi";
   pyprland = inputs.pyprland.packages.${pkgs.stdenv.hostPlatform.system}.pyprland;
-in {
+
+  scroller_scripts = import ./hyprscroller.nix { inherit pkgs; };
+in
+{
   imports = [
     ./keybinds.nix
   ];
@@ -25,16 +28,19 @@ in {
   home.packages = with pkgs; [
     pyprland
     inputs.rose-pine-hyprcursor.packages.${system}.default
+    scroller_scripts.scroller_listen
+    scroller_scripts.scroller_read
+    scroller_scripts.scroller_toggle
   ];
 
   wayland.windowManager.hyprland = {
     enable = true;
     package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-    plugins = [pkgs.hyprlandPlugins.hyprscroller];
+    plugins = [ pkgs.hyprlandPlugins.hyprscroller ];
     #plugins = [
     #  inputs.Hyprspace.packages."x86_64-linux".Hyprspace
     #];
-    systemd.variables = ["--all"];
+    systemd.variables = [ "--all" ];
     settings = mkMerge [
       {
         env =
@@ -59,7 +65,7 @@ in {
             "XDG_SCREENSHOTS_DIR,/home/clotodex/screenshots"
 
             #"HYPRCURSOR_THEME,rose-pine-hyprcursor"
-            "AQ_DRM_DEVICES,/dev/dri/card1" #:/dev/dri/card0"
+            "AQ_DRM_DEVICES,/dev/dri/card1" # :/dev/dri/card0"
           ];
 
         animations = {
@@ -115,6 +121,7 @@ in {
 
           "kitty /home/clotodex/.config/hypr/scripts/autostart.sh"
           "bash /home/clotodex/.config/hypr/scripts/dynamic_battery_notify.sh &"
+          "${lib.getExe scroller_scripts.scroller_listen}"
         ];
 
         input = {
@@ -184,6 +191,13 @@ in {
       binde=SHIFT,left,resizeactive,-10 0
       binde=SHIFT,up,resizeactive,0 -10
       binde=SHIFT,down,resizeactive,0 10
+      binde=,t,scroller:fitsize, active
+      binde=,a,scroller:fitsize, all
+      binde=,b,scroller:fitsize, tobeg
+      binde=,e,scroller:fitsize, toend
+      binde=,v,scroller:fitsize, visible
+      binde=,space,scroller:cyclewidth, next
+      binde=SHIFT,space,scroller:cycleheight, next
       bind=,return,submap,reset
       bind=,escape,submap,reset
       submap=reset
