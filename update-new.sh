@@ -255,7 +255,8 @@ if nh os switch --ask; then
   exit 0
 else
   warn ">>> Build failed. Reverting commit..."
-  git reset --hard HEAD~1
+  git reset --soft HEAD~1
+  # TODO: git restore flake.lock
   msg "Exiting with error."
   exit 1
 fi
