@@ -1,5 +1,8 @@
 {
-  systemd.network.wait-online.anyInterface = true;
+  systemd.network.wait-online = {
+    enable = false;
+    anyInterface = true;
+  };
 
   services = {
     tlp.enable = true;

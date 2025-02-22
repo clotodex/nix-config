@@ -223,6 +223,16 @@ in
       windowrule = $opacityrule,^(Slack)$
       windowrule = $opacityrule,^(signal)$
       windowrule = $opacityrule,^(org.telegram.desktop)$
+
+      windowrulev2 = size 640 360, title:(Picture-in-Picture)
+      windowrulev2 = pin, title:^(Picture-in-Picture)$
+      windowrulev2 = move 1906 14, title:(Picture-in-Picture)
+      windowrulev2 = float, title:^(Picture-in-Picture)$
+
+      windowrulev2 = size 640 360, title:(Picture-in-picture)
+      windowrulev2 = pin, title:^(Picture-in-picture)$
+      windowrulev2 = move 1906 14, title:(Picture-in-picture)
+      windowrulev2 = float, title:^(Picture-in-picture)$
     '';
   };
 }

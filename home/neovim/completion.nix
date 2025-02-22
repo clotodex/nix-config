@@ -53,7 +53,7 @@
         enable = true;
       };
 
-      blink-cmp-copilot.enable= true;
+      blink-cmp-copilot.enable = true;
       blink-cmp = {
         enable = true;
         settings = {
@@ -127,43 +127,13 @@
           };
 
           signature.enabled = true;
+          # TODO: maybe checkout keybinds from https://github.com/oddlama/nix-config/commit/4d2b1866260f62afb249ba4a4afa98ef6add702a
           completion = {
             list.selection = {
               preselect = false;
               auto_insert = true;
             };
-            #   menu = {
-            #     border = "none";
-            #     draw = {
-            #       gap = 1;
-            #       treesitter = [ "lsp" ];
-            #       columns = [
-            #         {
-            #           __unkeyed-1 = "label";
-            #         }
-            #         {
-            #           __unkeyed-1 = "kind_icon";
-            #           __unkeyed-2 = "kind";
-            #           gap = 1;
-            #         }
-            #         { __unkeyed-1 = "source_name"; }
-            #       ];
-            #     };
-            #   };
-            #   trigger = {
-            #     show_in_snippet = false;
-            #   };
-            documentation = {
-              auto_show = true;
-              #     window = {
-              #       border = "rounded";
-              #     };
-            };
-            #   accept = {
-            #     auto_brackets = {
-            #       enabled = true;
-            #     };
-            #   };
+            documentation.auto_show = true;
           };
         };
       };
