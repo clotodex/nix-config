@@ -8,16 +8,18 @@
     plugins = {
       notify = {
         enable = true;
-        stages = "static";
-        render.__raw =
-          # lua
-          ''"compact"'';
-        icons = {
-          debug = "";
-          error = "󰅙";
-          info = "";
-          trace = "󰰥";
-          warn = "";
+        settings = {
+          stages = "static";
+          render.__raw =
+            # lua
+            ''"compact"'';
+          icons = {
+            debug = "";
+            error = "󰅙";
+            info = "";
+            trace = "󰰥";
+            warn = "";
+          };
         };
       };
 

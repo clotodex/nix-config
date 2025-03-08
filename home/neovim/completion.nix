@@ -13,21 +13,23 @@
 
       copilot-lua = {
         enable = true;
-        filetypes = {
-          markdown = true;
-          sh.__raw = ''
-            function ()
-              if string.match(vim.fs.basename(vim.api.nvim_buf_get_name(0)), '^%.env.*') then
-                -- disable for .env files
-                return false
+        settings = {
+          filetypes = {
+            markdown = true;
+            sh.__raw = ''
+              function ()
+                if string.match(vim.fs.basename(vim.api.nvim_buf_get_name(0)), '^%.env.*') then
+                  -- disable for .env files
+                  return false
+                end
+                return true
               end
-              return true
-            end
-          '';
+            '';
+          };
+          # TODO: override server to get more completions
+          suggestion.enabled = false;
+          panel.enabled = false;
         };
-        # TODO: override server to get more completions
-        suggestion.enabled = false;
-        panel.enabled = false;
       };
       #copilot-cmp.enable = true;
       #copilot-chat.enable = true;
