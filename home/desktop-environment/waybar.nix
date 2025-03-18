@@ -287,8 +287,70 @@ in
       # TODO: change to shell scripts
       "custom/hyprshade" = {
         format = "";
-        on-click = "sleep 0.1; ~/projects/development/linux/hyprdot/hypr/scripts/toggle_hyprshade.sh";
-        on-click-right = "sleep 0.1; ~/projects/development/linux/hyprdot/hypr/scripts/toggle_hyprshade.sh rofi";
+        on-click = "${lib.getExe (
+          pkgs.writeShellApplication {
+            name = "hyprshade-toggle";
+            runtimeInputs = [
+              pkgs.hyprshade
+              pkgs.libnotify
+            ];
+            text = ''
+              if [ -z "$(hyprshade current)" ] ;then
+                  echo ":: hyprshade is not running"
+                  hyprshade on blue-light-filter
+                  notify-send "Hyprshade activated" "with $(hyprshade current)"
+                  echo ":: hyprshade started with $(hyprshade current)"
+              else
+                  notify-send "Hyprshade deactivated"
+                  echo ":: Current hyprshade $(hyprshade current)"
+                  echo ":: Switching hyprshade off"
+                  hyprshade off
+              fi
+            '';
+          }
+        )}";
+        on-click-right = "${lib.getExe (
+          pkgs.writeShellApplication {
+            name = "hyprshade-toggle-menu";
+            runtimeInputs = [
+              pkgs.hyprshade
+              pkgs.rofi
+              pkgs.libnotify
+              pkgs.gawk
+            ];
+            text = ''
+              # Open rofi to select the Hyprshade filter for toggle
+              options="$(hyprshade ls)\noff"
+
+              # Open rofi
+              choice=$(echo -e "$options" | rofi -dmenu -replace -config ~/dotfiles/rofi/config-hyprshade.rasi -i -no-show-icons -l 4 -width 30 -p "Hyprshade")
+              if [ -n "$choice" ] ;then
+                  # strip choice
+                  choice=$(echo "$choice" | awk '{print $1}')
+                  notify-send "Changing Hyprshade to $choice"
+                  hyprshade_filter=$choice
+              fi
+
+              # Toggle Hyprshade
+              if [ "$hyprshade_filter" != "off" ] ;then
+                  if [ -z "$(hyprshade current)" ] ;then
+                      echo ":: hyprshade is not running"
+                      hyprshade on "$hyprshade_filter"
+                      notify-send "Hyprshade activated" "with $(hyprshade current)"
+                      echo ":: hyprshade started with $(hyprshade current)"
+                  else
+                      notify-send "Hyprshade deactivated"
+                      echo ":: Current hyprshade $(hyprshade current)"
+                      echo ":: Switching hyprshade off"
+                      hyprshade off
+                  fi
+              else
+                  hyprshade off
+                  echo ":: hyprshade turned off"
+              fi
+            '';
+          }
+        )}";
         tooltip = false;
       };
 
