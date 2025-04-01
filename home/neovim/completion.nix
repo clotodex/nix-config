@@ -51,6 +51,21 @@
         };
       };
 
+      codecompanion = {
+        enable = true;
+        settings.strategies = {
+          chat = {
+            adapter = "copilot";
+          };
+          inline = {
+            adapter = "copilot";
+          };
+          cmd = {
+            adapter = "copilot";
+          };
+        };
+      };
+
       blink-compat = {
         enable = true;
       };
@@ -92,6 +107,7 @@
               "emoji"
               "buffer"
               "copilot"
+              "codecompanion"
               "avante_commands"
               "avante_mentions"
               "avante_files"
