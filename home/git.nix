@@ -44,6 +44,7 @@
       merge.conflictstyle = "diff3";
       mergetool.prompt = true;
       # TODO: commit.gpgsign = true;
+      rebase.autostash = true;
       pull.rebase = true;
       push.autoSetupRemote = true;
     };
