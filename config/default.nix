@@ -26,6 +26,7 @@
     ./virtualization.nix
     ./print.nix
     ./packages.nix
+    ./itsec.nix
   ];
 
 
