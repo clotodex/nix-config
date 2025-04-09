@@ -3,5 +3,6 @@
   pkgs,
   ...
 }: {
-  services.usbguard.enable = true;
+  # FIXME: generate proper rules
+  services.usbguard.enable = false;
 }
