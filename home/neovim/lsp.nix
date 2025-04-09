@@ -7,7 +7,7 @@
   programs.nixvim.plugins = {
     nvim-jdtls = {
       enable = true;
-      data = "~/.cache/jdtls/workspace";
+      #data = "~/.cache/jdtls/workspace";
       cmd = [
         "${lib.getExe pkgs.jdt-language-server}"
       ];
