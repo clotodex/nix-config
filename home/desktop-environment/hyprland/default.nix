@@ -26,8 +26,8 @@ in
   ];
 
   home.packages = with pkgs; [
-    pyprland
-    inputs.rose-pine-hyprcursor.packages.${system}.default
+    # pyprland
+    # TODO: inputs.rose-pine-hyprcursor.packages.${system}.default
     scroller_scripts.scroller_listen
     scroller_scripts.scroller_read
     scroller_scripts.scroller_toggle
@@ -114,7 +114,7 @@ in
           "wl-clipboard-history -t"
           "${pkgs.hypridle}/bin/hypridle"
 
-          "${pyprland}/bin/pypr --config '/home/clotodex/projects/development/linux/hyprdot/hypr/pyprland.toml'"
+          #"${pyprland}/bin/pypr --config '/home/clotodex/projects/development/linux/hyprdot/hypr/pyprland.toml'"
           "${pkgs.swww}/bin/swww-daemon"
           "${pkgs.swww}/bin/swww img ~/.config/hypr/tmp/wallpaper.jpg"
           "~/.config/waybar/launch.sh"
