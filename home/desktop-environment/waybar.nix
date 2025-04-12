@@ -165,7 +165,7 @@ in
           ""
           ""
         ];
-        on-click = "${pkgs.hyprland}/bin/hyprctl dispatch exec \"[float;pin;move 60% 0%;size 40% 50%;noborder]\" ${lib.getExe pkgs.pwvucontrol}";
+        on-click = "hyprctl dispatch exec \"[float;pin;move 60% 0%;size 40% 50%;noborder]\" ${lib.getExe pkgs.pwvucontrol}";
         on-click-middle = "${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 100%";
         on-click-right = "${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
         on-scroll-down = "${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%+";
@@ -291,7 +291,7 @@ in
           pkgs.writeShellApplication {
             name = "hyprshade-toggle";
             runtimeInputs = [
-              pkgs.hyprshade
+              # hyprshade
               pkgs.libnotify
             ];
             text = ''
@@ -313,7 +313,7 @@ in
           pkgs.writeShellApplication {
             name = "hyprshade-toggle-menu";
             runtimeInputs = [
-              pkgs.hyprshade
+              # hyprshade
               pkgs.rofi
               pkgs.libnotify
               pkgs.gawk

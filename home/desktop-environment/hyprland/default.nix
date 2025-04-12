@@ -206,10 +206,10 @@ in
       submap=reset
 
       env=WLR_DRM_NO_ATOMIC,1
-      windowrulev2 = immediate, class:^(cs2)$
+      windowrule = immediate, class:^(cs2)$
 
-      windowrule = idleinhibit focus, mpv
-      windowrule = idleinhibit fullscreen, firefox
+      windowrule = idleinhibit focus, class:mpv
+      windowrule = idleinhibit fullscreen, class:firefox
 
 
       binds {
@@ -222,20 +222,20 @@ in
       }
 
       $opacityrule = opacity 0.9 override 0.8 override 1 override
-      windowrule = $opacityrule,^(kitty)$ # set opacity to 0.9 active, 0.8 inactive and 1 fullscreen for everything
-      windowrule = $opacityrule,^(Slack)$
-      windowrule = $opacityrule,^(signal)$
-      windowrule = $opacityrule,^(org.telegram.desktop)$
+      windowrule = $opacityrule,class:^(kitty)$ # set opacity to 0.9 active, 0.8 inactive and 1 fullscreen for everything
+      windowrule = $opacityrule,class:^(Slack)$
+      windowrule = $opacityrule,class:^(signal)$
+      windowrule = $opacityrule,class:^(org.telegram.desktop)$
 
-      windowrulev2 = size 640 360, title:(Picture-in-Picture)
-      windowrulev2 = pin, title:^(Picture-in-Picture)$
-      windowrulev2 = move 1906 14, title:(Picture-in-Picture)
-      windowrulev2 = float, title:^(Picture-in-Picture)$
+      windowrule = size 640 360, title:(Picture-in-Picture)
+      windowrule = pin, title:^(Picture-in-Picture)$
+      windowrule = move 1906 14, title:(Picture-in-Picture)
+      windowrule = float, title:^(Picture-in-Picture)$
 
-      windowrulev2 = size 640 360, title:(Picture-in-picture)
-      windowrulev2 = pin, title:^(Picture-in-picture)$
-      windowrulev2 = move 1906 14, title:(Picture-in-picture)
-      windowrulev2 = float, title:^(Picture-in-picture)$
+      windowrule = size 640 360, title:(Picture-in-picture)
+      windowrule = pin, title:^(Picture-in-picture)$
+      windowrule = move 1906 14, title:(Picture-in-picture)
+      windowrule = float, title:^(Picture-in-picture)$
     '';
   };
 }

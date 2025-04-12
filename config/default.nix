@@ -31,7 +31,7 @@
 
 
   nixpkgs.overlays =
-    (import ../pkgs/default.nix inputs)
+    (import ../pkgs/default.nix { inherit inputs pkgs; })
     ++ [
       inputs.nixos-extra-modules.overlays.default
       inputs.nixvim.overlays.default

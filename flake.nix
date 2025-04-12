@@ -10,7 +10,8 @@
     };
     hyprland = {
       #url = "github:hyprwm/Hyprland/v0.41.1?submodules=1";
-      url = "git+https://github.com/hyprwm/Hyprland/?submodules=1"; #&rev=882f7ad7d2bbfc7440d0ccaef93b1cdd78e8e3ff";
+      #url = "git+https://github.com/hyprwm/Hyprland?submodules=1"; #&rev=882f7ad7d2bbfc7440d0ccaef93b1cdd78e8e3ff";
+      url = "git+https://github.com/hyprwm/Hyprland?submodules=1&ref=v0.48.1-b";
       #url = "git+https://github.com/hyprwm/Hyprland/?submodules=1&rev=e4abf26069b4d43c8f6ad6b3dfb56c952abb38c2";
       #inputs.hyprutils.url = "github:hyprwm/hyprutils/v0.5.2";
       #url = "github:hyprwm/Hyprland";

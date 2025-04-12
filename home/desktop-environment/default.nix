@@ -5,14 +5,14 @@
   ];
 
   home.packages = with pkgs; [
-    grimblast
+    (grimblast.override { hyprland = null; })
     swaylock
     hyprpicker
     wl-clipboard
     swww
     rofi-wayland
     libnotify
-    hyprshade
+    (hyprshade.override { hyprland = null; })
   ];
 
   services.hypridle = {
