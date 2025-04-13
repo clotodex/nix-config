@@ -199,6 +199,7 @@ in
       binde=,b,scroller:fitsize, tobeg
       binde=,e,scroller:fitsize, toend
       binde=,v,scroller:fitsize, visible
+      binde=,m,scroller:alignwindow, m
       binde=,space,scroller:cyclewidth, next
       binde=SHIFT,space,scroller:cycleheight, next
       bind=,return,submap,reset
