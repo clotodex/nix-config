@@ -40,11 +40,22 @@
           provider = "copilot";
           auto_suggestions_frequency = "copilot";
           copilot = {
-            model = "claude-3.7-sonnet";
+            #model = "claude-3.7-sonnet";
+            model = "gemini-2.5-pro";
           };
           file_selector = {
             provider = "fzf";
             provider_opts = { };
+          };
+          behaviour = {
+            # auto_suggestions = false, -- Experimental stage
+            # auto_suggestions_respect_ignore = false,
+            auto_apply_diff_after_generation = true;
+            # jump_result_buffer_on_finish = false,
+            # support_paste_from_clipboard = false,
+            # enable_cursor_planning_mode = false,
+            # enable_claude_text_editor_tool_mode = false,
+            use_cwd_as_project_root = true;
           };
 
           #compat = [ "avante_commands" "avante_mentions" ];
