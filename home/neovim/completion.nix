@@ -43,10 +43,6 @@
             #model = "claude-3.7-sonnet";
             model = "gemini-2.5-pro";
           };
-          file_selector = {
-            provider = "fzf";
-            provider_opts = { };
-          };
           behaviour = {
             # auto_suggestions = false, -- Experimental stage
             # auto_suggestions_respect_ignore = false,
@@ -57,6 +53,9 @@
             # enable_claude_text_editor_tool_mode = false,
             use_cwd_as_project_root = true;
           };
+          mappings.sidebar.close = "q"; # TODO: actually set (list) but idk how to do that
+          file_selector.provider = "telescope";
+          selector.provider = "telescope";
 
           #compat = [ "avante_commands" "avante_mentions" ];
         };
