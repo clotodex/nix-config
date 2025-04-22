@@ -691,11 +691,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1745256380,
-        "narHash": "sha256-hJH1S5Xy0K2J6eT22AMDIcQ07E8XYC1t7DnXUr2llEM=",
+        "lastModified": 1745272532,
+        "narHash": "sha256-+sFbKw1vFkulKYxsAbz84N0V/goSg808IgFh8iWe/As=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "22b326b42bf42973d5e4fe1044591fb459e6aeac",
+        "rev": "81541ea36d1fead4be7797e826ee325d4c19308b",
         "type": "github"
       },
       "original": {
@@ -1373,11 +1373,11 @@
         "nuschtosSearch": "nuschtosSearch"
       },
       "locked": {
-        "lastModified": 1745244491,
-        "narHash": "sha256-UlwXkytxGW/aokB9fZ6cSznYKM9ynDLHqhjcPve0KL4=",
+        "lastModified": 1745280514,
+        "narHash": "sha256-arfQjY0bFVAgoFTK3Ira6SHW8DxH9YpG3pW4AUT4NKY=",
         "owner": "nix-community",
         "repo": "nixvim",
-        "rev": "7a58109958d14bcece8ec3e2085e41ea3351e387",
+        "rev": "d4a0db2103d52b3b8e3ae502497ef9f19b048508",
         "type": "github"
       },
       "original": {
@@ -1632,6 +1632,22 @@
         "type": "github"
       }
     },
+    "project-chooser-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1745304956,
+        "narHash": "sha256-9OdwUYi5egxMSA/1rR/LRCdQ04k6IrNP+FlkuIBz20I=",
+        "owner": "clotodex",
+        "repo": "project-chooser",
+        "rev": "08b7234a888aa5730cb76394f3d0d79689e7d288",
+        "type": "github"
+      },
+      "original": {
+        "owner": "clotodex",
+        "repo": "project-chooser",
+        "type": "github"
+      }
+    },
     "pyprland": {
       "inputs": {
         "flake-compat": "flake-compat_5",
@@ -1668,6 +1684,7 @@
         "nixpkgs": "nixpkgs_4",
         "nixpkgs-2311": "nixpkgs-2311",
         "nixvim": "nixvim",
+        "project-chooser-src": "project-chooser-src",
         "pyprland": "pyprland",
         "rose-pine-hyprcursor": "rose-pine-hyprcursor",
         "stylix": "stylix",

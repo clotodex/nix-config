@@ -59,6 +59,10 @@
       url = "github:JojiiOfficial/LiveBudsCli?rev=1690eab9116dc9fb576372a7cd234cc28de0a112";
       flake = false;
     };
+    project-chooser-src = {
+      url = "github:clotodex/project-chooser";
+      flake = false;
+    };
     figma-agent-src = {
       url = "github:neetly/figma-agent-linux";
       flake = false;

@@ -3,7 +3,7 @@
   (import ./scripts)
   (_final: prev: {
     segoe-ui-ttf = prev.callPackage ./segoe-ui-ttf.nix { };
-    project-chooser = prev.callPackage ./project-chooser.nix { };
+    project-chooser = prev.callPackage ./project-chooser-naersk.nix { inherit inputs; };
     #earbuds = prev.callPackage ./earbuds.nix {};
     earbuds = prev.callPackage ../pkgs/earbuds.nix { inherit inputs; };
     figma-agent-build = prev.callPackage ../pkgs/figma-agent.nix { inherit inputs; };
