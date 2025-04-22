@@ -53,19 +53,22 @@ in
             #  "__GLX_VENDOR_LIBRARY_NAME,nvidia"
             #]
             #++ [
+            "XDG_SESSION_TYPE,wayland"
+
             "NIXOS_OZONE_WL,1"
             "MOZ_ENABLE_WAYLAND,1"
             "MOZ_WEBRENDER,1"
             "_JAVA_AWT_WM_NONREPARENTING,1"
             "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
             "QT_QPA_PLATFORM,wayland"
-            "SDL_VIDEODRIVER,wayland"
+            #"SDL_VIDEODRIVER,wayland"
             "GDK_BACKEND,wayland"
 
             "XDG_SCREENSHOTS_DIR,/home/clotodex/screenshots"
 
             #"HYPRCURSOR_THEME,rose-pine-hyprcursor"
             "AQ_DRM_DEVICES,/dev/dri/card1" # :/dev/dri/card0"
+            "AQ_NO_MODIFIERS,1"
           ];
 
         animations = {
@@ -105,10 +108,12 @@ in
           blurls = "waybar";
         };
         exec-once = [
-          "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-          "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-          "systemctl --user restart xdg-desktop-portal.service"
-          "${pkgs.waybar}/bin/waybar"
+          "uwsm finalize"
+          #"dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+          #"systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+          #"systemctl --user restart xdg-desktop-portal.service"
+          #"${pkgs.waybar}/bin/waybar"
+          # TODO: are all these exec-ones needed or can we switch them to uwsm?
           "${pkgs.swaynotificationcenter}/bin/swaync"
           # "${lib.getExe pkgs.whisper-overlay}"
           "wl-clipboard-history -t"

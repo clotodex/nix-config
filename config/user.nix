@@ -4,9 +4,11 @@
   pkgs,
   minimal,
   ...
-}: let
+}:
+let
   myuser = "clotodex";
-in {
+in
+{
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
 
@@ -17,7 +19,7 @@ in {
     #   font = "Lat2-Terminus16";
     keyMap = "de-latin1-nodeadkeys";
     font = "ter-v28n";
-    packages = [pkgs.terminus_font];
+    packages = [ pkgs.terminus_font ];
     #   useXkbConfig = true; # use xkb.options in tty.
   };
 
@@ -28,7 +30,13 @@ in {
     createHome = true;
     # group = myuser;
     group = "users";
-    extraGroups = ["wheel" "input" "sudo" "sound" "video"];
+    extraGroups = [
+      "wheel"
+      "input"
+      "sudo"
+      "sound"
+      "video"
+    ];
     isNormalUser = true;
     autoSubUidGidRange = false;
     shell = pkgs.zsh;
@@ -44,7 +52,11 @@ in {
     # because the fpath changes in-between, causing constant re-evaluation and thus startup
     # times of 1-2 seconds. Disable the completion here and only keep the home-manager one to fix it.
     enableCompletion = false;
+    # Autostart hyprland if on tty1 (once, don't restart after logout)
   };
+
+  # TODO: Autologin
+  # services.getty.autologinUser = myuser;
 
   home-manager.users.${myuser} = {
     imports = [
@@ -60,6 +72,13 @@ in {
       # ./gpg.nix
       # ./ssh.nix
     ];
+
+    programs.zsh.initExtra = lib.mkOrder 9999 ''
+      if [[ -t 0 && "$(tty || true)" == /dev/tty1 && -z "$DISPLAY" && -z "$WAYLAND_DISPLAY" ]] && uwsm check may-start; then
+        echo "Login shell detected. Starting Hyprland..."
+        uwsm start -S -F Hyprland
+      fi
+    '';
 
     # home = {
     #   inherit (config.users.users.${myuser}) uid;

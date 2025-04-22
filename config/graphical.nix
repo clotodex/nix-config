@@ -37,6 +37,22 @@ in {
     };
     #programs.waybar.enable = true;
 
+    # We actually use the home-manager module to add the actual portal config,
+    # but need this so relevant implementations are found
+    environment.pathsToLink = [
+      "/share/xdg-desktop-portal"
+    ];
+
+    services.displayManager.enable = true;
+    programs.uwsm = {
+      enable = true;
+      waylandCompositors.hyprland = {
+        prettyName = "Hyprland";
+        comment = "Hyprland";
+        binPath = lib.getExe inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+      };
+    };
+
     xdg.portal = {
       enable = true;
       xdgOpenUsePortal = true;
