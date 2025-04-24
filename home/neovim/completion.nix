@@ -52,6 +52,7 @@
             # enable_cursor_planning_mode = false,
             # enable_claude_text_editor_tool_mode = false,
             use_cwd_as_project_root = true;
+            support_paste_from_clipboard = true;
           };
           mappings.sidebar.close = "q"; # TODO: actually set (list) but idk how to do that
           file_selector.provider = "telescope";
