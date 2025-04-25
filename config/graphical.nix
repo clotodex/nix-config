@@ -53,23 +53,6 @@ in {
       };
     };
 
-    xdg.portal = {
-      enable = true;
-      xdgOpenUsePortal = true;
-      config.common = {
-        default = ["gtk"];
-        "org.freedesktop.impl.portal.Secret" = ["gnome-keyring"];
-        "org.freedesktop.impl.portal.ScreenCast" = ["hyprland"];
-        "org.freedesktop.impl.portal.Screenshot" = ["hyprland"];
-        "org.freedesktop.portal.FileChooser" = ["xdg-desktop-portal-gtk"];
-      };
-      extraPortals = [
-        # pkgs.xdg-desktop-portal-hyprland
-        # pkgs.xdg-desktop-portal-wlr
-        pkgs.xdg-desktop-portal-gtk
-        inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland
-      ];
-    };
 
     stylix = {
       # I want to choose what to style myself.
