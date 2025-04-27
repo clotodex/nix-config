@@ -6,6 +6,7 @@
 
   services = {
     tlp.enable = true;
+    upower.enable = true;
     physlock.enable = true;
     logind = {
       lidSwitch = "ignore";

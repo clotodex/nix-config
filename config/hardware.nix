@@ -20,6 +20,9 @@
     cpu.intel.updateMicrocode = true;
   };
 
+  #boot.kernelParams = [ "i915.force_probe=46a6" ];
+
+
   services = {
     fwupd.enable = true;
     smartd.enable = true;
