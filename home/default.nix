@@ -6,6 +6,7 @@
   ...
 }: let
   pkgs-old = import inputs.nixpkgs-2311 {system = pkgs.stdenv.system;};
+  pkgs-unstable = import inputs.nixpkgs-unstable {system = pkgs.stdenv.system;};
 in {
   home.stateVersion = "24.05";
 
@@ -78,6 +79,7 @@ in {
 
       pkgs.blueman
       pkgs-old.galaxy-buds-client
+      pkgs-unstable.devenv
     ];
 
     # TODO: projects/external

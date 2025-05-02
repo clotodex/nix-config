@@ -40,6 +40,5 @@
     rustc
     cargo
     kitty.terminfo
-    devenv
   ];
 }
