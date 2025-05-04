@@ -41,7 +41,7 @@
     distributedBuilds = true;
     extraOptions = ''
       builders-use-substitutes = true
-      experimental-features = nix-command flakes
+      experimental-features = nix-command flakes pipe-operators
       flake-registry = /etc/nix/registry.json
     '';
     nixPath = ["nixpkgs=/run/current-system/nixpkgs"];
