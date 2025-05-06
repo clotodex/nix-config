@@ -227,7 +227,7 @@ in
         workspace_swipe = false
       }
 
-      $opacityrule = opacity 0.9 override 0.8 override 1 override
+      $opacityrule = opacity 0.95 override 0.8 override 1 override
       windowrule = $opacityrule,class:^(kitty)$ # set opacity to 0.9 active, 0.8 inactive and 1 fullscreen for everything
       windowrule = $opacityrule,class:^(Slack)$
       windowrule = $opacityrule,class:^(signal)$
