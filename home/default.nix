@@ -8,7 +8,7 @@
   pkgs-old = import inputs.nixpkgs-2311 {system = pkgs.stdenv.system;};
   pkgs-unstable = import inputs.nixpkgs-unstable {system = pkgs.stdenv.system;};
 in {
-  home.stateVersion = "24.05";
+  home.stateVersion = "25.05";
 
   imports = [
     ./git.nix
