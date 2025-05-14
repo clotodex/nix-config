@@ -41,7 +41,8 @@
           auto_suggestions_frequency = "copilot";
           copilot = {
             #model = "claude-3.7-sonnet";
-            model = "gemini-2.5-pro";
+            #model = "gemini-2.5-pro";
+            model = "gpt-o4-mini";
           };
           behaviour = {
             # auto_suggestions = false, -- Experimental stage
