@@ -40,9 +40,9 @@
           provider = "copilot";
           auto_suggestions_frequency = "copilot";
           copilot = {
-            #model = "claude-3.7-sonnet";
+            model = "claude-3.7-sonnet";
             #model = "gemini-2.5-pro";
-            model = "gpt-o4-mini";
+            #model = "gpt-4.1";
           };
           behaviour = {
             # auto_suggestions = false, -- Experimental stage
