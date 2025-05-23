@@ -18,6 +18,10 @@
       #url = "github:hyprwm/Hyprland";
       #inputs.nixpkgs.follows = "nixpkgs";
     };
+    hyprland-plugins = {
+      url = "github:hyprwm/hyprland-plugins";
+      inputs.hyprland.follows = "hyprland";
+    };
     rose-pine-hyprcursor = {
       url = "github:ndom91/rose-pine-hyprcursor";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -74,50 +78,53 @@
     };
   };
 
-  outputs = inputs @ {
-    self,
-    nixpkgs,
-    home-manager,
-    ...
-  }: let
-    system = "x86_64-linux";
+  outputs =
+    inputs@{
+      self,
+      nixpkgs,
+      home-manager,
+      ...
+    }:
+    let
+      system = "x86_64-linux";
 
-    pkgs = import nixpkgs {
-      inherit system;
+      pkgs = import nixpkgs {
+        inherit system;
 
-      config = {
-        allowUnfree = true;
-      };
-    };
-  in {
-    nixosConfigurations = {
-      kotn = nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          inherit system;
-          inherit inputs;
+        config = {
+          allowUnfree = true;
         };
-        modules = [
-          ./hardware-configuration.nix
-          ./config
-          # inputs.home-manager.nixosModule.default
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.extraSpecialArgs = {inherit inputs;};
-            home-manager.sharedModules = [
-              # inputs.nixos-extra-modules.homeManagerModules.default
-              inputs.nix-index-database.hmModules.nix-index
-              inputs.nixvim.homeManagerModules.nixvim
-            ];
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            #home-manager.users.clotodex = {
-            #	imports = [
-            #	./home.nix
-            #	./shell/default.nix
-            #];};
-          }
-        ];
+      };
+    in
+    {
+      nixosConfigurations = {
+        kotn = nixpkgs.lib.nixosSystem {
+          specialArgs = {
+            inherit system;
+            inherit inputs;
+          };
+          modules = [
+            ./hardware-configuration.nix
+            ./config
+            # inputs.home-manager.nixosModule.default
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.extraSpecialArgs = { inherit inputs; };
+              home-manager.sharedModules = [
+                # inputs.nixos-extra-modules.homeManagerModules.default
+                inputs.nix-index-database.hmModules.nix-index
+                inputs.nixvim.homeManagerModules.nixvim
+              ];
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              #home-manager.users.clotodex = {
+              #	imports = [
+              #	./home.nix
+              #	./shell/default.nix
+              #];};
+            }
+          ];
+        };
       };
     };
-  };
 }
