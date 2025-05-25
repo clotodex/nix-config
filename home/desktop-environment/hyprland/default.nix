@@ -211,8 +211,8 @@ in
       binde=,e,layoutmsg,fit toend
       binde=,v,layoutmsg,fit visible
       binde=,m,layoutmsg,focus t
-      binde=,space,layoutmsg,"colresize +conf"
-      binde=SHIFT,space,layoutmsg,"colresize -conf"
+      binde=,space,layoutmsg,colresize +conf
+      binde=SHIFT,space,layoutmsg,colresize -conf
       bind=,return,submap,reset
       bind=,escape,submap,reset
       submap=reset
