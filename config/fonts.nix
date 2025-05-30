@@ -38,7 +38,6 @@
       noto-fonts-emoji
       noto-fonts-extra
       # nerd-fonts
-      noto-fonts-emoji
       liberation_ttf
       fira-code
       fira-code-symbols
@@ -54,6 +53,7 @@
       source-serif-pro
       source-code-pro
       roboto
+
     ];
   };
 
