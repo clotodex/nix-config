@@ -5,15 +5,16 @@
   minimal,
   pkgs,
   ...
-}: let
-  inherit
-    (lib)
+}:
+let
+  inherit (lib)
     mkIf
     mkOption
     types
     optionalAttrs
     ;
-in {
+in
+{
   imports = [
     inputs.stylix.nixosModules.stylix
   ];
@@ -22,7 +23,7 @@ in {
     # Needed for gtk
     programs.dconf.enable = true;
     # Required for gnome3 pinentry
-    services.dbus.packages = [pkgs.gcr];
+    services.dbus.packages = [ pkgs.gcr ];
 
     environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
@@ -33,7 +34,8 @@ in {
       # set the flake package
       package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
       # make sure to also set the portal package, so that they are in sync
-      portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+      portalPackage =
+        inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
     };
     #programs.waybar.enable = true;
 
@@ -53,8 +55,9 @@ in {
       };
     };
 
-
     stylix = {
+      enable = true;
+
       # I want to choose what to style myself.
       autoEnable = false;
       image = config.lib.stylix.pixel "base00";
