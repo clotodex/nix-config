@@ -65,7 +65,7 @@
     };
     style =
       lib.concatLines (
-        map (c: "@define-color ${c} ${config.lib.stylix.colors.withHashtag.${c}};") [
+        map (c: "@define-color ${c} ${config.lib.colors.withHashtag.${c}};") [
           "base00"
           "base01"
           "base02"

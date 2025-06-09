@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   fonts = {
     # Always prefer emojis even if the original font would provide a glyph
     fontconfig.localConf = ''
@@ -54,30 +55,21 @@
       source-code-pro
       roboto
 
+      dejavu_fonts
+      segoe-ui-ttf
+      jetbrains-mono
+
     ];
-  };
 
-  stylix.fonts = {
-    serif = {
-      package = pkgs.dejavu_fonts;
-      name = "IBM Plex Serif";
-    };
-
-    sansSerif = {
-      package = pkgs.segoe-ui-ttf;
-      name = "Segoe UI";
-    };
-
-    monospace = {
-      # No need for patched nerd fonts, kitty can pick up on them automatically,
-      # and ideally every program should do that: https://sw.kovidgoyal.net/kitty/faq/#kitty-is-not-able-to-use-my-favorite-font
-      package = pkgs.jetbrains-mono;
-      name = "JetBrains Mono";
-    };
-
-    emoji = {
-      package = pkgs.segoe-ui-ttf;
-      name = "Segoe UI Emoji";
+    fontconfig.defaultFonts = {
+      serif = [ "IBM Plex Serif" ];
+      sansSerif = [ "Segoe UI" ];
+      emoji = [ "Segoe UI Emoji" ];
+      monospace = [
+        # No need for patched nerd fonts, kitty can pick up on them automatically,
+        # and ideally every program should do that: https://sw.kovidgoyal.net/kitty/faq/#kitty-is-not-able-to-use-my-favorite-font
+        "JetBrains Mono"
+      ];
     };
   };
 }

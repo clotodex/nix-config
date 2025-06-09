@@ -3,11 +3,14 @@
   nixosConfig,
   pkgs,
   inputs,
+config,
   ...
-}: let
-  pkgs-old = import inputs.nixpkgs-2311 {system = pkgs.stdenv.system;};
-  pkgs-unstable = import inputs.nixpkgs-unstable {system = pkgs.stdenv.system;};
-in {
+}:
+let
+  pkgs-old = import inputs.nixpkgs-2311 { system = pkgs.stdenv.system; };
+  pkgs-unstable = import inputs.nixpkgs-unstable { system = pkgs.stdenv.system; };
+in
+{
   home.stateVersion = "25.05";
 
   imports = [
@@ -15,7 +18,7 @@ in {
     ./ssh.nix
     ./kitty.nix
     ./swaync
-    ./theme
+    ./theme.nix
     ./neovim
     ./direnv.nix
     ./packages.nix
@@ -34,7 +37,6 @@ in {
     # # X11
     # ./i3.nix
     # ./flameshot.nix
-    # ./wired-notify.nix
 
     # # Wayland
     # ./hyprland.nix
@@ -44,9 +46,30 @@ in {
     # ./swww.nix
   ];
 
+  programs.fuzzel = {
+    enable = true;
+    settings.colors = with config.lib.colors.hex; {
+      background = "${base00}ff";
+      text = "${base05}ff";
+      placeholder = "${base03}ff";
+      prompt = "${base05}ff";
+      input = "${base05}ff";
+      match = "${base0A}ff";
+      selection = "${base03}ff";
+      selection-text = "${base05}ff";
+      selection-match = "${base0A}ff";
+      counter = "${base06}ff";
+      border = "${base0D}ff";
+    };
+    settings.main = {
+      font = "Segoe UI:size=20";
+      launch-prefix = "uwsm app --";
+    };
+  };
+
   home = {
     packages = [
-    pkgs.mpv
+      pkgs.mpv
       pkgs.firefox
       pkgs.brightnessctl
       pkgs.telegram-desktop

@@ -16,7 +16,6 @@ let
     ;
 
   rofi-drun = "rofi -show drun -theme ~/.config/rofi/launchers/type-1/style-10.rasi";
-  pyprland = inputs.pyprland.packages.${pkgs.stdenv.hostPlatform.system}.pyprland;
 
   scroller_scripts = import ./hyprscroller.nix { inherit pkgs; };
 in
@@ -26,7 +25,6 @@ in
   ];
 
   home.packages = with pkgs; [
-    # pyprland
     # TODO: inputs.rose-pine-hyprcursor.packages.${system}.default
     scroller_scripts.scroller_listen
     scroller_scripts.scroller_read
@@ -124,7 +122,6 @@ in
           "wl-clipboard-history -t"
           "${pkgs.hypridle}/bin/hypridle"
 
-          #"${pyprland}/bin/pypr --config '/home/clotodex/projects/development/linux/hyprdot/hypr/pyprland.toml'"
           "${pkgs.swww}/bin/swww-daemon"
           "${pkgs.swww}/bin/swww img ~/.config/hypr/tmp/wallpaper.jpg"
           "~/.config/waybar/launch.sh"
