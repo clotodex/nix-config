@@ -9,19 +9,19 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprland = {
-      #url = "github:hyprwm/Hyprland/v0.41.1?submodules=1";
-      #url = "git+https://github.com/hyprwm/Hyprland?submodules=1"; #&rev=882f7ad7d2bbfc7440d0ccaef93b1cdd78e8e3ff";
-      url = "github:hyprwm/Hyprland"; #/v0.49.0"; #?submodules=1"; #&ref=9958d29"; # &ref=v0.48.1-b";
-      #url = "git+https://github.com/hyprwm/Hyprland/?submodules=1&rev=e4abf26069b4d43c8f6ad6b3dfb56c952abb38c2";
-      #inputs.hyprutils.url = "github:hyprwm/hyprutils/v0.7.0";
-      #inputs.hyprgraphics.url = "github:hyprwm/hyprgraphics/v0.1.3";
-      #url = "github:hyprwm/Hyprland";
-      #inputs.nixpkgs.follows = "nixpkgs";
-    };
+    #hyprland = {
+    #  #url = "github:hyprwm/Hyprland/v0.41.1?submodules=1";
+    #  #url = "git+https://github.com/hyprwm/Hyprland?submodules=1"; #&rev=882f7ad7d2bbfc7440d0ccaef93b1cdd78e8e3ff";
+    #  url = "github:hyprwm/Hyprland"; #/v0.49.0"; #?submodules=1"; #&ref=9958d29"; # &ref=v0.48.1-b";
+    #  #url = "git+https://github.com/hyprwm/Hyprland/?submodules=1&rev=e4abf26069b4d43c8f6ad6b3dfb56c952abb38c2";
+    #  #inputs.hyprutils.url = "github:hyprwm/hyprutils/v0.7.0";
+    #  #inputs.hyprgraphics.url = "github:hyprwm/hyprgraphics/v0.1.3";
+    #  #url = "github:hyprwm/Hyprland";
+    #  #inputs.nixpkgs.follows = "nixpkgs";
+    #};
     hyprland-plugins = {
       url = "github:hyprwm/hyprland-plugins";
-      inputs.hyprland.follows = "hyprland";
+      #inputs.hyprland.follows = "hyprland";
     };
     rose-pine-hyprcursor = {
       url = "github:ndom91/rose-pine-hyprcursor";
