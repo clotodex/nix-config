@@ -35,8 +35,13 @@ in
 
   wayland.windowManager.hyprland = {
     enable = true;
-    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-    plugins = [ pkgs.hyprlandPlugins.hyprscroller ];
+    #package = null; # inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    #portalPackage = null; #inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+    package = null; #inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    portalPackage = null;
+      #inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+
+    plugins = [ inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprscrolling ];
     #plugins = [
     #  inputs.Hyprspace.packages."x86_64-linux".Hyprspace
     #];
@@ -155,7 +160,7 @@ in
           no_border_on_floating = true;
           #allow_tearing = true;
           #layout = "dwindle";
-          layout = "scroller";
+          layout = "scrolling";
 
         };
 
@@ -189,6 +194,7 @@ in
       }
     ];
 
+    # TODO: there seems to not be height cycling yet
     extraConfig = ''
       submap=resize
       binde=,right,resizeactive,80 0
@@ -199,14 +205,14 @@ in
       binde=SHIFT,left,resizeactive,-10 0
       binde=SHIFT,up,resizeactive,0 -10
       binde=SHIFT,down,resizeactive,0 10
-      binde=,t,scroller:fitsize, active
-      binde=,a,scroller:fitsize, all
-      binde=,b,scroller:fitsize, tobeg
-      binde=,e,scroller:fitsize, toend
-      binde=,v,scroller:fitsize, visible
-      binde=,m,scroller:alignwindow, m
-      binde=,space,scroller:cyclewidth, next
-      binde=SHIFT,space,scroller:cycleheight, next
+      binde=,t,layoutmsg,fit active
+      binde=,a,layoutmsg,fit all
+      binde=,b,layoutmsg,fit tobeg
+      binde=,e,layoutmsg,fit toend
+      binde=,v,layoutmsg,fit visible
+      binde=,m,layoutmsg,focus t
+      binde=,space,layoutmsg,colresize +conf
+      binde=SHIFT,space,layoutmsg,colresize -conf
       bind=,return,submap,reset
       bind=,escape,submap,reset
       submap=reset

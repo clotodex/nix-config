@@ -1,4 +1,9 @@
-{ pkgs, inputs, ... }:
+{
+  pkgs,
+  inputs,
+  lib,
+  ...
+}:
 {
   imports = [
     ./hyprland
@@ -30,7 +35,7 @@
   };
 
   xdg.portal = {
-    enable = true;
+    enable = lib.mkForce true;
     xdgOpenUsePortal = true;
     config.common = {
       default = [ "gtk" ];

@@ -12,11 +12,16 @@
     hyprland = {
       #url = "github:hyprwm/Hyprland/v0.41.1?submodules=1";
       #url = "git+https://github.com/hyprwm/Hyprland?submodules=1"; #&rev=882f7ad7d2bbfc7440d0ccaef93b1cdd78e8e3ff";
-      url = "git+https://github.com/hyprwm/Hyprland?submodules=1&ref=v0.48.1-b";
+      url = "github:hyprwm/Hyprland"; #/v0.49.0"; #?submodules=1"; #&ref=9958d29"; # &ref=v0.48.1-b";
       #url = "git+https://github.com/hyprwm/Hyprland/?submodules=1&rev=e4abf26069b4d43c8f6ad6b3dfb56c952abb38c2";
-      #inputs.hyprutils.url = "github:hyprwm/hyprutils/v0.5.2";
+      #inputs.hyprutils.url = "github:hyprwm/hyprutils/v0.7.0";
+      #inputs.hyprgraphics.url = "github:hyprwm/hyprgraphics/v0.1.3";
       #url = "github:hyprwm/Hyprland";
       #inputs.nixpkgs.follows = "nixpkgs";
+    };
+    hyprland-plugins = {
+      url = "github:hyprwm/hyprland-plugins";
+      inputs.hyprland.follows = "hyprland";
     };
     rose-pine-hyprcursor = {
       url = "github:ndom91/rose-pine-hyprcursor";
@@ -48,7 +53,7 @@
     stylix = {
       url = "github:danth/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
+      #inputs.home-manager.follows = "home-manager";
     };
 
     nixvim = {
@@ -74,50 +79,53 @@
     };
   };
 
-  outputs = inputs @ {
-    self,
-    nixpkgs,
-    home-manager,
-    ...
-  }: let
-    system = "x86_64-linux";
+  outputs =
+    inputs@{
+      self,
+      nixpkgs,
+      home-manager,
+      ...
+    }:
+    let
+      system = "x86_64-linux";
 
-    pkgs = import nixpkgs {
-      inherit system;
+      pkgs = import nixpkgs {
+        inherit system;
 
-      config = {
-        allowUnfree = true;
-      };
-    };
-  in {
-    nixosConfigurations = {
-      kotn = nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          inherit system;
-          inherit inputs;
+        config = {
+          allowUnfree = true;
         };
-        modules = [
-          ./hardware-configuration.nix
-          ./config
-          # inputs.home-manager.nixosModule.default
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.extraSpecialArgs = {inherit inputs;};
-            home-manager.sharedModules = [
-              # inputs.nixos-extra-modules.homeManagerModules.default
-              inputs.nix-index-database.hmModules.nix-index
-              inputs.nixvim.homeManagerModules.nixvim
-            ];
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            #home-manager.users.clotodex = {
-            #	imports = [
-            #	./home.nix
-            #	./shell/default.nix
-            #];};
-          }
-        ];
+      };
+    in
+    {
+      nixosConfigurations = {
+        kotn = nixpkgs.lib.nixosSystem {
+          specialArgs = {
+            inherit system;
+            inherit inputs;
+          };
+          modules = [
+            ./hardware-configuration.nix
+            ./config
+            # inputs.home-manager.nixosModule.default
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.extraSpecialArgs = { inherit inputs; };
+              home-manager.sharedModules = [
+                # inputs.nixos-extra-modules.homeManagerModules.default
+                inputs.nix-index-database.hmModules.nix-index
+                inputs.nixvim.homeManagerModules.nixvim
+              ];
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              #home-manager.users.clotodex = {
+              #	imports = [
+              #	./home.nix
+              #	./shell/default.nix
+              #];};
+            }
+          ];
+        };
       };
     };
-  };
 }

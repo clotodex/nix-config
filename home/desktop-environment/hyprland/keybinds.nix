@@ -70,13 +70,14 @@ in {
 
         "SUPER SHIFT, Z, exec, pypr zoom"
         #"SUPER, Space, exec, pypr layout_center toggle"
-        "SUPER, Space, scroller:jump,"
-        "SUPER SHIFT, Space, scroller:toggleoverview,"
-        "SUPER, M, exec, ${lib.getExe scroller_scripts.scroller_toggle}"
-        "SUPER, <, exec, ${lib.getExe scroller_scripts.scroller_toggle}"
-        # TODO: feels like there are better shortcuts possible
-        "SUPER, a, scroller:admitwindow,"
-        "SUPER, e, scroller:expelwindow,"
+        # TODO: 
+        # "SUPER, Space, scroller:jump,"
+        # "SUPER SHIFT, Space, scroller:toggleoverview,"
+        # "SUPER, M, exec, ${lib.getExe scroller_scripts.scroller_toggle}"
+        # "SUPER, <, exec, ${lib.getExe scroller_scripts.scroller_toggle}"
+        # # TODO: feels like there are better shortcuts possible
+        # "SUPER, a, scroller:admitwindow,"
+        # "SUPER, e, scroller:expelwindow,"
 
         "SUPER SHIFT, W, exec, ${lib.getExe script-shuffle-wallpaper}"
 
@@ -132,15 +133,19 @@ in {
         "ALT + SHIFT,tab,cyclenext,prev"
         "SUPER,r,submap,resize"
 
-        "SUPER,left,movefocus,l"
-        "SUPER,right,movefocus,r"
-        "SUPER,up,movefocus,u"
-        "SUPER,down,movefocus,d"
+        #"SUPER,left,movefocus,l"
+        #"SUPER,right,movefocus,r"
+        #"SUPER,up,movefocus,u"
+        #"SUPER,down,movefocus,d"
+        "SUPER,left,layoutmsg,focus l"
+        "SUPER,right,layoutmsg,focus r"
+        "SUPER,up,layoutmsg,focus u"
+        "SUPER,down,layoutmsg,focus d"
 
-        "SUPER + SHIFT,left,movewindow,l"
-        "SUPER + SHIFT,right,movewindow,r"
-        "SUPER + SHIFT,up,movewindow,u"
-        "SUPER + SHIFT,down,movewindow,d"
+        "SUPER + SHIFT,left ,layoutmsg, movewindowto l"
+        "SUPER + SHIFT,right,layoutmsg, movewindowto r"
+        "SUPER + SHIFT,up   ,layoutmsg, movewindowto u"
+        "SUPER + SHIFT,down ,layoutmsg, movewindowto d"
 
         "SUPER,comma,workspace,-1"
         "SUPER,period,workspace,+1"
