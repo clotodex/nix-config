@@ -28,6 +28,8 @@
       notification-body-image-height = 100;
       notification-body-image-width = 200;
 
+      control-center-exclusive-zone = false;
+
       keyboard-shortcuts = true;
       image-visibility = "when-available";
       transition-time = 100;
