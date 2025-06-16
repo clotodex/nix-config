@@ -39,10 +39,13 @@
         settings = {
           provider = "copilot";
           auto_suggestions_frequency = "copilot";
-          copilot = {
-            model = "claude-3.7-sonnet";
-            #model = "gemini-2.5-pro";
-            #model = "gpt-4.1";
+          provides = {
+            copilot = {
+              #model = "claude-3.7-sonnet";
+              model = "claude-4-sonnet";
+              #model = "gemini-2.5-pro";
+              #model = "gpt-4.1";
+            };
           };
           behaviour = {
             # auto_suggestions = false, -- Experimental stage
@@ -82,7 +85,7 @@
         enable = true;
       };
 
-      blink-cmp-copilot.enable = true;
+      blink-copilot.enable = true;
       blink-cmp = {
         enable = true;
         settings = {
@@ -131,7 +134,7 @@
               };
               copilot = {
                 name = "copilot";
-                module = "blink-cmp-copilot";
+                module = "blink-copilot";
                 score_offset = 100;
                 async = true;
               };
