@@ -35,9 +35,9 @@ in
     enable = true;
     #package = null; # inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
     #portalPackage = null; #inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
-    package = null; #inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    package = null; # inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
     portalPackage = null;
-      #inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+    #inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
 
     plugins = [ inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprscrolling ];
     #plugins = [
@@ -73,6 +73,10 @@ in
             "AQ_DRM_DEVICES,/dev/dri/card1" # :/dev/dri/card0"
             "AQ_NO_MODIFIERS,1"
           ];
+
+        screencopy = {
+          allow_token_by_default = true;
+        };
 
         animations = {
           enabled = true;
