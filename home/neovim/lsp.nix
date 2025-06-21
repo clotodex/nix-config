@@ -5,10 +5,10 @@
 }:
 {
   programs.nixvim.plugins = {
-    nvim-jdtls = {
+    jdtls = {
       enable = true;
       #data = "~/.cache/jdtls/workspace";
-      cmd = [
+      settings.cmd = [
         "${lib.getExe pkgs.jdt-language-server}"
       ];
     };
