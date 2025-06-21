@@ -39,10 +39,10 @@
         settings = {
           provider = "copilot";
           auto_suggestions_frequency = "copilot";
-          provides = {
+          providers = {
             copilot = {
               #model = "claude-3.7-sonnet";
-              model = "claude-4-sonnet";
+              model = "claude-sonnet-4";
               #model = "gemini-2.5-pro";
               #model = "gpt-4.1";
             };
