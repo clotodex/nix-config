@@ -13,7 +13,7 @@
       url = "github:hyprwm/Hyprland?rev=2794f485cb5d52b3ff572953ddcfaf7fd3c25182"; # /v0.49.0";
     };
     hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins"; #/v0.49.0-fix";
+      url = "github:hyprwm/hyprland-plugins"; # /v0.49.0-fix";
       inputs.hyprland.follows = "hyprland";
     };
     rose-pine-hyprcursor = {
@@ -43,9 +43,13 @@
       #inputs.nixpkgs.follows = "nixpkgs";
     };
     naersk.url = "github:nix-community/naersk";
+    #crane.url = "github:ipetkov/crane";
     earbuds-src = {
       url = "github:JojiiOfficial/LiveBudsCli?rev=1690eab9116dc9fb576372a7cd234cc28de0a112";
       flake = false;
+    };
+    ashell = {
+      url = "github:MalpenZibo/ashell";
     };
     project-chooser-src = {
       url = "github:clotodex/project-chooser";
