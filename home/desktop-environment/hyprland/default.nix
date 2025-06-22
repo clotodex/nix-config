@@ -190,7 +190,7 @@ in
       {
         monitor = [
           ",preferred,auto,1"
-          "eDP-1,2880x1800@60,auto,1.33"
+          "eDP-1,2880x1800@60,auto,1.33"#,bitdepth,8"
         ];
         workspace = [
         ];

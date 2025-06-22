@@ -16,6 +16,7 @@ lib.optionalAttrs (!minimal) {
       # TODO: check this
       open = true;
       powerManagement.enable = true;
+      powerManagement.finegrained = true;
       offload = {
         enable = true;
         enableOffloadCmd = true;
