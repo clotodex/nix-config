@@ -3,8 +3,10 @@
   inputs,
   config,
   lib,
+  pkgs,
   ...
-}: {
+}:
+{
   imports = [
     inputs.nixos-hardware.nixosModules.common-cpu-intel
     inputs.nixos-hardware.nixosModules.common-pc-laptop
@@ -22,7 +24,6 @@
 
   #boot.kernelParams = [ "i915.force_probe=46a6" ];
 
-
   services = {
     fwupd.enable = true;
     smartd.enable = true;
@@ -31,6 +32,27 @@
 
   services.supergfxd.enable = true;
   services.asusd.enable = true;
+
+  systemd.services.no-sdcard = {
+
+    serviceConfig = {
+      Description = "removes pci sdcard upon boot";
+      Type = "oneshot";
+      User = "root";
+      RemainAfterExit = true;
+      ExecStart = lib.getExe (
+        pkgs.writeShellApplication {
+          name = "remove-sd-pci";
+          text = ''
+            echo 1 > /sys/bus/pci/devices/0000:2d:00.0/remove
+          '';
+        }
+      );
+    };
+
+    wantedBy = [ "multi-user.target" ];
+  };
+
   #services.supergfxd.settings = {
   #    # mode = "Integrated";
   #    vfio_enable = true;

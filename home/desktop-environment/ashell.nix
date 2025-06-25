@@ -19,10 +19,10 @@ let
         [
           "AppLauncher"
           "Updates"
+          "Sleepy"
         ]
         "Tray"
         "WindowTitle"
-        "Sleepy"
       ];
       center = [ "Workspaces" ];
       right = [
@@ -111,8 +111,8 @@ let
       format = "%a %d %b %R";
     };
 
-    mediaPlayer = {
-      max_title_length = 100;
+    media_player = {
+      max_title_length = 20;
     };
 
     settings = {
@@ -122,6 +122,7 @@ let
       wifi_more_cmd = "uswm app iwctl";
       vpn_more_cmd = "nm-connection-editor";
       bluetooth_more_cmd = "uwsm app blueman-manager";
+      remove_airplane_btn = true;
     };
 
     appearance = {

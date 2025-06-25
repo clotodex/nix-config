@@ -17,8 +17,8 @@
   # rofi-drun = "rofi -show drun -theme ~/.config/rofi/launchers/type-1/style-10.rasi";
   rofi-drun = "rofi -show drun -theme ~/.config/rofi/launchers/type-7/style-custom.rasi";
 
-  screenshotarea = "hyprctl keyword animation 'fadeOut,0,0,default'; grimblast --notify copysave area; hyprctl keyword animation 'fadeOut,1,4,default'";
-  screenshotareacopy = "hyprctl keyword animation 'fadeOut,0,0,default'; grimblast --notify copy area; hyprctl keyword animation 'fadeOut,1,4,default'";
+  screenshotarea = "hyprctl keyword animation 'fadeOut,0,0,default'; GRIMBLAST_HIDE_CURSOR=0 grimblast --notify copysave area; hyprctl keyword animation 'fadeOut,1,4,default'";
+  screenshotareacopy = "hyprctl keyword animation 'fadeOut,0,0,default'; GRIMBLAST_HIDE_CURSOR=0 grimblast --notify copy area; hyprctl keyword animation 'fadeOut,1,4,default'";
 
   script-shuffle-wallpaper = pkgs.writeShellScriptBin "script" ''
     wallpaper_dir="$HOME/.config/wallpapers/all"
