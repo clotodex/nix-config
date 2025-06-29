@@ -30,6 +30,7 @@ let
         "Qr-Scan"
         "ColorPicker"
         "Clipboard"
+        "GPU"
         "SystemInfo"
         "Swaync"
         [
@@ -69,6 +70,24 @@ let
         )}";
       }
       {
+        name = "GPU";
+        icon = "󰈸";
+        icons."suspended" = "󱜢";
+        command = "";
+        listen_cmd = "${lib.getExe (
+          pkgs.writeShellApplication {
+            name = "gpu-status-listener";
+            text = ''
+              while true; do
+                status="$(supergfxctl -S)"
+                echo "{\"alt\":\"$status\", \"text\":\"$status\"}"
+                sleep 60
+              done
+            '';
+          }
+        )}";
+      }
+      {
         name = "Qr-Scan";
         icon = "󰐲";
         command = lib.getExe pkgs.scripts.screenshot-area-scan-qr;
@@ -80,8 +99,8 @@ let
       }
       {
         name = "Swaync";
-        icon = "";
-        icons."dnd.*" = "";
+        icon = "";
+        icons."dnd.*" = "";
         alert = ".*notification";
         listen_cmd = "swaync-client -swb";
         command = "swaync-client -t -sw";
