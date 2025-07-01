@@ -31,11 +31,11 @@ in
     scroller_scripts.scroller_toggle
   ];
 
-  home.file."config/hypr/xdph.conf".text = ''
-    screencopy {
-      allow_token_by_default = true
-    }
-  '';
+    #home.file."config/hypr/xdph.conf".text = ''
+    #  screencopy {
+    #    allow_token_by_default = true
+    #  }
+    #'';
 
   wayland.windowManager.hyprland = {
     enable = true;
