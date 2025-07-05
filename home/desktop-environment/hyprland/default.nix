@@ -130,11 +130,11 @@ in
 
           "${pkgs.swww}/bin/swww-daemon"
           "${pkgs.swww}/bin/swww img ~/.config/hypr/tmp/wallpaper.jpg"
-          "~/.config/waybar/launch.sh"
+          #"~/.config/waybar/launch.sh"
 
-          "kitty /home/clotodex/.config/hypr/scripts/autostart.sh"
-          "bash /home/clotodex/.config/hypr/scripts/dynamic_battery_notify.sh &"
-          "${lib.getExe scroller_scripts.scroller_listen}"
+          #"kitty /home/clotodex/.config/hypr/scripts/autostart.sh"
+          #"bash /home/clotodex/.config/hypr/scripts/dynamic_battery_notify.sh &"
+          #"${lib.getExe scroller_scripts.scroller_listen}"
         ];
 
         input = {
