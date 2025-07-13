@@ -102,7 +102,7 @@ in
 
       pkgs.blueman
       pkgs-old.galaxy-buds-client
-      pkgs-unstable.devenv
+      pkgs.devenv
     ];
 
     # TODO: projects/external
