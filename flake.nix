@@ -14,6 +14,7 @@
     };
     hyprland-plugins = {
       url = "github:hyprwm/hyprland-plugins"; # /v0.49.0-fix";
+      #inputs.nixpkgs.follows = "nixpkgs";
       inputs.hyprland.follows = "hyprland";
     };
     rose-pine-hyprcursor = {

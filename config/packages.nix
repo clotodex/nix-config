@@ -6,7 +6,7 @@
   # Enable touchpad support (enabled default in most desktopManager).
   services.libinput.enable = true;
 
-  services.flatpak.enable = true;
+  #services.flatpak.enable = true;
   services.pcscd.enable = true;
 
 

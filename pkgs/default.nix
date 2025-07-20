@@ -10,6 +10,7 @@
     figma-agent-build = prev.callPackage ../pkgs/figma-agent.nix { inherit inputs; };
     waybar-custom-modules = prev.callPackage ../pkgs/waybar-modules.nix { inherit inputs; };
 
+    # override for transitive dependencies
     hyprland = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
   })
 ]
