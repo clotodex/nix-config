@@ -101,8 +101,8 @@
               home-manager.extraSpecialArgs = { inherit inputs; };
               home-manager.sharedModules = [
                 # inputs.nixos-extra-modules.homeManagerModules.default
-                inputs.nix-index-database.hmModules.nix-index
-                inputs.nixvim.homeManagerModules.nixvim
+                inputs.nix-index-database.homeModules.nix-index
+                inputs.nixvim.homeModules.nixvim
               ];
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
