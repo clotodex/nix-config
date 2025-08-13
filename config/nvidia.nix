@@ -40,5 +40,7 @@ lib.optionalAttrs (!minimal) {
   };
   environment.sessionVariables = {
     LIBVA_DRIVER_NAME = "iHD";
+    VK_DRIVER_FILES="${pkgs.mesa.out}/share/vulkan/icd.d/intel_icd.x86_64.json:${pkgs.nvidia.out}/share/vulkan/icd.d/nvidia_icd.x86_64.json";
+    #VK_ICD_FILENAMES="/nix/store/ig8h5hjy3s9lfhi75zc64acmyzr8zzyd-mesa-25.1.6/share/vulkan/icd.d/intel_icd.x86_64.json
   }; # Force intel-media-driver
 }
