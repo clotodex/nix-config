@@ -42,7 +42,7 @@
           providers = {
             copilot = {
               #model = "claude-3.7-sonnet";
-              model = "gpt-5";
+              model = "gpt-5-mini";
               #model = "gemini-2.5-pro";
               #model = "gpt-4.1";
             };
