@@ -233,9 +233,9 @@ in
         movefocus_cycles_fullscreen = false
       }
 
-      gestures {
-        workspace_swipe = false
-      }
+      #gestures {
+      #  workspace_swipe = false
+      #}
 
       $opacityrule = opacity 0.95 override 0.8 override 1 override
       windowrule = $opacityrule,class:^(kitty)$ # set opacity to 0.9 active, 0.8 inactive and 1 fullscreen for everything

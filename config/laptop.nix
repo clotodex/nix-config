@@ -33,7 +33,7 @@
     };
     upower.enable = true;
     physlock.enable = true;
-    logind = {
+    logind.settings.Login = {
       lidSwitch = "ignore";
       lidSwitchDocked = "ignore";
       lidSwitchExternalPower = "ignore";
