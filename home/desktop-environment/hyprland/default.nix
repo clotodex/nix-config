@@ -31,16 +31,17 @@ in
     scroller_scripts.scroller_toggle
   ];
 
-    #home.file."config/hypr/xdph.conf".text = ''
-    #  screencopy {
-    #    allow_token_by_default = true
-    #  }
-    #'';
+  #home.file."config/hypr/xdph.conf".text = ''
+  #  screencopy {
+  #    allow_token_by_default = true
+  #  }
+  #'';
 
   wayland.windowManager.hyprland = {
     enable = true;
-    package =  inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-    portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    portalPackage =
+      inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
     #package = null; # inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
     #portalPackage = null;
     #inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
@@ -191,7 +192,7 @@ in
       {
         monitor = [
           ",preferred,auto,1"
-          "eDP-1,2880x1800@60,auto,1.33"#,bitdepth,8"
+          "eDP-1,2880x1800@60,auto,1.33" # ,bitdepth,8"
         ];
         workspace = [
         ];
@@ -236,6 +237,16 @@ in
       #gestures {
       #  workspace_swipe = false
       #}
+      gesture = 3, vertical, workspace
+      gesture = 4, horizontal, workspace
+
+      gesture = 3, right, dispatcher, layoutmsg, focus left
+      gesture = 3, left, dispatcher, layoutmsg, focus right
+
+      gesture = 3, pinchin, dispatcher, layoutmsg, colresize +conf
+      gesture = 3, pinchout, dispatcher, layoutmsg, colresize -conf
+      gesture = 3, up, dispatcher, layoutmsg, colresize +2conf
+      gesture = 3, down, dispatcher, layoutmsg, colresize -conf
 
       $opacityrule = opacity 0.95 override 0.8 override 1 override
       windowrule = $opacityrule,class:^(kitty)$ # set opacity to 0.9 active, 0.8 inactive and 1 fullscreen for everything

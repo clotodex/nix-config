@@ -16,7 +16,7 @@
     hyprpicker
     wl-clipboard
     swww
-    rofi-wayland
+    rofi
     libnotify
     (hyprshade.override { hyprland = null; })
   ];

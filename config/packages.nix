@@ -23,10 +23,6 @@
     tree
     fzf
     ripgrep
-    (python311.withPackages (ps:
-      with ps; [
-        tqdm
-      ]))
     acpi
     git
     killall
