@@ -31,11 +31,11 @@ in
     scroller_scripts.scroller_toggle
   ];
 
-  #home.file."config/hypr/xdph.conf".text = ''
-  #  screencopy {
-  #    allow_token_by_default = true
-  #  }
-  #'';
+  home.file."config/hypr/xdph.conf".text = ''
+    screencopy {
+      allow_token_by_default = true
+    }
+  '';
 
   wayland.windowManager.hyprland = {
     enable = true;
@@ -245,8 +245,8 @@ in
 
       gesture = 3, pinchin, dispatcher, layoutmsg, colresize +conf
       gesture = 3, pinchout, dispatcher, layoutmsg, colresize -conf
-      gesture = 3, up, dispatcher, layoutmsg, colresize +2conf
-      gesture = 3, down, dispatcher, layoutmsg, colresize -conf
+      #gesture = 3, up, dispatcher, layoutmsg, colresize +2conf
+      #gesture = 3, down, dispatcher, layoutmsg, colresize -conf
 
       $opacityrule = opacity 0.95 override 0.8 override 1 override
       windowrule = $opacityrule,class:^(kitty)$ # set opacity to 0.9 active, 0.8 inactive and 1 fullscreen for everything
