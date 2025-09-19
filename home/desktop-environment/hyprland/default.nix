@@ -91,7 +91,7 @@ in
             "border, 1, 2, default"
             "fade, 1, 4, default"
             "fadeDim, 1, 4, default"
-            "workspaces, 1, 4, default"
+            "workspaces, 1, 4, default, slidevert"
           ];
         };
 
