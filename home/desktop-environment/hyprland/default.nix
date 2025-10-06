@@ -46,7 +46,10 @@ in
     #portalPackage = null;
     #inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
 
-    plugins = [ inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprscrolling ];
+    plugins = [
+      inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprscrolling
+      inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprexpo
+    ];
     #plugins = [ pkgs.hyprlandPlugins.hyprscrolling ];
     #plugins = [
     #  inputs.Hyprspace.packages."x86_64-linux".Hyprspace

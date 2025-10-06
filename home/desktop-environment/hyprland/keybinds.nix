@@ -54,6 +54,9 @@ in {
 
     bind =
       [
+
+        "SUPER, Space, hyprexpo:expo, toggle"
+
         # Applications
         "SUPER SHIFT, B, exec, ~/.config/waybar/launch.sh"
         "SUPER CTRL, F, exec, firefox -P"
