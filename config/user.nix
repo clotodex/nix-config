@@ -73,7 +73,7 @@ in
       # ./ssh.nix
     ];
 
-    programs.zsh.initExtra = lib.mkOrder 9999 ''
+    programs.zsh.initContent = lib.mkOrder 9999 ''
       if [[ -t 0 && "$(tty || true)" == /dev/tty1 && -z "$DISPLAY" && -z "$WAYLAND_DISPLAY" ]] && uwsm check may-start; then
         echo "Login shell detected. Starting Hyprland..."
         uwsm start -S -F Hyprland

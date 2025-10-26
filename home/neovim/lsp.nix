@@ -17,17 +17,28 @@
       preConfig =
         # lua
         ''
-          local lsp_symbol = function(name, icon)
-          vim.fn.sign_define(
-            "DiagnosticSign" .. name,
-            { text = icon, numhl = "Diagnostic" .. name, texthl = "Diagnostic" .. name }
-          )
-          end
+          -- local lsp_symbol = function(name, icon)
+          -- vim.fn.sign_define(
+          --   "DiagnosticSign" .. name,
+          --   { text = icon, numhl = "Diagnostic" .. name, texthl = "Diagnostic" .. name }
+          -- )
+          -- end
 
-          lsp_symbol("Error", "󰅙")
-          lsp_symbol("Info", "")
-          lsp_symbol("Hint", "󰌵")
-          lsp_symbol("Warn", "")
+          -- lsp_symbol("Error", "󰅙")
+          -- lsp_symbol("Info", "")
+          -- lsp_symbol("Hint", "󰌵")
+          -- lsp_symbol("Warn", "")
+
+          vim.diagnostic.config {
+            signs = {
+              text = {
+                [vim.diagnostic.severity.ERROR] = "󰅙",
+                [vim.diagnostic.severity.WARN] = "",
+                [vim.diagnostic.severity.INFO] = "",
+                [vim.diagnostic.severity.HINT] = "󰌵",
+              },
+            }
+          }
         '';
       servers = {
         # FIXME: bashls.enable = true;

@@ -2,21 +2,23 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   home.packages = with pkgs; [
     git-filter-repo
     # git-fuzzy
   ];
 
   programs.lazygit.enable = true;
+  programs.difftastic = {
+    enable = true;
+    git.enable = true;
+    options.background = "dark";
+  };
   programs.git = {
     enable = true;
-    difftastic = {
-      enable = true;
-      background = "dark";
-    };
     lfs.enable = lib.mkDefault false;
-    extraConfig = {
+    settings = {
       core.pager = "${pkgs.delta}/bin/delta";
       delta = {
         hyperlinks = true;
@@ -47,16 +49,16 @@
       rebase.autostash = true;
       pull.rebase = true;
       push.autoSetupRemote = true;
-    };
-    aliases = {
-      unstash = "stash pop";
-      s = "status";
-      tags = "tag -l";
-      t = "tag -s -m ''";
-      fixup = ''!f() { TARGET=$(git rev-parse "$1"); git commit --fixup=$TARGET ''${@:2} && EDITOR=true git rebase -i --gpg-sign --autostash --autosquash $TARGET^; }; f'';
-      # An alias that uses the previous commit message by default.
-      # Useful when you mess up entering the signing password and git aborts.
-      commit-reuse-message = ''!git commit --edit --file "$(git rev-parse --git-dir)"/COMMIT_EDITMSG'';
+      alias = {
+        unstash = "stash pop";
+        s = "status";
+        tags = "tag -l";
+        t = "tag -s -m ''";
+        fixup = ''!f() { TARGET=$(git rev-parse "$1"); git commit --fixup=$TARGET ''${@:2} && EDITOR=true git rebase -i --gpg-sign --autostash --autosquash $TARGET^; }; f'';
+        # An alias that uses the previous commit message by default.
+        # Useful when you mess up entering the signing password and git aborts.
+        commit-reuse-message = ''!git commit --edit --file "$(git rev-parse --git-dir)"/COMMIT_EDITMSG'';
+      };
     };
   };
 
@@ -67,25 +69,30 @@
     gca = "git commit -v -S --amend";
     gcl = "git clone";
     gcr = "git commit-reuse-message -v -S";
-    gf = lib.getExe (pkgs.writeShellApplication {
-      name = "git-fixup-fzf";
-      runtimeInputs = [pkgs.fzf pkgs.gnugrep];
-      text = ''
-        if ! commit=$(set +o pipefail; git log --graph --color=always --format="%C(auto)%h%d %s %C(reset)%C(bold)%cr" "$@" \
-          | fzf --ansi --multi --no-sort --reverse --print-query --expect=ctrl-d --toggle-sort=\`); then
-          echo aborted
-          exit 0
-        fi
+    gf = lib.getExe (
+      pkgs.writeShellApplication {
+        name = "git-fixup-fzf";
+        runtimeInputs = [
+          pkgs.fzf
+          pkgs.gnugrep
+        ];
+        text = ''
+          if ! commit=$(set +o pipefail; git log --graph --color=always --format="%C(auto)%h%d %s %C(reset)%C(bold)%cr" "$@" \
+            | fzf --ansi --multi --no-sort --reverse --print-query --expect=ctrl-d --toggle-sort=\`); then
+            echo aborted
+            exit 0
+          fi
 
-        sha=$(grep -o '^[^a-z0-9]*[a-z0-9]\{7\}[a-z0-9]*' <<< "$commit" | grep -o '[a-z0-9]\{7\}[a-z0-9]*')
-        if [[ -z "$sha" ]]; then
-          echo "Found no checksum for selected commit. Aborting."
-          exit 1
-        fi
+          sha=$(grep -o '^[^a-z0-9]*[a-z0-9]\{7\}[a-z0-9]*' <<< "$commit" | grep -o '[a-z0-9]\{7\}[a-z0-9]*')
+          if [[ -z "$sha" ]]; then
+            echo "Found no checksum for selected commit. Aborting."
+            exit 1
+          fi
 
-        git fixup "$sha" "$@"
-      '';
-    });
+          git fixup "$sha" "$@"
+        '';
+      }
+    );
     gp = "git push";
     gpf = "git push --force";
     gs = "git s";

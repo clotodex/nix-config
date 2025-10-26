@@ -13,7 +13,7 @@
       url = "github:hyprwm/Hyprland";#?rev=2794f485cb5d52b3ff572953ddcfaf7fd3c25182"; # /v0.49.0";
     };
     hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins/scroll-overview"; # /v0.49.0-fix";
+      url = "github:hyprwm/hyprland-plugins"; #/scroll-overview"; # /v0.49.0-fix";
       #inputs.nixpkgs.follows = "nixpkgs";
       inputs.hyprland.follows = "hyprland";
     };
