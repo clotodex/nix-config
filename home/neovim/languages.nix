@@ -31,7 +31,9 @@
       crates = {
         enable = true;
         settings = {
-          completion.cmp.enabled = true;
+          lsp.enabled = true;
+          lsp.completion = true;
+          lsp.hover = true;
         };
       };
 
