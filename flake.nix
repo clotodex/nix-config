@@ -51,7 +51,7 @@
     };
     ashell = {
       url = "github:MalpenZibo/ashell";
-      inputs.nixpkgs.follows = "nixpkgs";
+      #inputs.nixpkgs.follows = "nixpkgs";
     };
     project-chooser-src = {
       url = "github:clotodex/project-chooser";

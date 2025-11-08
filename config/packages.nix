@@ -37,7 +37,7 @@
     cargo
     kitty.terminfo
 
-    freerdp3
+    freerdp
 
     # support both 32-bit and 64-bit applications
     wineWowPackages.stable
