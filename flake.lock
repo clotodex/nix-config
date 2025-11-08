@@ -41,11 +41,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1762214820,
-        "narHash": "sha256-1RaBobZNEH+/uz9M72fznJKKuUIfQhz+yl/02Af6vVQ=",
+        "lastModified": 1762600510,
+        "narHash": "sha256-VlHuLTOlGE/SZwfrKZ6F9z2XaKrPlTNh82MAANZ8FGE=",
         "owner": "MalpenZibo",
         "repo": "ashell",
-        "rev": "eab52152ff8a1cdb6003a7efc93dbe09395c2c8a",
+        "rev": "6b2436bf676e6643c04ccabf464f645b71500843",
         "type": "github"
       },
       "original": {
@@ -1283,11 +1283,11 @@
         "systems": "systems_4"
       },
       "locked": {
-        "lastModified": 1762523528,
-        "narHash": "sha256-VH4+fAB85irWuzxfWPfEEwDOE+eQsB/pljNApM0onuU=",
+        "lastModified": 1762604519,
+        "narHash": "sha256-TUYm7Ihtl8472GPTbj/cQWUJeDNQ4a9kuz93wkEIE8M=",
         "owner": "nix-community",
         "repo": "nixvim",
-        "rev": "3031d4ab616323f6d41704dfb46f2b801f29973d",
+        "rev": "d4b798a469248aa2b0bba4508bd8f97837566885",
         "type": "github"
       },
       "original": {
