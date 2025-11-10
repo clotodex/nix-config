@@ -85,7 +85,7 @@ in
       pkgs.fd
 
       pkgs.discord
-      pkgs.webcord # INFO: hardened discord client
+      #pkgs.webcord # INFO: hardened discord client
 
       pkgs.spotify
 
