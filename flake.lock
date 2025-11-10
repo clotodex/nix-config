@@ -254,11 +254,11 @@
     "figma-agent-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1762676264,
-        "narHash": "sha256-9/c/duArZm559mByx8H7nYksCOQ4WZ+8VXgQj1SklKQ=",
+        "lastModified": 1762780857,
+        "narHash": "sha256-9gstIkULrxTgTN5WuZ8v1w89DI/JbHN8B2Lblv8UGt8=",
         "owner": "neetly",
         "repo": "figma-agent-linux",
-        "rev": "92eb2f0fffdd502e695c10c17618e5026ccd9df9",
+        "rev": "d835d569c862781b1d6823e197b5790064483637",
         "type": "github"
       },
       "original": {
@@ -1262,11 +1262,11 @@
         "systems": "systems_4"
       },
       "locked": {
-        "lastModified": 1762691346,
-        "narHash": "sha256-dyYnqvYrgViB22inBqNern/XSWtOiweP8NTfJQJeTis=",
+        "lastModified": 1762782182,
+        "narHash": "sha256-Z3ZowLHcaDuVy+WHHXhaHLI+EF3ij9H2F2tPFU9uiQQ=",
         "owner": "nix-community",
         "repo": "nixvim",
-        "rev": "faf1fb4b7cd069ce44469e45c3259b7bcf106f81",
+        "rev": "281fdbb1e168fb34fcab10e22534e7715ec4957c",
         "type": "github"
       },
       "original": {
