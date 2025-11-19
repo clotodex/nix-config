@@ -18,7 +18,9 @@ in
   console = {
     #   font = "Lat2-Terminus16";
     keyMap = "de-latin1-nodeadkeys";
-    font = "ter-v28n";
+    # font = "ter-v28n";
+    # WARNING: waiting on https://github.com/NixOS/nixpkgs/issues/257904 and https://github.com/NixOS/nixpkgs/pull/299456
+    font = "${pkgs.terminus_font}/share/consolefonts/ter-v28n.psf.gz";
     packages = [ pkgs.terminus_font ];
     #   useXkbConfig = true; # use xkb.options in tty.
   };

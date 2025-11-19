@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   ...
 }:
 {
@@ -13,5 +14,5 @@
   };
 
   users.users."clotodex".extraGroups = [ "docker" ];
-  hardware.nvidia-container-toolkit.enable = true;
+  hardware.nvidia-container-toolkit.enable = lib.mkIf config.custom.hardware.enableNvidia true;
 }

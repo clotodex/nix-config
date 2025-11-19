@@ -2,18 +2,18 @@
   description = "A very basic flake";
 
   inputs = {
-    nixpkgs-2311.url = "github:nixos/nixpkgs/nixos-23.11";
+    #nixpkgs-2311.url = "github:nixos/nixpkgs/nixos-23.11";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    #nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland = {
-      url = "github:hyprwm/Hyprland";#?rev=2794f485cb5d52b3ff572953ddcfaf7fd3c25182"; # /v0.49.0";
+      url = "github:hyprwm/Hyprland"; # ?rev=2794f485cb5d52b3ff572953ddcfaf7fd3c25182"; # /v0.49.0";
     };
     hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins"; #/scroll-overview"; # /v0.49.0-fix";
+      url = "github:hyprwm/hyprland-plugins"; # /scroll-overview"; # /v0.49.0-fix";
       #inputs.nixpkgs.follows = "nixpkgs";
       inputs.hyprland.follows = "hyprland";
     };
@@ -84,6 +84,30 @@
           allowUnfree = true;
         };
       };
+
+      shared_modules = [
+        ./config
+        # inputs.home-manager.nixosModule.default
+        home-manager.nixosModules.home-manager
+        {
+          home-manager.extraSpecialArgs = { inherit inputs; };
+          home-manager.sharedModules = [
+            # inputs.nixos-extra-modules.homeManagerModules.default
+            inputs.nix-index-database.homeModules.nix-index
+            inputs.nixvim.homeModules.nixvim
+          ];
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          #home-manager.users.clotodex = {
+          #	imports = [
+          #	./home.nix
+          #	./shell/default.nix
+          #];};
+          custom.hardware = {
+            isAsus = true;
+          };
+        }
+      ];
     in
     {
       nixosConfigurations = {
@@ -92,26 +116,33 @@
             inherit system;
             inherit inputs;
           };
-          modules = [
-            ./hardware-configuration.nix
-            ./config
-            # inputs.home-manager.nixosModule.default
-            home-manager.nixosModules.home-manager
+          modules = shared_modules ++ [
             {
-              home-manager.extraSpecialArgs = { inherit inputs; };
-              home-manager.sharedModules = [
-                # inputs.nixos-extra-modules.homeManagerModules.default
-                inputs.nix-index-database.homeModules.nix-index
-                inputs.nixvim.homeModules.nixvim
-              ];
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              #home-manager.users.clotodex = {
-              #	imports = [
-              #	./home.nix
-              #	./shell/default.nix
-              #];};
+              networking.hostName = "kotn";
+              custom.hardware.enableNvidia = true;
             }
+            inputs.nixos-hardware.nixosModules.asus-zephyrus-gu603h
+            inputs.nixos-hardware.nixosModules.asus-battery
+            ./hardware-configuration.nix
+          ];
+        };
+
+        flipsy = nixpkgs.lib.nixosSystem {
+          specialArgs = {
+            inherit system;
+            inherit inputs;
+          };
+          modules = shared_modules ++ [
+            {
+              networking.hostName = "flipsy";
+              # intel alder-lake gpu
+              hardware.intelgpu.vaapiDriver = "intel-media-driver";
+            }
+            inputs.nixos-hardware.nixosModules.asus-battery
+            inputs.nixos-hardware.nixosModules.common-pc-laptop
+            inputs.nixos-hardware.nixosModules.common-pc-laptop-ssd
+            inputs.nixos-hardware.nixosModules.common-cpu-intel # alder-lake
+            ./hardware-configuration_flipsy.nix
           ];
         };
       };

@@ -7,8 +7,8 @@ config,
   ...
 }:
 let
-  pkgs-old = import inputs.nixpkgs-2311 { system = pkgs.stdenv.system; };
-  pkgs-unstable = import inputs.nixpkgs-unstable { system = pkgs.stdenv.system; };
+  #pkgs-old = import inputs.nixpkgs-2311 { system = pkgs.stdenv.system; };
+  #pkgs-unstable = import inputs.nixpkgs-unstable { system = pkgs.stdenv.system; };
 in
 {
   home.stateVersion = "25.05";
@@ -101,7 +101,7 @@ in
       pkgs.python3
 
       pkgs.blueman
-      pkgs-old.galaxy-buds-client
+      #pkgs-old.galaxy-buds-client
       pkgs.devenv
     ];
 

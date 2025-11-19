@@ -34,7 +34,6 @@
   # };
 
   networking = {
-    hostName = "kotn";
     # inherit (config.repo.secrets.local.networking) hostId;
     useDHCP = lib.mkForce false;
     useNetworkd = true;
