@@ -9,6 +9,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    niri = {
+      url = "github:sodiboo/niri-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     hyprland = {
       url = "github:hyprwm/Hyprland"; # /v0.52.1"; # ?rev=2794f485cb5d52b3ff572953ddcfaf7fd3c25182"; # /v0.49.0";
     };
@@ -159,12 +163,18 @@
               # alder-lake fix
               boot.kernelParams = [ "i915.force_probe=46a6" ];
 
+              nixpkgs.overlays = [ inputs.niri.overlays.niri ];
+              # for now for cache for cache
               programs.niri.enable = true;
-              environment.systemPackages = [
-                pkgs.xwayland-satellite
-              ];
+              programs.niri.package = pkgs.niri;
+
+              #environment.systemPackages = [
+              #  pkgs.xwayland-satellite
+              #];
 
             }
+            inputs.niri.nixosModules.niri
+
             inputs.nixos-hardware.nixosModules.asus-battery
             inputs.nixos-hardware.nixosModules.common-pc-laptop
             inputs.nixos-hardware.nixosModules.common-pc-laptop-ssd
