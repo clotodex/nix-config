@@ -60,7 +60,7 @@
   };
 
   system = {
-    extraSystemBuilderCmds = ''
+    systemBuilderCommands = ''
       ln -sv ${inputs.nixpkgs} $out/nixpkgs
     '';
     stateVersion = "25.05";

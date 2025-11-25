@@ -10,7 +10,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland = {
-      url = "github:hyprwm/Hyprland"; # ?rev=2794f485cb5d52b3ff572953ddcfaf7fd3c25182"; # /v0.49.0";
+      url = "github:hyprwm/Hyprland"; # /v0.52.1"; # ?rev=2794f485cb5d52b3ff572953ddcfaf7fd3c25182"; # /v0.49.0";
     };
     hyprland-plugins = {
       url = "github:hyprwm/hyprland-plugins"; # /scroll-overview"; # /v0.49.0-fix";
@@ -50,7 +50,8 @@
       flake = false;
     };
     ashell = {
-      url = "github:MalpenZibo/ashell";
+      #url = "github:MalpenZibo/ashell";
+      url = "github:clotodex/ashell-iwd/feature/niri-support";
       #inputs.nixpkgs.follows = "nixpkgs";
     };
     project-chooser-src = {
@@ -137,6 +138,32 @@
               networking.hostName = "flipsy";
               # intel alder-lake gpu
               hardware.intelgpu.vaapiDriver = "intel-media-driver";
+
+              hardware.graphics = {
+                enable = true;
+                extraPackages = with pkgs; [
+                  # Required for modern Intel GPUs (Xe iGPU and ARC)
+                  intel-media-driver # VA-API (iHD) userspace
+                  vpl-gpu-rt # oneVPL (QSV) runtime
+                  intel-compute-runtime # OpenCL (NEO) + Level Zero for Arc/Xe
+                  # libvdpau-va-gl       # Only if you must run VDPAU-only apps
+                ];
+              };
+
+              security.pam.services.swaylock = { };
+
+              environment.sessionVariables = {
+                LIBVA_DRIVER_NAME = "iHD"; # Prefer the modern iHD backend
+                # VDPAU_DRIVER = "va_gl";      # Only if using libvdpau-va-gl
+              };
+              # alder-lake fix
+              boot.kernelParams = [ "i915.force_probe=46a6" ];
+
+              programs.niri.enable = true;
+              environment.systemPackages = [
+                pkgs.xwayland-satellite
+              ];
+
             }
             inputs.nixos-hardware.nixosModules.asus-battery
             inputs.nixos-hardware.nixosModules.common-pc-laptop

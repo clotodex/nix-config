@@ -16,8 +16,6 @@ let
     ;
 
   rofi-drun = "rofi -show drun -theme ~/.config/rofi/launchers/type-1/style-10.rasi";
-
-  scroller_scripts = import ./hyprscroller.nix { inherit pkgs; };
 in
 {
   imports = [
@@ -25,11 +23,23 @@ in
   ];
 
   home.packages = with pkgs; [
-    # TODO: inputs.rose-pine-hyprcursor.packages.${system}.default
-    scroller_scripts.scroller_listen
-    scroller_scripts.scroller_read
-    scroller_scripts.scroller_toggle
+    (hyprshade.override { hyprland = null; })
+    (grimblast.override { hyprland = null; })
+    hyprpicker
   ];
+
+  services.hypridle = {
+    enable = false;
+    settings = {
+      listener = [
+        {
+          timeout = 60; # in seconds
+          on-timeout = "hyprctl dispatch dpms off"; # command to run when timeout has passed
+          on-resume = "hyprctl dispatch dpms on"; # command to run when activity is detected after timeout has fired.
+        }
+      ];
+    };
+  };
 
   home.file."config/hypr/xdph.conf".text = ''
     screencopy {
@@ -119,7 +129,7 @@ in
             render_power = 2;
             color = "0x66000000";
           };
-          blurls = "waybar";
+          #blurls = "waybar";
         };
         exec-once = [
           "uwsm finalize"
@@ -165,7 +175,7 @@ in
           gaps_in = 5;
           gaps_out = 0;
           border_size = 0;
-          no_border_on_floating = true;
+          #no_border_on_floating = true;
           #allow_tearing = true;
           #layout = "dwindle";
           layout = "scrolling";
@@ -226,10 +236,10 @@ in
       submap=reset
 
       env=WLR_DRM_NO_ATOMIC,1
-      windowrule = immediate, class:^(cs2)$
+      #windowrule = immediate, match:class ^(cs2)$
 
-      windowrule = idleinhibit focus, class:mpv
-      windowrule = idleinhibit fullscreen, class:firefox
+      windowrule = idle_inhibit focus, match:class mpv
+      windowrule = idle_inhibit fullscreen, match:class firefox
 
 
       binds {
@@ -252,20 +262,20 @@ in
       #gesture = 3, down, dispatcher, layoutmsg, colresize -conf
 
       $opacityrule = opacity 0.95 override 0.8 override 1 override
-      windowrule = $opacityrule,class:^(kitty)$ # set opacity to 0.9 active, 0.8 inactive and 1 fullscreen for everything
-      windowrule = $opacityrule,class:^(Slack)$
-      windowrule = $opacityrule,class:^(signal)$
-      windowrule = $opacityrule,class:^(org.telegram.desktop)$
+      windowrule = $opacityrule,match:class ^(kitty)$ # set opacity to 0.9 active, 0.8 inactive and 1 fullscreen for everything
+      windowrule = $opacityrule,match:class ^(Slack)$
+      windowrule = $opacityrule,match:class ^(signal)$
+      windowrule = $opacityrule,match:class ^(org.telegram.desktop)$
 
-      windowrule = size 640 360, title:(Picture-in-Picture)
-      windowrule = pin, title:^(Picture-in-Picture)$
-      windowrule = move 1906 14, title:(Picture-in-Picture)
-      windowrule = float, title:^(Picture-in-Picture)$
+      # windowrule = size 640 360, match:title (Picture-in-Picture)
+      # windowrule = pin, match:title ^(Picture-in-Picture)$
+      # windowrule = move 1906 14, match:title (Picture-in-Picture)
+      # windowrule = float, match:title ^(Picture-in-Picture)$
 
-      windowrule = size 640 360, title:(Picture-in-picture)
-      windowrule = pin, title:^(Picture-in-picture)$
-      windowrule = move 1906 14, title:(Picture-in-picture)
-      windowrule = float, title:^(Picture-in-picture)$
+      # windowrule = size 640 360, match:title (Picture-in-picture)
+      # windowrule = pin, match:title ^(Picture-in-picture)$
+      # windowrule = move 1906 14, match:title (Picture-in-picture)
+      # windowrule = float, match:title ^(Picture-in-picture)$
     '';
   };
 }

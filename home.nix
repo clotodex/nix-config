@@ -1,31 +1,23 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-{ inputs, config, pkgs, ... }:
+{
+  inputs,
+  config,
+  pkgs,
+  ...
+}:
 {
 
-	# home.username="clotodex";
-	# home.homeDirectory="/home/clotodex/";
-	# 	# ...
-	# 	plugins = [
-	# 		inputs.Hyprspace.packages.${pkgs.system}.Hyprspace
-	# 	# ...
-	# 	];
-	# };
+  # home.username="clotodex";
+  # home.homeDirectory="/home/clotodex/";
+  # 	# ...
+  # 	plugins = [
+  # 		inputs.Hyprspace.packages.${pkgs.system}.Hyprspace
+  # 	# ...
+  # 	];
+  # };
 
-	programs.home-manager.enable = true;
+  programs.home-manager.enable = true;
 
-	 home = {
+  home = {
     packages = with pkgs; [
     ];
   };
