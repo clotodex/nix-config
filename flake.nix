@@ -13,6 +13,10 @@
       url = "github:sodiboo/niri-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    iio-niri = {
+      url = "github:Zhaith-Izaliel/iio-niri";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     hyprland = {
       url = "github:hyprwm/Hyprland"; # /v0.52.1"; # ?rev=2794f485cb5d52b3ff572953ddcfaf7fd3c25182"; # /v0.49.0";
     };
@@ -163,10 +167,23 @@
               # alder-lake fix
               boot.kernelParams = [ "i915.force_probe=46a6" ];
 
-              nixpkgs.overlays = [ inputs.niri.overlays.niri ];
+              nixpkgs.overlays = [
+                inputs.niri.overlays.niri
+                inputs.iio-niri.overlays.default
+
+              ];
               # for now for cache for cache
               programs.niri.enable = true;
               programs.niri.package = pkgs.niri;
+
+              services.iio-niri = {
+                enable = true;
+
+                extraArgs = [
+                  "--monitor"
+                  "eDP-1"
+                ];
+              };
 
               #environment.systemPackages = [
               #  pkgs.xwayland-satellite
@@ -174,6 +191,7 @@
 
             }
             inputs.niri.nixosModules.niri
+            inputs.iio-niri.nixosModules.default
 
             inputs.nixos-hardware.nixosModules.asus-battery
             inputs.nixos-hardware.nixosModules.common-pc-laptop
