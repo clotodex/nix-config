@@ -47,6 +47,25 @@ in
     }
   '';
 
+  xdg.portal = {
+    config.hyprland = {
+      default = [
+        "gtk"
+        "hyprland"
+      ];
+      "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
+      "org.freedesktop.impl.portal.ScreenCast" = [ "hyprland" ];
+      "org.freedesktop.impl.portal.Screenshot" = [ "hyprland" ];
+      "org.freedesktop.portal.FileChooser" = [ "xdg-desktop-portal-gtk" ];
+    };
+    configPackages = [
+      pkgs.hyprland
+    ];
+    extraPortals = [
+      pkgs.xdg-desktop-portal-gtk
+    ];
+  };
+
   wayland.windowManager.hyprland = {
     enable = true;
     package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;

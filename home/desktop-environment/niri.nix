@@ -5,6 +5,26 @@
   ...
 }:
 {
+  xdg.portal = {
+    config.
+        niri = {
+          default = [
+            "gnome"
+          ];
+          "org.freedesktop.impl.portal.Access" = [ "gtk" ];
+          "org.freedesktop.impl.portal.Notification" = [ "gtk" ];
+          "org.freedesktop.impl.portal.ScreenCast" = [ "xdg-desktop-portal-gnome" ];
+          "org.freedesktop.impl.portal.Screenshot" = [ "xdg-desktop-portal-gnome" ];
+      };
+    configPackages = lib.mkAfter [
+      pkgs.niri
+    ];
+    extraPortals = lib.mkAfter [
+      pkgs.xdg-desktop-portal-gtk
+      pkgs.xdg-desktop-portal-gnome
+    ];
+  };
+
   programs.niri.settings = {
     xwayland-satellite.path = lib.getExe pkgs.xwayland-satellite-stable;
     input = {
@@ -98,6 +118,18 @@
       # automatically.
       # position x=1280 y=0
     };
+
+    switch-events =
+      with config.lib.niri.actions;
+      let
+        spawn-sh = spawn "sh" "-c";
+      in
+      {
+        tablet-mode-on.action = spawn-sh "notify-send tablet-mode-on";
+        tablet-mode-off.action = spawn-sh "notify-send tablet-mode-off";
+        lid-open.action = spawn-sh "notify-send lid-open";
+        lid-close.action = spawn-sh "notify-send lid-close";
+      };
 
     # Settings that influence how windows are positioned and sized.
     # Find more information on the wiki:
@@ -426,16 +458,22 @@
 
       # Suggested binds for running programs: terminal, app launcher, screen locker.
       "Mod+T" = {
-        hotkey-overlay = {title = "Open a Terminal: kitty";};
+        hotkey-overlay = {
+          title = "Open a Terminal: kitty";
+        };
         action = spawn "kitty";
       };
       "Mod5+T".action = spawn "kitty";
       "Mod+D" = {
-        hotkey-overlay = { title = "Run an Application: rofi"; };
+        hotkey-overlay = {
+          title = "Run an Application: rofi";
+        };
         action = spawn-sh "rofi -show drun -theme ~/.config/rofi/launchers/type-7/style-custom.rasi";
       };
       "Super+L" = {
-        hotkey-overlay = { title = "Lock the Screen: swaylock"; };
+        hotkey-overlay = {
+          title = "Lock the Screen: swaylock";
+        };
         action = spawn "swaylock";
       };
 
@@ -741,7 +779,9 @@
         spawn-sh "slack --ozone-platform=wayland --enable-features=WebRTCPipeWireCapturer";
 
       "Mod+Escape" = {
-        hotkey-overlay = { title = "Run an Application: rofi"; };
+        hotkey-overlay = {
+          title = "Run an Application: rofi";
+        };
         action = spawn-sh "rofi -show drun -theme ~/.config/rofi/launchers/type-7/style-custom.rasi";
       };
       #"Menu" = {
