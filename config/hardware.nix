@@ -6,21 +6,34 @@
   pkgs,
   ...
 }:
-{
-  options.custom.hardware = {
-    isAsus = lib.mkOption {
-      type = lib.types.bool;
-      default = true;
-      description = "Whether the hardware is an Asus laptop.";
-    };
-    enableNvidia = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = "Whether to enable Nvidia GPU support.";
+let
+  custom = {
+    hardware = {
+      isAsus = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        description = "Whether the hardware is an Asus laptop.";
+      };
+      enableNvidia = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+        description = "Whether to enable Nvidia GPU support.";
+      };
     };
   };
-
+in
+{
+  options.custom = custom;
   config = {
+    # replicate both options as well as nixos module settings to home-manager
+    home-manager.sharedModules = [
+      {
+        options.custom = custom;
+      }
+      {
+        config.custom = config.custom;
+      }
+    ];
 
     hardware = {
       enableRedistributableFirmware = true; # This switches on other things if you have nixos-hardware

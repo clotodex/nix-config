@@ -30,7 +30,9 @@ let
         "Qr-Scan"
         "ColorPicker"
         "Clipboard"
-        "GPU"
+      ]
+      ++ lib.optionals config.custom.hardware.enableNvidia [ "GPU" ]
+      ++ [
         "SystemInfo"
         "Swaync"
         [
@@ -48,9 +50,8 @@ let
         icon = "";
         command = "${lib.getExe (
           pkgs.writeShellApplication {
-            name = "hyprshade-toggle";
+            name = "redshift-toggle";
             runtimeInputs = [
-              # hyprshade
               pkgs.libnotify
             ];
             text = ''
@@ -164,6 +165,7 @@ in
 
   home.packages = [
     pkgs.ashell
+    pkgs.sunsetr
   ];
 
   systemd.user.services.ashell = {

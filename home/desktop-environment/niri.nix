@@ -6,16 +6,15 @@
 }:
 {
   xdg.portal = {
-    config.
-        niri = {
-          default = [
-            "gnome"
-          ];
-          "org.freedesktop.impl.portal.Access" = [ "gtk" ];
-          "org.freedesktop.impl.portal.Notification" = [ "gtk" ];
-          "org.freedesktop.impl.portal.ScreenCast" = [ "xdg-desktop-portal-gnome" ];
-          "org.freedesktop.impl.portal.Screenshot" = [ "xdg-desktop-portal-gnome" ];
-      };
+    config.niri = {
+      default = [
+        "gnome"
+      ];
+      "org.freedesktop.impl.portal.Access" = [ "gtk" ];
+      "org.freedesktop.impl.portal.Notification" = [ "gtk" ];
+      "org.freedesktop.impl.portal.ScreenCast" = [ "xdg-desktop-portal-gnome" ];
+      "org.freedesktop.impl.portal.Screenshot" = [ "xdg-desktop-portal-gnome" ];
+    };
     configPackages = lib.mkAfter [
       pkgs.niri
     ];
@@ -24,6 +23,10 @@
       pkgs.xdg-desktop-portal-gnome
     ];
   };
+
+  home.packages = [
+    pkgs.scripts.niri-consume-stack
+  ];
 
   programs.niri.settings = {
     xwayland-satellite.path = lib.getExe pkgs.xwayland-satellite-stable;
@@ -370,6 +373,7 @@
         # TODO: exclude floating
 
         open-maximized = true;
+        default-column-display = "tabbed";
       }
 
       # Open the Firefox picture-in-picture player as floating by default.
@@ -384,11 +388,13 @@
           }
         ];
         open-floating = true;
+        open-focused = false;
       }
       {
         matches = [ { app-id = "google-chrome"; } ];
         excludes = [ { title = "- Google Chrome$"; } ];
         open-floating = true;
+        open-focused = false;
       }
       {
         matches = [
@@ -666,6 +672,7 @@
       "Mod+7".action = focus-workspace 7;
       "Mod+8".action = focus-workspace 8;
       "Mod+9".action = focus-workspace 9;
+      "Mod+0".action = focus-workspace 99; # kind of like "focus-last"
       #"Mod+Ctrl+1".action = "move-column-to-workspace 1";
       #"Mod+Ctrl+2".action = "move-column-to-workspace 2";
       #"Mod+Ctrl+3".action = "move-column-to-workspace 3";
@@ -773,10 +780,12 @@
 
       "Mod+Ctrl+F".action = spawn-sh "firefox -P";
       "Mod+Ctrl+B".action =
-        spawn-sh "google-chrome-stable --ozone-platform-hint=auto --enable-features=WebRTCPipeWireCapturer";
+        spawn-sh "google-chrome-stable --ozone-platform-hint=auto --enable-features=WebRTCPipeWireCapturer; sleep 1; ${lib.getExe pkgs.scripts.niri-consume-stack}";
       "Mod+Ctrl+M".action = spawn-sh "Telegram";
       "Mod+Ctrl+S".action =
         spawn-sh "slack --ozone-platform=wayland --enable-features=WebRTCPipeWireCapturer";
+
+      "Mod+Shift+C".action = spawn (lib.getExe pkgs.scripts.niri-consume-stack);
 
       "Mod+Escape" = {
         hotkey-overlay = {
