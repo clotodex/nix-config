@@ -2,7 +2,8 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   # Helpful utilities:
   # Show pipewire devices and application overview or specifics
   # > wpctl status; wpctl inspect <id>
@@ -31,5 +32,8 @@
     ];
   };
 
-  environment.systemPackages = with pkgs; [pulseaudio pulsemixer];
+  environment.systemPackages = with pkgs; [
+    pulseaudio
+    pulsemixer
+  ];
 }

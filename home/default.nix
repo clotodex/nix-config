@@ -3,7 +3,7 @@
   nixosConfig,
   pkgs,
   inputs,
-config,
+  config,
   ...
 }:
 let

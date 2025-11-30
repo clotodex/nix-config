@@ -1,4 +1,5 @@
-{inputs, pkgs, ...}: {
+{ inputs, pkgs, ... }:
+{
   imports = [
     # inputs.agenix-rekey.nixosModules.default
     # inputs.agenix.nixosModules.default
@@ -29,11 +30,8 @@
     ./itsec.nix
   ];
 
-
-  nixpkgs.overlays =
-    (import ../pkgs/default.nix { inherit inputs pkgs; })
-    ++ [
-      inputs.nixos-extra-modules.overlays.default
-      inputs.nixvim.overlays.default
-    ];
+  nixpkgs.overlays = (import ../pkgs/default.nix { inherit inputs pkgs; }) ++ [
+    inputs.nixos-extra-modules.overlays.default
+    inputs.nixvim.overlays.default
+  ];
 }

@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   imports = [
     ./starship.nix
     ./zsh
@@ -6,7 +7,7 @@
 
   programs.zoxide = {
     enable = true;
-    options = ["--cmd p"];
+    options = [ "--cmd p" ];
   };
 
   # nix-index-database is enabled globally for each user in config/home-manager.nix
@@ -14,9 +15,9 @@
   programs.nix-index.enableZshIntegration = false;
   programs.nix-index-database.comma.enable = true;
 
- #  home.persistence."/state".directories = [
- #    ".local/share/zoxide"
- #  ];
+  #  home.persistence."/state".directories = [
+  #    ".local/share/zoxide"
+  #  ];
 
   home.shellAliases = {
     l = "ls -lahF --group-directories-first --show-control-chars --quoting-style=escape --color=auto";

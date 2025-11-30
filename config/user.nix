@@ -62,7 +62,7 @@ in
 
   home-manager.users.${myuser} = {
     imports = [
-      {programs.home-manager.enable = true;}
+      { programs.home-manager.enable = true; }
       ../shell/default.nix
       ../home
       # ../config

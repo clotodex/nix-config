@@ -1,4 +1,5 @@
-{lib, ...}: {
+{ lib, ... }:
+{
   systemd.network.enable = true;
 
   # boot.initrd.systemd.network = {
@@ -41,7 +42,10 @@
     wireless.iwd.enable = true;
     firewall = {
       enable = true;
-      allowedTCPPorts = [25565 42671];
+      allowedTCPPorts = [
+        25565
+        42671
+      ];
       allowedUDPPortRanges = [
         # minecraft
         {
