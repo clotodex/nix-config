@@ -33,7 +33,8 @@
             dark_red = "#993939",
             dark_yellow = "#93691d",
 
-            grey = "#42464e",
+            -- grey = "#42464e",
+            grey = "#565c64",
             grey_fg = "#565c64",
             grey_fg2 = "#6f737b",
             light_grey = "#6f737b",
