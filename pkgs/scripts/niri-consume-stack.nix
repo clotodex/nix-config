@@ -11,6 +11,83 @@ writeShellApplication {
     jq
   ];
   text = ''
+    # Parse optional flags: --quiet/-q, --sleep <seconds>, --max-iterations <n>
+    quiet=0
+    sleep_interval=0
+    max_iterations=10
+
+    usage() {
+      cat <<'USAGE' >&2
+Usage: niri-consume-stack [OPTIONS]
+
+Options:
+  -q, --quiet                 Suppress output
+  -s, --sleep <seconds>       Sleep interval between steps (great for debugging) (default 0)
+  -m, --max-iterations <n>    Maximum reconcile iterations (default 10)
+  -h, --help                  Show this help message
+
+Example:
+  niri-consume-stack --sleep 0.1 --max-iterations 20
+USAGE
+    }
+
+    while [ "$#" -gt 0 ]; do
+      case "$1" in
+        --quiet|-q)
+          quiet=1
+          shift
+          ;;
+        --sleep|-s)
+          if [ -z "$2" ]; then
+            usage
+            exit 1
+          fi
+          sleep_interval="$2"
+          shift 2
+          ;;
+        --max-iterations|-m)
+          if [ -z "$2" ]; then
+            usage
+            exit 1
+          fi
+          max_iterations="$2"
+          shift 2
+          ;;
+        --help|-h)
+          usage
+          exit 0
+          ;;
+        --)
+          shift
+          break
+          ;;
+        -*)
+          # unknown short/long option
+          usage
+          exit 1
+          ;;
+        *)
+          # stop parsing on first non-flag
+          break
+          ;;
+      esac
+    done
+
+    # Logging helpers
+    log() {
+      if [ "$quiet" -ne 1 ]; then
+        echo "$@"
+      fi
+    }
+
+    # Call sleep only when configured to a non-zero interval (zero is a no-op)
+    maybe_sleep() {
+      if [ -z "$sleep_interval" ] || [ "$sleep_interval" = "0" ]; then
+        return
+      fi
+      sleep "$sleep_interval"
+    }
+
     # Get information about all windows
     get_windows() {
     	niri msg -j windows
@@ -23,7 +100,7 @@ writeShellApplication {
     	local target_column=$3
     	echo "$windows_json" | jq -c "
             [.[] | select(
-                .app_id == \"$class\" and 
+                .app_id == \"$class\" and
                 .workspace_id == $workspace and
                 .layout.pos_in_scrolling_layout[0] != $target_column
             )]
@@ -33,12 +110,11 @@ writeShellApplication {
     }
 
     # Safety counters
-    max_iterations=10
     iteration=0
     previous_count=-1
 
     # Reconcile loop
-    while [ $iteration -lt $max_iterations ]; do
+    while [ $iteration -lt "$max_iterations" ]; do
     	iteration=$((iteration + 1))
 
     	# Refresh window data
@@ -52,11 +128,11 @@ writeShellApplication {
     	target_column=$(echo "$focused" | jq -r '.layout.pos_in_scrolling_layout[0]')
 
     	if [ -z "$target_id" ]; then
-    		echo "Error: No focused window found"
+    		log "Error: No focused window found"
     		exit 1
     	fi
 
-    	echo "Target: ID=$target_id, class=$target_class, column=$target_column"
+    	log "Target: ID=$target_id, class=$target_class, column=$target_column"
 
     	# Get windows that need to be merged
     	windows_to_merge=$(get_windows_to_merge "$target_class" "$target_workspace" "$target_column")
@@ -69,74 +145,74 @@ writeShellApplication {
     	fi
 
     	if [ "$merge_count" -eq 0 ]; then
-    		echo "All windows merged! (iteration $iteration)"
+    		log "All windows merged! (iteration $iteration)"
     		break
     	fi
 
     	# Check if we're making progress
     	if [ "$previous_count" -eq "$merge_count" ]; then
-    		echo "Error: No progress made in iteration $iteration (still $merge_count windows to merge)"
+    		log "Error: No progress made in iteration $iteration (still $merge_count windows to merge)"
     	fi
     	previous_count=$merge_count
 
-    	echo "Iteration $iteration: $merge_count windows left to merge"
+    	log "Iteration $iteration: $merge_count windows left to merge"
 
     	# Get next window to merge
     	next_window=$(echo "$windows_to_merge" | head -n 1)
     	next_id=$(echo "$next_window" | jq -r '.id')
     	next_column=$(echo "$next_window" | jq -r '.layout.pos_in_scrolling_layout[0]')
 
-    	printf "  Target window: ID=%s, column=%s\n" "$target_id" "$target_column"
-    	printf "  Next window to merge: ID=%s, column=%s\n" "$next_id" "$next_column"
+    	log "  Target window: ID=$target_id, column=$target_column"
+    	log "  Next window to merge: ID=$next_id, column=$next_column"
 
     	if [ -z "$next_id" ] || [ "$next_id" = "null" ]; then
-    		echo "Error: Could not get next window to merge"
+    		log "Error: Could not get next window to merge"
     		exit 1
     	fi
 
-    	echo "  Moving window ID=$next_id from column $next_column to column $target_column"
+    	log "  Moving window ID=$next_id from column $next_column to column $target_column"
         distance=$(( target_column - next_column ))
     	abs_distance=''${distance#-}
-    	echo "  Distance to target column: $distance"
+    	log "  Distance to target column: $distance"
 
     	# Focus the window to merge
     	niri msg action focus-window --id "$next_id"
-    	sleep 0.05
+    	sleep "$sleep_interval"
     	if [ "$abs_distance" -gt 1 ]; then
-    		echo "  Note: Window is more than one column away; will move it step by step"
+    		log "  Note: Window is more than one column away; will move it step by step"
     		for _ in $(seq 1 $((abs_distance - 1))); do
     			if [ "$distance" -gt 0 ]; then
-    				echo "    Moving right"
+    				log "    Moving right"
     				niri msg action move-column-right
     			else
-    				echo "    Moving left"
+    				log "    Moving left"
     				niri msg action move-column-left
     			fi
-    			sleep 0.05
+    			sleep "$sleep_interval"
     		done
     	fi
 
     	if [ "$distance" -gt 0 ]; then
-    		echo "    Merging right"
+    		log "    Merging right"
     		niri msg action consume-or-expel-window-right
     	else
-    		echo "    Merging left"
+    		log "    Merging left"
     		niri msg action consume-or-expel-window-left
     	fi
 
     	# refocus tartget window
     	niri msg action focus-window --id "$target_id"
-    	sleep 0.05
+    	sleep "$sleep_interval"
     done
 
-    if [ $iteration -eq $max_iterations ]; then
-    	echo "Error: Reached maximum iterations ($max_iterations)"
+    if [ $iteration -eq "$max_iterations" ]; then
+    	log "Error: Reached maximum iterations ($max_iterations)"
     	exit 1
     fi
 
     # Refocus target window
     niri msg action focus-window --id "$target_id"
 
-    echo "Success! All windows of class '$target_class' stacked in column $target_column"
+    log "Success! All windows of class '$target_class' stacked in column $target_column"
   '';
 }

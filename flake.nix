@@ -17,6 +17,10 @@
       url = "github:Zhaith-Izaliel/iio-niri";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    niri-burst-consume = {
+      url = "github:clotodex/niri-burst-consume";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     hyprland = {
       url = "github:hyprwm/Hyprland"; # /v0.52.1"; # ?rev=2794f485cb5d52b3ff572953ddcfaf7fd3c25182"; # /v0.49.0";
     };
@@ -104,6 +108,7 @@
             # inputs.nixos-extra-modules.homeManagerModules.default
             inputs.nix-index-database.homeModules.nix-index
             inputs.nixvim.homeModules.nixvim
+            inputs.niri-burst-consume.homeModules.default
           ];
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
@@ -184,6 +189,12 @@
                   "eDP-1"
                 ];
               };
+
+              home-manager.sharedModules = [
+                {
+                  services.niri-burst-consume.enable = true;
+                }
+              ];
 
               #environment.systemPackages = [
               #  pkgs.xwayland-satellite
