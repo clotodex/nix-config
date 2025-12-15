@@ -37,18 +37,17 @@
     cargo
     kitty.terminfo
 
-    freerdp
-
+    #freerdp
     # support both 32-bit and 64-bit applications
-    wineWowPackages.stable
-    # wine-staging (version with experimental features)
-    wineWowPackages.staging
-    # winetricks (all versions)
-    winetricks
-    # native wayland support (unstable)
-    wineWowPackages.waylandFull
-    #vcrun2015
-    #dotnet48
-    dxvk
+    #wineWowPackages.stable
+    ## wine-staging (version with experimental features)
+    #wineWowPackages.staging
+    ## winetricks (all versions)
+    #winetricks
+    ## native wayland support (unstable)
+    #wineWowPackages.waylandFull
+    ##vcrun2015
+    ##dotnet48
+    #dxvk
   ];
 }
