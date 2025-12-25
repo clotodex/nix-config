@@ -6,6 +6,7 @@
 
   programs.nixvim = {
     plugins = {
+      treesj.enable = true;
       notify = {
         enable = true;
         settings = {
