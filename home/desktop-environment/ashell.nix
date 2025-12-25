@@ -10,7 +10,7 @@ let
     log_level = "warn";
     outputs = "All";
     position = "Top";
-    appLauncher_cmd = "~/.config/rofi/launcher.sh";
+    appLauncher_cmd = "rofi -show drun -theme ~/.config/rofi/launchers/type-7/style-custom.rasi";
     clipboard_cmd = "cliphist-rofi-img | wl-copy";
     truncate_title_after_length = 50;
 
@@ -143,6 +143,13 @@ let
       vpn_more_cmd = "nm-connection-editor";
       bluetooth_more_cmd = "uwsm app blueman-manager";
       remove_airplane_btn = true;
+      CustomButton = [
+        {
+          name = "Terminal";
+          icon = "🖥️";
+          command = "${lib.getExe pkgs.kitty}";
+        }
+      ];
     };
 
     appearance = {

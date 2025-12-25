@@ -7,20 +7,8 @@
 {
   imports = [
     ./niri.nix
-    ./hyprland
     ./ashell.nix
   ];
-
-  options.custom.compositor = {
-    enabledCompositors = lib.mkOption {
-      type = lib.types.listOf lib.types.str;
-      default = [
-        "hyprland"
-        "niri"
-      ];
-      description = "List of enabled compositors.";
-    };
-  };
 
   config = {
 

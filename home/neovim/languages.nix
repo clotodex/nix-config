@@ -11,7 +11,7 @@
     plugins = {
       treesitter = {
         enable = true;
-        folding = false;
+        folding.enable = false;
         settings = {
           # TODO (autocmd * zR needed) folding = true;
           indent.enable = true;

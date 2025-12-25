@@ -21,25 +21,6 @@
       url = "github:clotodex/niri-burst-consume";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprland = {
-      url = "github:hyprwm/Hyprland"; # /v0.52.1"; # ?rev=2794f485cb5d52b3ff572953ddcfaf7fd3c25182"; # /v0.49.0";
-    };
-    hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins"; # /scroll-overview"; # /v0.49.0-fix";
-      #inputs.nixpkgs.follows = "nixpkgs";
-      inputs.hyprland.follows = "hyprland";
-    };
-    rose-pine-hyprcursor = {
-      url = "github:ndom91/rose-pine-hyprcursor";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    #Hyprspace = {
-    #  url = "github:KZDKM/Hyprspace";
-    #  #url = "github:ReshetnikovPavel/Hyprspace";
-
-    #  # Hyprspace uses latest Hyprland. We declare this to keep them in sync.
-    #  inputs.hyprland.follows = "hyprland";
-    #};
     nix-index-database = {
       url = "github:Mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -62,8 +43,8 @@
       flake = false;
     };
     ashell = {
-      #url = "github:MalpenZibo/ashell";
-      url = "github:clotodex/ashell-iwd/feature/niri-support";
+      url = "github:MalpenZibo/ashell";
+      #url = "github:clotodex/ashell-iwd/feature/niri-support";
       #inputs.nixpkgs.follows = "nixpkgs";
     };
     project-chooser-src = {
@@ -131,13 +112,70 @@
             inherit inputs;
           };
           modules = shared_modules ++ [
-            {
-              networking.hostName = "kotn";
-              custom.hardware.enableNvidia = true;
-            }
             inputs.nixos-hardware.nixosModules.asus-zephyrus-gu603h
             inputs.nixos-hardware.nixosModules.asus-battery
             ./hardware-configuration.nix
+            {
+              networking.hostName = "kotn";
+              custom.hardware.enableNvidia = true;
+              # intel alder-lake gpu
+              hardware.intelgpu.vaapiDriver = "intel-media-driver";
+
+              hardware.graphics = {
+                enable = true;
+                extraPackages = with pkgs; [
+                  # Required for modern Intel GPUs (Xe iGPU and ARC)
+                  intel-media-driver # VA-API (iHD) userspace
+                  vpl-gpu-rt # oneVPL (QSV) runtime
+                  intel-compute-runtime # OpenCL (NEO) + Level Zero for Arc/Xe
+                  # libvdpau-va-gl       # Only if you must run VDPAU-only apps
+                ];
+              };
+
+              security.pam.services.swaylock = { };
+
+              environment.sessionVariables = {
+                LIBVA_DRIVER_NAME = "iHD"; # Prefer the modern iHD backend
+                # VDPAU_DRIVER = "va_gl";      # Only if using libvdpau-va-gl
+              };
+              # alder-lake fix
+              boot.kernelParams = [ "i915.force_probe=46a6" ];
+
+              nixpkgs.overlays = [
+                inputs.niri.overlays.niri
+                inputs.iio-niri.overlays.default
+
+              ];
+              # for now for cache for cache
+              programs.niri.enable = true;
+              programs.niri.package = pkgs.niri;
+
+              services.iio-niri = {
+                enable = true;
+
+                extraArgs = [
+                  "--monitor"
+                  "eDP-1"
+                ];
+              };
+
+              home-manager.sharedModules = [
+                {
+                  services.niri-burst-consume.enable = true;
+                  programs.niri.settings.debug = {
+                    render-drm-device = "/dev/dri/renderD128";
+                    ignore-drm-device = "/dev/dri/renderD129";
+                  };
+                }
+              ];
+
+              #environment.systemPackages = [
+              #  pkgs.xwayland-satellite
+              #];
+
+            }
+            inputs.niri.nixosModules.niri
+            inputs.iio-niri.nixosModules.default
           ];
         };
 

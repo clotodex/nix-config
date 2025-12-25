@@ -9,6 +9,8 @@ let
   myuser = "clotodex";
 in
 {
+  services.dbus.implementation = "broker";
+
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
 
@@ -54,7 +56,7 @@ in
     # because the fpath changes in-between, causing constant re-evaluation and thus startup
     # times of 1-2 seconds. Disable the completion here and only keep the home-manager one to fix it.
     enableCompletion = false;
-    # Autostart hyprland if on tty1 (once, don't restart after logout)
+    # Autostart windowmanager if on tty1 (once, don't restart after logout)
   };
 
   # TODO: Autologin
@@ -76,9 +78,8 @@ in
     ];
 
     programs.zsh.initContent = lib.mkOrder 9999 ''
-      if [[ -t 0 && "$(tty || true)" == /dev/tty1 && -z "$DISPLAY" && -z "$WAYLAND_DISPLAY" ]] && uwsm check may-start; then
-        echo "Login shell detected. Starting Hyprland..."
-        # uwsm start -F Hyprland
+      if [[ -t 0 && "$(tty || true)" == /dev/tty1 && -z "$DISPLAY" && -z "$WAYLAND_DISPLAY" ]]; then # && uwsm check may-start; then
+        echo "Login shell detected. Starting Compositor..."
         # uwsm start -F niri
         niri-session
       fi

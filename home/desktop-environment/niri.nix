@@ -4,8 +4,37 @@
   config,
   ...
 }:
+let
+  # TODO: auto-allow screensharing for some apps that have inbuilt controls.
+  # TODO: idle setup, wl-clipboard-history, awww, swww-daemon, touchpad scroll workspaces
+
+  script-shuffle-wallpaper = pkgs.writeShellScriptBin "script" ''
+    wallpaper_dir="$HOME/.config/wallpapers/all"
+    wallpaper_out="$HOME/.config/wallpapers/selected"
+
+    mkdir -p "$wallpaper_out"
+
+    all_wallpapers="$(${pkgs.ripgrep}/bin/rg -u --files $wallpaper_dir)"
+    chosen_wallpaper="$(echo "$all_wallpapers" | shuf | head -n 1)"
+    cp "$chosen_wallpaper" "$wallpaper_out/wallpaper.jpg"
+
+    # get colorscheme from image
+    # wallust run -Tsq "$wallpaper_out/wallpaper.jpg"
+
+
+    ${pkgs.swww}/bin/swww img "$chosen_wallpaper" --transition-bezier .43,1.19,1,.4 --transition-fps=60  --transition-type=wipe --transition-duration=0.7 --transition-pos "$( hyprctl cursorpos )"
+  '';
+
+  todoKeybinds = [
+    "SUPER SHIFT, W, exec, ${lib.getExe script-shuffle-wallpaper}"
+
+  ];
+
+in
 {
   xdg.portal = {
+    #xdgOpenUsePortal = true;
+    #wlr.enable = true;
     config.niri = {
       default = [
         "gtk"

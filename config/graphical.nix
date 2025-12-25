@@ -6,14 +6,6 @@
   pkgs,
   ...
 }:
-let
-  inherit (lib)
-    mkIf
-    mkOption
-    types
-    optionalAttrs
-    ;
-in
 {
   config = {
     # Needed for gtk
@@ -25,15 +17,6 @@ in
 
     # Enable the X11 windowing system.
     services.xserver.enable = false;
-    #programs.hyprland = {
-    #  enable = true;
-    #  # set the flake package
-    #  package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-    #  # make sure to also set the portal package, so that they are in sync
-    #  portalPackage =
-    #    inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
-    #};
-    #programs.waybar.enable = true;
 
     # We actually use the home-manager module to add the actual portal config,
     # but need this so relevant implementations are found
@@ -42,15 +25,6 @@ in
     ];
 
     services.displayManager.enable = true;
-    programs.uwsm = {
-      enable = true;
-      waylandCompositors.hyprland = {
-        prettyName = "Hyprland";
-        comment = "Hyprland";
-        #binPath = lib.getExe pkgs.hyprland;
-        binPath = lib.getExe inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-      };
-    };
 
   };
 }
