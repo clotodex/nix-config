@@ -56,7 +56,7 @@ in
   };
 
   home.packages = [
-    pkgs.scripts.niri-consume-stack
+    pkgs.custom-scripts.niri-consume-stack
   ];
 
   programs.niri.settings = {
@@ -306,6 +306,7 @@ in
 
       {
         # INFO: application launchers
+        "Mod+X".action = spawn-sh "kitty bash -c '/home/clotodex/projects/development/application/cass/target/debug/cass --pick; sleep 1'";
         "Mod+Ctrl+F".action = spawn-sh "firefox -P";
         "Mod+Ctrl+B".action =
           spawn-sh "google-chrome-stable --ozone-platform-hint=auto --enable-features=WebRTCPipeWireCapturer; sleep 1"; # ; ${lib.getExe pkgs.scripts.niri-consume-stack} -q";
@@ -404,7 +405,7 @@ in
         # FIXME: better keybind idea?
         "Mod+W".action = toggle-column-tabbed-display;
 
-        "Mod+Shift+C".action = spawn (lib.getExe pkgs.scripts.niri-consume-stack);
+        "Mod+Shift+C".action = spawn (lib.getExe pkgs.custom-scripts.niri-consume-stack);
 
         # INFO: movement
 

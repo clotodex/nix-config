@@ -40,6 +40,7 @@ in
       "sudo"
       "sound"
       "video"
+      "i2c"
     ];
     isNormalUser = true;
     autoSubUidGidRange = false;

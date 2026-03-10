@@ -243,7 +243,7 @@ msg ">>> Building and switching to the new system configuration..."
 COMMIT_MSG="flake.lock update ($(date +%Y-%m-%d))"
 msg ">>> Committing the updated flake.lock with the message: '$COMMIT_MSG'"
 git add flake.lock
-git commit -m "$COMMIT_MSG"
+#git commit -m "$COMMIT_MSG"
 
 # Get the commit hash and set it as NIXOS_LABEL
 COMMIT_HASH=$(git rev-parse HEAD)
@@ -255,7 +255,7 @@ if nh os switch --ask; then
   exit 0
 else
   warn ">>> Build failed. Reverting commit..."
-  git reset --soft HEAD~1
+  #git reset --soft HEAD~1
   # TODO: git restore flake.lock
   msg "Exiting with error."
   exit 1

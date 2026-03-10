@@ -51,6 +51,8 @@ in
     #services.supergfxd.enable = true;
     services.asusd.enable = lib.mkIf config.custom.hardware.isAsus true;
 
+    hardware.i2c.enable = true;
+
     #systemd.services.no-sdcard = {
 
     #  serviceConfig = {

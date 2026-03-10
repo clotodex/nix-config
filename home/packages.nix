@@ -17,7 +17,7 @@
       hexyl
       killall
       ncdu
-      neofetch
+      fastfetch
       nvd
       rage
       rclone
@@ -32,12 +32,15 @@
       usbutils
       pciutils
       rquickshare
+
+      voxtype
     ];
   };
 
   programs = {
     yazi = {
       enable = true;
+      shellWrapperName = "y";
       settings.manager = {
         show_hidden = true;
         show_symlink = true;

@@ -91,7 +91,7 @@ let
       {
         name = "Qr-Scan";
         icon = "󰐲";
-        command = lib.getExe pkgs.scripts.screenshot-area-scan-qr;
+        command = lib.getExe pkgs.custom-scripts.screenshot-area-scan-qr;
       }
       {
         name = "ColorPicker";
@@ -116,6 +116,7 @@ let
     workspaces = {
       visibility_mode = "All";
       enable_workspace_filling = false;
+      group_by_monitor = true;
     };
 
     system = {
