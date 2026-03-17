@@ -326,5 +326,5 @@ function pccd() {
 
 alias "pc"='pccd'
 alias "pcb"='pccd -b'
-alias "dcc"='devenv shell -- claude'
+alias "dcc"='devenv shell -- claude --dangerously-skip-permissions'
 alias "doc"='devenv shell -- opencode'

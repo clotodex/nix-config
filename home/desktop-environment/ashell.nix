@@ -36,11 +36,23 @@ let
         "SystemInfo"
         "Swaync"
         [
-          "Clock"
+          "Tempo"
           "Privacy"
           "Settings"
         ]
       ];
+    };
+
+    tempo = {
+      clock_format = "%a %d %b %R %Z";
+      timezones = [
+        "Europe/Berlin"
+        "UTC"
+        "Europe/Istanbul"
+      ];
+      weather_location = {
+        City = "Munich";
+      };
     };
 
     CustomModule = [
@@ -140,6 +152,8 @@ let
       lock_cmd = "swaylock &";
       audio_sinks_more_cmd = "pavucontrol -t 3";
       audio_sources_more_cmd = "pavucontrol -t 4";
+      audio_indicator_format = "IconAndPercentage";
+      bluetooth_indicator_format = "IconAndValue";
       wifi_more_cmd = "uswm app iwctl";
       vpn_more_cmd = "nm-connection-editor";
       bluetooth_more_cmd = "uwsm app blueman-manager";
