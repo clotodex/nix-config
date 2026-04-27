@@ -43,6 +43,12 @@ let
       ];
     };
 
+    enable_esc_key = true;
+
+    osd.enabled = true;
+
+
+
     tempo = {
       clock_format = "%a %d %b %R %Z";
       timezones = [

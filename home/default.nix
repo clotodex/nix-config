@@ -102,6 +102,8 @@ in
       pkgs.blueman
       #pkgs-old.galaxy-buds-client
       pkgs.devenv
+
+      pkgs.zoxide
     ];
 
     # TODO: projects/external

@@ -15,8 +15,17 @@ in
   time.timeZone = "Europe/Berlin";
 
   # Select internationalisation properties.
+  # en_US everywhere, but override metric units and paper size to ISO/metric.
   i18n.defaultLocale = "en_US.UTF-8";
   #i18n.defaultLocale = "C.UTF-8";
+  i18n.extraLocaleSettings = {
+    LC_MEASUREMENT = "de_DE.UTF-8";
+    LC_PAPER = "de_DE.UTF-8";
+  };
+  i18n.supportedLocales = [
+    "en_US.UTF-8/UTF-8"
+    "de_DE.UTF-8/UTF-8"
+  ];
   console = {
     #   font = "Lat2-Terminus16";
     keyMap = "de-latin1-nodeadkeys";

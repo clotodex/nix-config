@@ -22,7 +22,7 @@ let
     # wallust run -Tsq "$wallpaper_out/wallpaper.jpg"
 
 
-    ${pkgs.swww}/bin/swww img "$chosen_wallpaper" --transition-bezier .43,1.19,1,.4 --transition-fps=60  --transition-type=wipe --transition-duration=0.7 --transition-pos "$( hyprctl cursorpos )"
+    ${lib.getExe pkgs.awww} img "$chosen_wallpaper" --transition-bezier .43,1.19,1,.4 --transition-fps=60  --transition-type=wipe --transition-duration=0.7 --transition-pos "$( hyprctl cursorpos )"
   '';
 
   todoKeybinds = [
@@ -296,7 +296,7 @@ in
           # wallust run -Tsq "$wallpaper_out/wallpaper.jpg"
 
 
-          ${pkgs.swww}/bin/swww img "$chosen_wallpaper" --transition-bezier .43,1.19,1,.4 --transition-fps=60  --transition-type=wipe --transition-duration=0.7 --transition-pos "$( hyprctl cursorpos )"
+          ${lib.getExe pkgs.awww} img "$chosen_wallpaper" --transition-bezier .43,1.19,1,.4 --transition-fps=60  --transition-type=wipe --transition-duration=0.7 --transition-pos "$( hyprctl cursorpos )"
         '';
       in
 

@@ -18,7 +18,16 @@
   programs.git = {
     enable = true;
     lfs.enable = lib.mkDefault false;
+
+    signing = {
+      key = "~/.ssh/id_ed25519"; # or your GPG key ID
+      signByDefault = true;
+    };
     settings = {
+      gpg.format = "ssh"; # only if using SSH signing
+      gpg.ssh.allowedSignersFile = "~/.ssh/allowed_signers";
+      user.name = "clotodex";
+      user.email = "clotodex@online.de";
       core.pager = "${pkgs.delta}/bin/delta";
       delta = {
         hyperlinks = true;

@@ -16,7 +16,7 @@
         # MulticastDNS = true;
       };
       dhcpV4Config.RouteMetric = 10;
-      dhcpV6Config.RouteMetric = 10;
+      ipv6AcceptRAConfig.RouteMetric = 10;
     };
     "10-wlan1" = {
       DHCP = "yes";
@@ -26,7 +26,7 @@
         # MulticastDNS = true;
       };
       dhcpV4Config.RouteMetric = 40;
-      dhcpV6Config.RouteMetric = 40;
+      ipv6AcceptRAConfig.RouteMetric = 40;
     };
   };
 
@@ -64,14 +64,16 @@
 
   services.resolved = {
     enable = true;
-    dnssec = "false"; # wake me up in 20 years when DNSSEC is at least partly working
-    fallbackDns = [
-      "1.1.1.1"
-      "2606:4700:4700::1111"
-      "8.8.8.8"
-      "2001:4860:4860::8844"
-    ];
-    llmnr = "false";
+    settings.Resolve = {
+      DNSSEC = "false"; # wake me up in 20 years when DNSSEC is at least partly working
+      LLMNR = "false";
+      FallbackDNS = [
+        "1.1.1.1"
+        "2606:4700:4700::1111"
+        "8.8.8.8"
+        "2001:4860:4860::8844"
+      ];
+    };
     # extraConfig = ''
     #   Domains=~.
     # ''; # MulticastDNS=true

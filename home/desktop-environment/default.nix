@@ -16,7 +16,7 @@
       swaylock
       wl-clipboard
       dragon-drop
-      swww
+      awww
       rofi
       libnotify
     ];
