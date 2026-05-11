@@ -28,6 +28,7 @@
     ./print.nix
     ./packages.nix
     ./itsec.nix
+    ./steam.nix
   ];
 
   nixpkgs.overlays = (import ../pkgs/default.nix { inherit inputs pkgs; }) ++ [

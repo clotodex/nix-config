@@ -33,7 +33,7 @@
       pciutils
       rquickshare
 
-      voxtype
+      #voxtype
     ];
   };
 
