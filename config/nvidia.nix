@@ -1,3 +1,19 @@
+# UNUSED — kept as historical reference only. Do NOT import from default.nix.
+#
+# On kotn, the entire nvidia stack (driver, PRIME offload, `nvidia-offload`
+# command, Ampere `open` driver, intel/nvidia bus IDs) is provided by
+# `inputs.nixos-hardware.nixosModules.asus-zephyrus-gu603h` (see flake.nix),
+# which transitively imports:
+#   common/gpu/nvidia/default.nix  → services.xserver.videoDrivers = ["nvidia"]
+#   common/gpu/nvidia/prime.nix    → prime.offload.{enable,enableOffloadCmd} = true
+#   common/gpu/nvidia/ampere       → hardware.nvidia.open = true (RTX 30xx)
+# and sets intelBusId = "PCI:0:2:0", nvidiaBusId = "PCI:1:0:0".
+#
+# Re-importing this file would *conflict* with that: the `lib.mkForce` on
+# videoDrivers would mask any future override, and `hardware.nvidia.open`
+# would clash with the ampere module's `mkOverride 990`. The
+# nvidia-vaapi-driver and gamemode `[gpu]` tweaks worth keeping live in
+# config/steam.nix instead.
 {
   lib,
   pkgs,

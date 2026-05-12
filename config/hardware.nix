@@ -20,6 +20,9 @@ let
         description = "Whether to enable Nvidia GPU support.";
       };
     };
+    gaming = {
+      enable = lib.mkEnableOption "Steam + Proton gaming stack (see config/steam.nix)";
+    };
   };
 in
 {

@@ -122,6 +122,7 @@
             {
               networking.hostName = "kotn";
               custom.hardware.enableNvidia = true;
+              custom.gaming.enable = true;
               # intel alder-lake gpu
               hardware.intelgpu.vaapiDriver = "intel-media-driver";
 
@@ -191,6 +192,7 @@
           modules = shared_modules ++ [
             {
               networking.hostName = "flipsy";
+              custom.gaming.enable = true;
               # intel alder-lake gpu
               hardware.intelgpu.vaapiDriver = "intel-media-driver";
 

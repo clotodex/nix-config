@@ -1,26 +1,21 @@
-# gaming.nix
+# steam.nix
 #
 # Drop-in NixOS module for running Trackmania 2020 (and Windows games in
 # general) via Steam + Proton. Tested target: NixOS 25.11 / unstable, x86_64.
 #
-# Usage:
-#   1. Place this file alongside your configuration.nix.
-#   2. Add it to your imports list:
-#        imports = [ ./hardware-configuration.nix ./gaming.nix ];
-#   3. sudo nixos-rebuild switch && reboot
+# Adapts to the host:
+#   - Common: NTSync, Steam + GE-Proton, GameMode, Gamescope, 32-bit GL,
+#     protontricks, MangoHud, sensible ulimits / shader cache env.
+#   - Intel Alder Lake iGPU (both kotn + flipsy): blacklist `xe`, force `i915`,
+#     enable GuC submission, install `intel-media-driver` + `vpl-gpu-rt`.
+#   - Nvidia (kotn only, gated by `custom.hardware.enableNvidia`): add
+#     `nvidia-vaapi-driver`, configure GameMode `[gpu]` for the dGPU.
 #
-# What it gives you:
-#   - Zen kernel with NTSync enabled (kernel-level Windows synchronization
-#     primitives, big perf/correctness win for Wine/Proton)
-#   - Steam + GE-Proton (declaratively pinned, no protonup needed)
-#   - GameMode (CPU governor / IO niceness tweaks while a game is running)
-#   - Gamescope (Valve's micro-compositor; useful for fixed res / FSR / HDR)
-#   - 32-bit graphics libs (Steam runtime + some Proton bits still need them)
-#   - protontricks (for installing Openplanet, vcrun, etc. into the prefix)
-#   - MangoHud (FPS/frametime overlay)
+# Enable per-host with:
+#   custom.gaming.enable = true;
 #
 # After rebooting, verify:
-#   uname -r                  # should show a *-zen* kernel
+#   uname -r                  # mainline kernel with ntsync as a module
 #   ls -l /dev/ntsync         # should exist, mode crw-rw-rw-
 #   lsmod | grep ntsync       # should show the module loaded
 #
@@ -28,6 +23,12 @@
 #   Settings -> Compatibility -> Enable Steam Play for all other titles
 #   Set "Run other titles with" to GE-Proton (latest), or per-game via
 #   right-click -> Properties -> Compatibility.
+#
+# On kotn (PRIME offload), launch games via Steam launch options:
+#   nvidia-offload gamemoderun %command%
+# Driver, PRIME offload, `nvidia-offload` command, Ampere `open` driver, and
+# bus IDs are all set by nixos-hardware's `asus-zephyrus-gu603h` module —
+# see flake.nix. The local config/nvidia.nix is unused / superseded.
 #
 # Black main-library window workaround (Niri/XWayland + Mesa Intel):
 #   Settings -> Interface -> turn OFF "GPU Accelerated Rendering in Web Views".
@@ -42,187 +43,168 @@
   pkgs,
   ...
 }:
-
+let
+  cfg = config.custom.gaming;
+  nvidia = config.custom.hardware.enableNvidia;
+in
 {
-  ###########################################################################
-  # Kernel: NTSync + Intel iGPU stability for gaming
-  ###########################################################################
-  # NTSync replaces esync/fsync in Wine/Proton with kernel-level Windows
-  # synchronization primitives — large stability and perf win for games.
-  # Stock mainline kernel 6.10+ ships it as a module (CONFIG_NTSYNC=m), so
-  # we just need to load it.
-  boot.kernelModules = [ "ntsync" ];
+  # Option declared in config/hardware.nix alongside the other custom.* opts
+  # so it's also mirrored into home-manager's shared module scope.
+  config = lib.mkIf cfg.enable (lib.mkMerge [
 
-  # Intel Alder Lake (Iris Xe, PCI 8086:46A6) ships in modern kernels with
-  # both `i915` (legacy, stable) and `xe` (new, still maturing) modules
-  # autoloaded. They fight over the same device and the conflict manifests
-  # as `i915 GPU HANG` under heavy DXVK workloads (e.g. Trackmania at high
-  # MSAA). For Alder Lake in 2026, i915 is the stable choice — keep it and
-  # prevent xe from binding.
-  boot.blacklistedKernelModules = [ "xe" ];
-  boot.kernelParams = [
-    "xe.force_probe=!46a6" # tell xe to NOT bind this device
-    "i915.enable_guc=3" # enable GuC submission + HuC firmware load
-  ];
+    ###########################################################################
+    # Common: kernel module, Steam, GameMode, Gamescope, packages, env, limits
+    ###########################################################################
+    {
+      # NTSync replaces esync/fsync in Wine/Proton with kernel-level Windows
+      # synchronization primitives — large stability and perf win for games.
+      # Stock mainline kernel 6.10+ ships it as a module (CONFIG_NTSYNC=m), so
+      # we just need to load it.
+      boot.kernelModules = [ "ntsync" ];
 
-  # ALTERNATIVE (uncomment if you want to stay on linuxPackages_latest /
-  # mainline instead of Zen). This will force a *local* kernel rebuild on
-  # every kernel bump (no binary cache), so expect the first nixos-rebuild
-  # after enabling this to take a while.
-  #
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
-  # boot.kernelPatches = [{
-  #   name = "enable-ntsync";
-  #   patch = null;
-  #   structuredExtraConfig = with lib.kernel; {
-  #     NTSYNC = module;
-  #   };
-  # }];
+      # `nixpkgs.config.allowUnfree = true` is already set globally in
+      # config/nix.nix, which covers steam, steam-unwrapped, proton-ge-bin,
+      # nvidia-x11, etc. No per-package predicate needed here.
 
-  ###########################################################################
-  # Allow unfree (Steam, GE-Proton, Steam runtime are unfree)
-  ###########################################################################
-  nixpkgs.config.allowUnfreePredicate =
-    pkg:
-    builtins.elem (lib.getName pkg) [
-      "steam"
-      "steam-unwrapped"
-      "steam-original"
-      "steam-run"
-      "proton-ge-bin"
-    ];
-
-  ###########################################################################
-  # Graphics stack
-  ###########################################################################
-  hardware.graphics = {
-    enable = true;
-    enable32Bit = true; # 32-bit GL/Vulkan for Steam runtime
-    extraPackages = with pkgs; [
-      # VDPAU shims — not needed on Intel iGPU (NVIDIA-stack / legacy VDPAU apps)
-      # libva-vdpau-driver
-      # libvdpau-va-gl
-      # Intel iGPU video acceleration (Iris Xe / Gen12+)
-      intel-media-driver
-      vpl-gpu-rt
-    ];
-    extraPackages32 = with pkgs.pkgsi686Linux; [
-      # 32-bit VDPAU shims — Steam/Proton don't exercise these on Intel
-      # libva-vdpau-driver
-      # libvdpau-va-gl
-    ];
-  };
-
-  ###########################################################################
-  # Steam
-  ###########################################################################
-  programs.steam = {
-    enable = true;
-
-    # Open ports for Remote Play (harmless if you don't use it).
-    remotePlay.openFirewall = true;
-
-    # Declaratively make GE-Proton available in Steam's compatibility tool
-    # dropdown. No need for ProtonUp-Qt unless you want a GUI to swap
-    # specific GE versions.
-    extraCompatPackages = [ pkgs.proton-ge-bin ];
-
-    # Workaround for nixpkgs#389142: Steam runs games inside an FHS sandbox
-    # and won't see libgamemode.so unless we inject it into the wrapper.
-    package = pkgs.steam.override {
-      extraPkgs =
-        pkgs: with pkgs; [
-          gamemode
-          # Some games / launchers also pull these in:
-          keyutils
-          libkrb5
-          libpng
-          libpulseaudio
-          libvorbis
-          stdenv.cc.cc.lib
-          libxcursor
-          libxi
-          libxinerama
-          libxscrnsaver
-        ];
-    };
-  };
-
-  ###########################################################################
-  # GameMode (Feral)
-  ###########################################################################
-  # Use it via Steam launch options: gamemoderun %command%
-  programs.gamemode = {
-    enable = true;
-    enableRenice = true;
-    settings = {
-      general = {
-        renice = 10;
-        # Inhibit the screensaver while gaming
-        inhibit_screensaver = 1;
+      hardware.graphics = {
+        enable = true;
+        enable32Bit = true; # 32-bit GL/Vulkan for Steam runtime
       };
-      # If you have a discrete GPU later, you can add a [gpu] section here.
-    };
-  };
 
-  ###########################################################################
-  # Gamescope (optional, useful for fixed resolution / FSR / HDR)
-  ###########################################################################
-  # Use via Steam launch options, e.g.:
-  #   gamemoderun gamescope -W 1920 -H 1080 -r 144 -f -- %command%
-  # The -F fsr flag enables AMD FSR upscaling, useful on iGPUs:
-  #   gamescope -W 1920 -H 1080 -F fsr -w 1280 -h 720 -- %command%
-  programs.gamescope = {
-    enable = true;
-    capSysNice = false; # avoid conflict with gamemode renicing
-  };
+      # Udev rules for Steam Controller, Steam Deck controllers, Steam Link,
+      # and DualShock/DualSense pads. `programs.steam.enable` does NOT pull
+      # these in automatically.
+      hardware.steam-hardware.enable = true;
 
-  ###########################################################################
-  # Useful gaming utilities on PATH
-  ###########################################################################
-  environment.systemPackages = with pkgs; [
-    mangohud # FPS / frametime / temp overlay (MANGOHUD=1 %command%)
-    protontricks # Required for Openplanet install + per-prefix tweaks
-    protonup-qt # Optional GUI for managing extra GE-Proton versions
-    winetricks # Useful when poking around prefixes manually
+      programs.steam = {
+        enable = true;
 
-    # Optional: keep Lutris around as an alternative install path
-    # (e.g. native Ubisoft Connect without Steam in the loop).
-    # lutris
+        # Open ports for Remote Play (harmless if you don't use it).
+        remotePlay.openFirewall = true;
 
-    # Optional: vulkan tools for sanity checks
-    vulkan-tools # provides `vulkaninfo`, useful: `vulkaninfo | head -n 30`
-  ];
+        # Declaratively make GE-Proton available in Steam's compatibility tool
+        # dropdown. No need for ProtonUp-Qt unless you want a GUI to swap
+        # specific GE versions.
+        extraCompatPackages = [ pkgs.proton-ge-bin ];
 
-  ###########################################################################
-  # Sensible per-user / system-wide gaming env defaults
-  ###########################################################################
-  environment.sessionVariables = {
-    # Persistent shader caches across runs (Mesa)
-    MESA_SHADER_CACHE_DIR = "$HOME/.cache/mesa_shader_cache";
-    # Larger DXVK shader cache
-    DXVK_STATE_CACHE_PATH = "$HOME/.cache/dxvk";
-  };
+        # Workaround for nixpkgs#389142: Steam runs games inside an FHS sandbox
+        # and won't see libgamemode.so unless we inject it into the wrapper.
+        package = pkgs.steam.override {
+          extraPkgs =
+            pkgs: with pkgs; [
+              gamemode
+              # Some games / launchers also pull these in:
+              keyutils
+              libkrb5
+              libpng
+              libpulseaudio
+              libvorbis
+              stdenv.cc.cc.lib
+              libxcursor
+              libxi
+              libxinerama
+              libxscrnsaver
+            ];
+        };
+      };
 
-  ###########################################################################
-  # Misc niceties
-  ###########################################################################
-  # Some games rely on more file descriptors than the default soft limit.
-  systemd.settings.Manager = {
-    DefaultLimitNOFILE = 1048576;
-  };
-  security.pam.loginLimits = [
-    {
-      domain = "*";
-      type = "soft";
-      item = "nofile";
-      value = "524288";
+      # Use it via Steam launch options: gamemoderun %command%
+      programs.gamemode = {
+        enable = true;
+        enableRenice = true;
+        settings.general = {
+          renice = 10;
+          inhibit_screensaver = 1;
+        };
+      };
+
+      # Use via Steam launch options, e.g.:
+      #   gamemoderun gamescope -W 1920 -H 1080 -r 144 -f -- %command%
+      # The -F fsr flag enables AMD FSR upscaling, useful on iGPUs:
+      #   gamescope -W 1920 -H 1080 -F fsr -w 1280 -h 720 -- %command%
+      programs.gamescope = {
+        enable = true;
+        capSysNice = false; # avoid conflict with gamemode renicing
+      };
+
+      environment.systemPackages = with pkgs; [
+        mangohud # FPS / frametime / temp overlay (MANGOHUD=1 %command%)
+        protontricks # Required for Openplanet install + per-prefix tweaks
+        protonup-qt # Optional GUI for managing extra GE-Proton versions
+        winetricks # Useful when poking around prefixes manually
+        vulkan-tools # `vulkaninfo | head -n 30` for sanity checks
+      ];
+
+      environment.sessionVariables = {
+        # Persistent shader caches across runs (Mesa)
+        MESA_SHADER_CACHE_DIR = "$HOME/.cache/mesa_shader_cache";
+        # Larger DXVK shader cache
+        DXVK_STATE_CACHE_PATH = "$HOME/.cache/dxvk";
+      };
+
+      # Some games rely on more file descriptors than the default soft limit.
+      systemd.settings.Manager.DefaultLimitNOFILE = 1048576;
+      security.pam.loginLimits = [
+        {
+          domain = "*";
+          type = "soft";
+          item = "nofile";
+          value = "524288";
+        }
+        {
+          domain = "*";
+          type = "hard";
+          item = "nofile";
+          value = "1048576";
+        }
+      ];
     }
+
+    ###########################################################################
+    # Intel Alder Lake iGPU (both hosts have one)
+    ###########################################################################
+    # `i915` (legacy, stable) and `xe` (new, still maturing) both autoload on
+    # Alder Lake (Iris Xe, e.g. PCI 8086:46A6 / 46A8). They fight over the
+    # same device and the conflict manifests as `i915 GPU HANG` under heavy
+    # DXVK workloads. For Alder Lake in 2026, i915 is the stable choice —
+    # keep it and prevent xe from binding.
     {
-      domain = "*";
-      type = "hard";
-      item = "nofile";
-      value = "1048576";
+      boot.blacklistedKernelModules = [ "xe" ];
+      boot.kernelParams = [
+        "xe.force_probe=!46a6" # tell xe to NOT bind this device
+        "i915.enable_guc=3" # enable GuC submission + HuC firmware load
+      ];
+      hardware.graphics.extraPackages = with pkgs; [
+        intel-media-driver # VA-API (iHD) userspace
+        vpl-gpu-rt # oneVPL (QSV) runtime
+      ];
     }
-  ];
+
+    ###########################################################################
+    # Nvidia dGPU add-on (kotn: RTX 3060)
+    ###########################################################################
+    # Driver, PRIME offload, and `nvidia-offload` command come from
+    # nixos-hardware's asus-zephyrus-gu603h module. This block only adds the
+    # gaming-specific bits on top.
+    (lib.mkIf nvidia {
+      hardware.graphics.extraPackages = with pkgs; [
+        nvidia-vaapi-driver # NVDEC-backed VA-API (Firefox/mpv on dGPU)
+      ];
+
+      # GameMode optimisations for the nvidia card. `accept-responsibility`
+      # is the upstream-required opt-in that acknowledges these knobs may
+      # crash the driver. `nv_powermizer_mode = 1` forces "Prefer Maximum
+      # Performance" while a game is running.
+      # `gpu_device` is gamemode's index into the GPUs it enumerates; on
+      # Optimus laptops the intel/nvidia order depends on probe timing.
+      # Verify on kotn with `gamemoded -t` (the dGPU's vendor/device IDs
+      # should match `lspci -nn -d 10de:`) and flip to 1 if needed.
+      programs.gamemode.settings.gpu = {
+        apply_gpu_optimisations = "accept-responsibility";
+        gpu_device = 0;
+        nv_powermizer_mode = 1;
+      };
+    })
+
+  ]);
 }
